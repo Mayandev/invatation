@@ -42,8 +42,8 @@ const wedding = {
   groom: process.env.GROOM_NAME || '邹明远',
   bride: process.env.BRIDE_NAME || '孙佳玮',
   date: process.env.WEDDING_DATE || '2026-10-06T11:58:00+08:00',
-  venue: process.env.WEDDING_VENUE || '悦宴楼 5F',
-  address: process.env.WEDDING_ADDRESS || '江西省吉安市悦宴楼 5F',
+  venue: process.env.WEDDING_VENUE || '悦宴楼五楼',
+  address: process.env.WEDDING_ADDRESS || '江西省吉安市悦宴楼五楼',
   city: process.env.WEDDING_CITY || '吉安'
 };
 

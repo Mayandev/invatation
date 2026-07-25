@@ -5,8 +5,8 @@ const fallbackConfig = {
     groom: '邹明远',
     bride: '孙佳玮',
     date: '2026-10-06T11:58:00+08:00',
-    venue: '悦宴楼 5F',
-    address: '江西省吉安市悦宴楼 5F',
+    venue: '悦宴楼五楼',
+    address: '江西省吉安市悦宴楼五楼',
     city: '吉安'
   }
 };
@@ -43,22 +43,49 @@ function formatNumericDate(value) {
 }
 
 function createTicketNumber() {
-  return 'LOVE-1006-0402-1010';
+  return '共赴-1006-0402-1010';
+}
+
+function openDialog(dialog) {
+  try {
+    if (typeof dialog.showModal === 'function') {
+      if (!dialog.open) dialog.showModal();
+      return;
+    }
+  } catch {
+    // 部分微信和苹果浏览器实现了不完整的对话框接口，改用普通浮层。
+  }
+  dialog.setAttribute('open', '');
+  dialog.classList.add('dialog-fallback');
+  document.body.classList.add('dialog-open');
+}
+
+function closeDialog(dialog) {
+  try {
+    if (typeof dialog.close === 'function' && dialog.open) dialog.close();
+  } catch {
+    dialog.removeAttribute('open');
+  }
+  dialog.removeAttribute('open');
+  dialog.classList.remove('dialog-fallback');
+  document.body.classList.remove('dialog-open');
 }
 
 function renderTicket(data) {
   const attending = data.attendance !== 'no';
   const ticketNumber = createTicketNumber();
-  const guideUrl = new URL('/guide.html', location.origin);
-  guideUrl.searchParams.set('ticket', ticketNumber);
-  guideUrl.searchParams.set('guest', data.name || '亲爱的宾客');
+  const query = new URLSearchParams({
+    ticket: ticketNumber,
+    guest: data.name || '亲爱的宾客'
+  });
+  const guideUrl = `${location.protocol}//${location.host}/guide.html?${query.toString()}`;
 
   $('#ticketGuest').textContent = data.name || '亲爱的宾客';
   $('#ticketSeat').textContent = attending ? '待引座官确认' : '云端特别席';
   $('#ticketDate').textContent = formatNumericDate(state.config.wedding.date);
   $('#ticketNumber').textContent = ticketNumber;
-  $('#guideLink').href = guideUrl.href;
-  $('#ticketQr').src = `/api/ticket-qr?text=${encodeURIComponent(guideUrl.href)}`;
+  $('#guideLink').href = guideUrl;
+  $('#ticketQr').src = `/api/ticket-qr?text=${encodeURIComponent(guideUrl)}`;
   return { ...data, ticketNumber };
 }
 
@@ -76,7 +103,7 @@ function bindWeddingData() {
   Object.entries(values).forEach(([key, value]) => {
     $$(`[data-bind="${key}"]`).forEach((element) => { element.textContent = value; });
   });
-  document.title = `${data.groom} & ${data.bride} · 婚礼请柬`;
+  document.title = `${data.groom}与${data.bride} · 婚礼请柬`;
 }
 
 async function loadConfig() {
@@ -134,7 +161,7 @@ function handleOpen() {
     location.href = '/api/auth/wechat';
     return;
   }
-  $('#wechatDialog').showModal();
+  openDialog($('#wechatDialog'));
 }
 
 function showToast(message) {
@@ -190,8 +217,8 @@ function restoreRsvp() {
 }
 
 $('#openInvitation').addEventListener('click', handleOpen);
-$('#closeDialog').addEventListener('click', () => $('#wechatDialog').close());
-$('#previewInvitation').addEventListener('click', () => { $('#wechatDialog').close(); openInvitation(); });
+$('#closeDialog').addEventListener('click', () => closeDialog($('#wechatDialog')));
+$('#previewInvitation').addEventListener('click', () => { closeDialog($('#wechatDialog')); openInvitation(); });
 $('#copyLink').addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(location.origin + location.pathname);
@@ -204,11 +231,11 @@ $('#copyAddress').addEventListener('click', async () => {
     showToast('宴址已复制');
   } catch { showToast(state.config.wedding.address); }
 });
-$('#closeTicket').addEventListener('click', () => $('#ticketDialog').close());
+$('#closeTicket').addEventListener('click', () => closeDialog($('#ticketDialog')));
 $('#viewTicket').addEventListener('click', () => {
   const saved = JSON.parse(localStorage.getItem('wedding-rsvp'));
   if (saved) renderTicket(saved);
-  $('#ticketDialog').showModal();
+  openDialog($('#ticketDialog'));
 });
 $('#printTicket').addEventListener('click', () => window.print());
 $('#rsvpForm').addEventListener('submit', async (event) => {
@@ -229,7 +256,7 @@ $('#rsvpForm').addEventListener('submit', async (event) => {
     localStorage.setItem('wedding-rsvp', JSON.stringify(data));
     $('#rsvpSuccess').hidden = false;
     $('#viewTicket').hidden = false;
-    $('#ticketDialog').showModal();
+    openDialog($('#ticketDialog'));
     showToast('专属电子票已生成');
   } catch (error) {
     showToast(error.message || '登记暂未成功，请稍后再试');
@@ -246,10 +273,10 @@ async function init() {
   initReveal();
   restoreRsvp();
   if (params.get('auth') === 'success') {
-    history.replaceState({}, '', location.pathname);
+    try { history.replaceState({}, '', `${location.pathname}${location.hash}`); } catch { /* 保留原地址 */ }
     openInvitation();
   } else if (params.get('auth') === 'failed') {
-    history.replaceState({}, '', location.pathname);
+    try { history.replaceState({}, '', `${location.pathname}${location.hash}`); } catch { /* 保留原地址 */ }
     showToast('微信授权未完成，可稍后重试');
   }
 }
