@@ -1,0 +1,22 @@
+{
+  "name": "ancient-wedding-invitation",
+  "version": "1.0.0",
+  "private": true,
+  "description": "古风微信婚礼电子请柬",
+  "scripts": {
+    "dev": "NODE_ENV=development node server.js",
+    "build": "vite build",
+    "start": "NODE_ENV=production node server.js",
+    "preview": "npm run build && npm start",
+    "check": "node --check server.js && node --check src/app.js && node --check src/guide.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "vite": "^7.0.0"
+  }
+}

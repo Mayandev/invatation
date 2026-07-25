@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
+    <meta name="theme-color" content="#8f1d24" />
+    <meta name="description" content="吾有嘉礼，敬邀君至。" />
+    <meta property="og:title" content="吾有嘉礼 · 婚礼请柬" />
+    <meta property="og:description" content="佳期已定，敬备喜筵，恭候光临。" />
+    <title>吾有嘉礼 · 婚礼请柬</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body class="cover-active">
+    <div class="paper-noise" aria-hidden="true"></div>
+
+    <section class="cover" id="cover" aria-label="请柬封面">
+      <div class="cover__wash" aria-hidden="true"></div>
+      <div class="corner corner--top-left" aria-hidden="true"></div>
+      <div class="corner corner--bottom-right" aria-hidden="true"></div>
+      <div class="cover__inner">
+        <p class="cover__year">丙午年 · 金秋吉日</p>
+        <div class="double-happiness" aria-label="囍">囍</div>
+        <p class="eyebrow">谨 备 喜 筵 · 恭 候 光 临</p>
+        <h1>吾有嘉礼<br />敬邀君至</h1>
+        <div class="couple" aria-label="新人姓名">
+          <span data-bind="groom">邹明远</span>
+          <i>囍</i>
+          <span data-bind="bride">孙佳玮</span>
+        </div>
+        <p class="cover__date" data-bind="dateLong">二〇二六年十月六日</p>
+        <p class="guest-greeting" id="guestGreeting" hidden></p>
+        <button class="seal-button" id="openInvitation" type="button">
+          <span id="openButtonText">启 阅 喜 帖</span>
+        </button>
+        <p class="cover__hint" id="authHint">轻触开启 · 共赴良辰</p>
+      </div>
+    </section>
+
+    <main class="invitation" id="invitation" aria-hidden="true">
+      <header class="hero section-reveal">
+        <figure class="hero__portrait" aria-label="邹明远与孙佳玮婚纱照">
+          <img src="/assets/couple-hero-clean.jpg?v=1" alt="邹明远与孙佳玮展示婚戒的婚纱照" />
+          <span class="hero__portrait-seal" aria-hidden="true">囍</span>
+        </figure>
+        <div class="hero__content">
+          <p class="eyebrow">良 辰 已 定 · 敬 候 君 临</p>
+          <p class="hero__small">两姓联姻 · 一堂缔约</p>
+          <h2><span data-bind="groom">邹明远</span><b> 与 </b><span data-bind="bride">孙佳玮</span></h2>
+          <div class="ornament"><span></span><i>囍</i><span></span></div>
+          <p class="hero__verse">这一日，不演别人的故事<br />良辰已定，静候君临</p>
+        </div>
+        <a class="scroll-cue" href="#dateSection" aria-label="继续浏览">
+          <span>展卷</span><i></i>
+        </a>
+      </header>
+
+      <section class="content-section date-section section-reveal" id="dateSection">
+        <p class="section-kicker">壹 · 良辰</p>
+        <h2 class="section-title">佳期已定</h2>
+        <p class="section-subtitle">既许一人以偏爱，愿尽余生之慷慨</p>
+
+        <div class="calendar-card">
+          <p class="calendar-card__month" data-bind="monthEn">十月</p>
+          <div class="calendar-card__date">
+            <span data-bind="monthNumber">10</span>
+            <b data-bind="dayNumber">06</b>
+            <span data-bind="weekday">星期二</span>
+          </div>
+          <p data-bind="dateLong">二〇二六年十月六日</p>
+        </div>
+
+        <div class="countdown" aria-label="婚礼倒计时">
+          <div><b id="days">000</b><span>天</span></div>
+          <div><b id="hours">00</b><span>时</span></div>
+          <div><b id="minutes">00</b><span>分</span></div>
+          <div><b id="seconds">00</b><span>秒</span></div>
+        </div>
+        <p class="countdown-note" id="countdownNote">距离良辰还有</p>
+      </section>
+
+      <section class="content-section schedule-section section-reveal">
+        <p class="section-kicker">贰 · 节目单</p>
+        <h2 class="section-title">一生限定场</h2>
+        <div class="timeline">
+          <div class="timeline__item"><time>11:18</time><i></i><div><b>恭迎宾客</b><span>奉茶 · 签到 · 留影</span></div></div>
+          <div class="timeline__item"><time>11:58</time><i></i><div><b>嘉礼初成</b><span>见证 · 执手 · 礼成</span></div></div>
+          <div class="timeline__item"><time>12:28</time><i></i><div><b>喜宴开席</b><span>举杯 · 同欢 · 共叙</span></div></div>
+        </div>
+      </section>
+
+      <section class="content-section location-section section-reveal">
+        <p class="section-kicker">叁 · 雅集</p>
+        <h2 class="section-title">静候君临</h2>
+        <div class="venue-card">
+          <div class="venue-card__pin" aria-hidden="true"><span></span></div>
+          <p class="venue-card__city" data-bind="city">吉安</p>
+          <h3 data-bind="venue">悦宴楼 5F</h3>
+          <p data-bind="address">江西省吉安市悦宴楼 5F</p>
+          <button class="text-button" id="copyAddress" type="button">复制宴址</button>
+        </div>
+      </section>
+
+      <section class="content-section rsvp-section section-reveal">
+        <p class="section-kicker">肆 · 取票</p>
+        <h2 class="section-title">领取入场券</h2>
+        <p class="section-subtitle">本场没有普通观众，每一位到场的人都是我们故事的见证者</p>
+        <form class="rsvp-form" id="rsvpForm">
+          <label>
+            <span>宾客雅名</span>
+            <input name="name" autocomplete="name" placeholder="如何称呼您" required />
+          </label>
+          <div class="form-row">
+            <label>
+              <span>是否赴宴</span>
+              <select name="attendance">
+                <option value="yes">欣然赴约</option>
+                <option value="no">遥寄祝福</option>
+              </select>
+            </label>
+            <label>
+              <span>赴宴人数</span>
+              <select name="guests">
+                <option>1 位</option><option>2 位</option><option>3 位</option><option>4 位</option>
+              </select>
+            </label>
+          </div>
+          <label>
+            <span>留一笺祝福</span>
+            <textarea name="message" rows="3" placeholder="写下您的祝福（选填）"></textarea>
+          </label>
+          <button class="submit-button" type="submit">领 取 专 属 电 子 票</button>
+        </form>
+        <p class="ticket-exchange-note">婚礼当天凭电子票换取双联纪念票：一联由您珍藏，一联写下祝福留给新人。</p>
+        <p class="rsvp-success" id="rsvpSuccess" hidden>入场券已为您留好，静候相见。</p>
+        <button class="view-ticket-button" id="viewTicket" type="button" hidden>查看我的电子票</button>
+      </section>
+
+      <footer class="footer section-reveal">
+        <div class="footer__seal">囍</div>
+        <p>山高水长 · 喜乐未央</p>
+        <p class="footer__names"><span data-bind="groom">邹明远</span> · <span data-bind="bride">孙佳玮</span></p>
+      </footer>
+    </main>
+
+    <dialog class="wechat-dialog" id="wechatDialog">
+      <button class="dialog-close" id="closeDialog" type="button" aria-label="关闭">×</button>
+      <div class="dialog-wechat" aria-hidden="true">微</div>
+      <h2>请在微信中开启</h2>
+      <p>复制请柬链接发送到微信，打开后即可授权启阅。</p>
+      <button class="submit-button" id="copyLink" type="button">复制请柬链接</button>
+      <button class="preview-button" id="previewInvitation" type="button">先以预览模式查看</button>
+    </dialog>
+
+    <dialog class="ticket-dialog" id="ticketDialog">
+      <button class="dialog-close ticket-close" id="closeTicket" type="button" aria-label="关闭电子票">×</button>
+      <p class="ticket-dialog__eyebrow">嘉 礼 入 场 券</p>
+      <article class="e-ticket" id="electronicTicket">
+        <div class="e-ticket__main">
+          <div class="e-ticket__show-mark">囍</div>
+          <p class="e-ticket__limited">仅 此 一 日 · 一 生 一 场</p>
+          <h2>《共赴》</h2>
+          <p class="e-ticket__couple"><span data-bind="groom">邹明远</span> <i>与</i> <span data-bind="bride">孙佳玮</span></p>
+          <div class="e-ticket__facts">
+            <div><span>特邀观众</span><b id="ticketGuest">亲爱的宾客</b></div>
+            <div><span>席位</span><b id="ticketSeat">待引座官确认</b></div>
+            <div><span>演出日期</span><b id="ticketDate">2026.10.06</b></div>
+            <div><span>入场 / 开演</span><b>11:18 / 11:58</b></div>
+          </div>
+          <p class="e-ticket__venue"><span data-bind="city">吉安</span> · <span data-bind="venue">悦宴楼 5F</span></p>
+        </div>
+        <div class="e-ticket__tear" aria-hidden="true"><span></span></div>
+        <div class="e-ticket__stub">
+          <img id="ticketQr" alt="通往智能引座官的电子票二维码" />
+          <div><span>嘉宾票号</span><b id="ticketNumber">嘉礼-1006-0000</b></div>
+        </div>
+      </article>
+      <p class="ticket-dialog__note">请截图保存此票。现场验票后，可换取纸质双联纪念票。</p>
+      <a class="ticket-guide-link" id="guideLink" href="/guide.html">打开智能引座官</a>
+      <button class="preview-button" id="printTicket" type="button">打印 / 保存电子票</button>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="/src/app.js"></script>
+  </body>
+</html>
