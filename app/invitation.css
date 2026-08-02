@@ -232,7 +232,7 @@ body {
   color: #4d3029;
   background:
     linear-gradient(180deg, rgba(255, 249, 232, .04), rgba(236, 215, 175, .10)),
-    url('/assets/hero-ink-wash.png') center / cover no-repeat;
+    url('/assets/hero-ink-wash.webp') center / cover no-repeat;
 }
 .cover__wash {
   opacity: .10;
@@ -281,7 +281,7 @@ body {
 .hero {
   background:
     linear-gradient(180deg, rgba(250, 241, 218, .06), rgba(241, 222, 184, .12)),
-    url('/assets/hero-ink-wash.png') center / cover no-repeat;
+    url('/assets/hero-ink-wash.webp') center / cover no-repeat;
 }
 .hero::before {
   opacity: 1;
