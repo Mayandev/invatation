@@ -30,7 +30,7 @@ export async function GET(request: Request) {
         <div
           style={{
             position: 'absolute',
-            inset: 30,
+            inset: 18,
             display: 'flex',
             border: '2px solid rgba(240, 199, 122, .72)'
           }}
@@ -38,7 +38,7 @@ export async function GET(request: Request) {
         <div
           style={{
             position: 'absolute',
-            inset: 47,
+            inset: 30,
             display: 'flex',
             border: '1px solid rgba(240, 199, 122, .45)'
           }}
@@ -50,53 +50,53 @@ export async function GET(request: Request) {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '80px 120px',
+            padding: '65px 45px',
             textAlign: 'center'
           }}
         >
           <div
             style={{
               display: 'flex',
-              width: 80,
-              height: 80,
+              width: 48,
+              height: 48,
               alignItems: 'center',
               justifyContent: 'center',
-              marginBottom: 28,
+              marginBottom: 20,
               border: '2px solid #f0c777',
               color: '#f0d395',
-              fontSize: 48,
+              fontSize: 30,
               lineHeight: 1
             }}
           >
             囍
           </div>
-          <div style={{ display: 'flex', color: '#e8bd72', fontSize: 22, letterSpacing: 12 }}>吾 有 嘉 礼 · 敬 候 光 临</div>
-          <div style={{ display: 'flex', marginTop: 23, fontSize: 64, letterSpacing: 10 }}>
+          <div style={{ display: 'flex', color: '#e8bd72', fontSize: 14, letterSpacing: 7 }}>吾 有 嘉 礼 · 敬 候 光 临</div>
+          <div style={{ display: 'flex', marginTop: 16, fontSize: 36, letterSpacing: 5 }}>
             {wedding.groom}　与　{wedding.bride}
           </div>
           <div
             style={{
               display: 'flex',
-              marginTop: 34,
-              padding: '18px 32px',
+              marginTop: 22,
+              padding: '10px 14px',
               borderTop: '1px solid rgba(240, 199, 122, .52)',
               borderBottom: '1px solid rgba(240, 199, 122, .52)',
               color: '#fff0d3',
-              fontSize: 32,
+              fontSize: 18,
               letterSpacing: 2
             }}
           >
             {invitation}
           </div>
-          <div style={{ display: 'flex', marginTop: 30, color: '#e8bd72', fontSize: 24, letterSpacing: 6 }}>
+          <div style={{ display: 'flex', marginTop: 20, color: '#e8bd72', fontSize: 15, letterSpacing: 3 }}>
             {wedding.city} · {wedding.venue} · 2026.10.06
           </div>
         </div>
       </div>
     ),
     {
-      width: 1200,
-      height: 630,
+      width: 600,
+      height: 600,
       fonts: [{ name: 'Invitation Serif', data: await font, weight: 400 }]
     }
   );

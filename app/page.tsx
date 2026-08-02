@@ -28,7 +28,7 @@ export async function generateMetadata({ searchParams }: InvitationPageProps): P
       title: invitation,
       description: invitation,
       siteName: '吾有嘉礼 · 婚礼请柬',
-      images: [{ url: shareImage, width: 1200, height: 630, alt: invitation }]
+      images: [{ url: shareImage, width: 600, height: 600, alt: invitation }]
     },
     twitter: {
       card: 'summary_large_image',
