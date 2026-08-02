@@ -1,12 +1,14 @@
 import { ImageResponse } from 'next/og';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { getShareInvitation, normalizeGuest } from '@/lib/share';
 import { wedding } from '@/lib/wedding';
 
-export const runtime = 'edge';
+// EdgeOne Pages 的 Next.js 运行器不支持 App Router 的 Edge Runtime 入口。
+// ImageResponse 在 Next.js 16 的 Node.js Runtime 中同样受支持。
+export const runtime = 'nodejs';
 
-const font = fetch(new URL('../../public/assets/fonts/invitation-serif-share.ttf', import.meta.url)).then((response) =>
-  response.arrayBuffer()
-);
+const font = readFile(join(process.cwd(), 'public', 'assets', 'fonts', 'invitation-serif-share.ttf'));
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
