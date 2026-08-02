@@ -195,10 +195,6 @@ async function createFeishuRsvp(rsvp) {
 }
 
 async function handleApi(req, res, url) {
-  if (url.pathname === '/api/config' && req.method === 'GET') {
-    return sendJson(res, 200, { wechatEnabled: WECHAT_ENABLED, feishuEnabled: FEISHU_ENABLED, wedding });
-  }
-
   if (url.pathname === '/api/rsvp' && req.method === 'POST') {
     if (!FEISHU_ENABLED) return sendJson(res, 503, { error: '飞书登记尚未配置' });
     try {
@@ -242,15 +238,6 @@ async function handleApi(req, res, url) {
     } catch {
       return sendJson(res, 400, { error: '二维码生成失败' });
     }
-  }
-
-  if (url.pathname === '/api/me' && req.method === 'GET') {
-    const session = readToken(parseCookies(req).wedding_session);
-    if (!session) return sendJson(res, 401, { authenticated: false });
-    return sendJson(res, 200, {
-      authenticated: true,
-      user: { nickname: session.nickname, avatar: session.avatar || '' }
-    });
   }
 
   if (url.pathname === '/api/auth/wechat' && req.method === 'GET') {

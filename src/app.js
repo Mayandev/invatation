@@ -1,5 +1,5 @@
 // Vite application entry.
-const fallbackConfig = {
+const weddingConfig = {
   wechatEnabled: false,
   wedding: {
     groom: '邹明远',
@@ -11,7 +11,7 @@ const fallbackConfig = {
   }
 };
 
-const state = { config: fallbackConfig, user: null, isWechat: /MicroMessenger/i.test(navigator.userAgent) };
+const state = { config: weddingConfig, user: null, isWechat: /MicroMessenger/i.test(navigator.userAgent) };
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const cover = $('#cover');
@@ -106,27 +106,9 @@ function bindWeddingData() {
   document.title = `${data.groom}与${data.bride} · 婚礼请柬`;
 }
 
-async function loadConfig() {
-  try {
-    const response = await fetch('/api/config', { credentials: 'same-origin' });
-    if (response.ok) state.config = await response.json();
-  } catch {
-    state.config = fallbackConfig;
-  }
+function loadConfig() {
   bindWeddingData();
   updateAuthCopy();
-}
-
-async function loadUser() {
-  try {
-    const response = await fetch('/api/me', { credentials: 'same-origin' });
-    if (!response.ok) return;
-    const data = await response.json();
-    state.user = data.user;
-    const greeting = $('#guestGreeting');
-    greeting.textContent = `${state.user.nickname}，恭候您的光临`;
-    greeting.hidden = false;
-  } catch { /* 未登录时保持匿名 */ }
 }
 
 function updateAuthCopy() {
@@ -251,7 +233,13 @@ $('#rsvpForm').addEventListener('submit', async (event) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    const result = await response.json();
+    const raw = await response.text();
+    let result = {};
+    try {
+      result = raw ? JSON.parse(raw) : {};
+    } catch {
+      throw new Error('服务器响应异常，请稍后再试');
+    }
     if (!response.ok) throw new Error(result.error || '登记失败');
     localStorage.setItem('wedding-rsvp', JSON.stringify(data));
     $('#rsvpSuccess').hidden = false;
@@ -266,8 +254,8 @@ $('#rsvpForm').addEventListener('submit', async (event) => {
   }
 });
 
-async function init() {
-  await Promise.all([loadConfig(), loadUser()]);
+function init() {
+  loadConfig();
   updateAuthCopy();
   startCountdown();
   initReveal();
