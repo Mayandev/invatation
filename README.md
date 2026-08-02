@@ -9,8 +9,8 @@
 需要 Node.js 20 或更高版本。
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 打开 `http://localhost:3000`。
@@ -24,15 +24,27 @@ npm run dev
 复制 `.env.example` 为 `.env.local`（本地）或配置到部署平台的环境变量：
 
 - `FEISHU_APP_ID` / `FEISHU_APP_SECRET` / `FEISHU_WIKI_TOKEN` / `FEISHU_TABLE_ID`：飞书多维表格登记所需，四者都配置齐才会真正写入，否则 `/api/rsvp` 会返回"飞书登记尚未配置"。
-- `PUBLIC_ORIGIN`：线上访问域名（如 `https://your-domain.com`），用于校验电子票二维码里嵌入的链接来源，避免被伪造成其他域名。
+- `NEXT_PUBLIC_SITE_URL`：线上对外域名（如 `https://invatation-otrstjqf.edgeone.dev`）。它用于生成分享卡片图片的绝对 URL；使用 EdgeOne 等反向代理时必须填写最终的公开域名，不要填写 Vercel 源站地址。
 
 宾客登记会通过 [`app/api/rsvp/route.ts`](./app/api/rsvp/route.ts) 同步到配置好的飞书多维表格。
 
+## 分享邀请链接
+
+以 `guest` 参数指定受邀人姓名：
+
+```text
+https://your-domain.com/?guest=张三
+```
+
+页面会把“张三”预填到 RSVP 姓名栏，并在标准 Open Graph 分享元信息中使用“张三，诚挚邀请您来参加我们的婚礼”，同时提供 1200×630 的动态分享图片。
+
+微信聊天卡片最终是否显示自定义标题、描述和图片由微信客户端决定。没有微信公众号/开放平台的 JSSDK AppID、AppSecret 与「JS 接口安全域名」时，微信可能仍降级为普通链接；标准 Open Graph 卡片则可供其他支持该协议的平台抓取。
+
 ## 部署
 
-本项目是标准 Next.js 应用，`npm run build && npm start` 即可在任意支持 Node.js 20+ 的平台运行（VPS、Railway、Render、Fly.io 等），也可以直接导入 Vercel（零配置，`/api/rsvp`、`/api/ticket-qr` 会被识别为对应的 Route Handler，无需额外的 `vercel.json` 或 Serverless Functions 目录）。
+本项目是标准 Next.js 应用，`pnpm build && pnpm start` 即可在任意支持 Node.js 20+ 的平台运行（VPS、Railway、Render、Fly.io 等），也可以直接导入 Vercel（零配置，`/api/rsvp`、`/api/ticket-qr` 会被识别为对应的 Route Handler，无需额外的 `vercel.json` 或 Serverless Functions 目录）。
 
-部署到 Vercel 时，记得在项目的 Environment Variables 里配置上面提到的飞书与 `PUBLIC_ORIGIN` 变量。
+部署到 Vercel 时，记得在项目的 Environment Variables 里配置上面提到的飞书与 `NEXT_PUBLIC_SITE_URL` 变量。
 
 ## 主要目录
 
@@ -46,7 +58,8 @@ npm run dev
 - `hooks/`：倒计时（`useCountdown`）、滚动显现（`useReveal`）、原生 `<dialog>` 封装（`useDialog`）
 - `lib/wedding.ts`：新人信息与日期格式化工具，唯一需要手动改的展示数据
 - `lib/rsvp.ts`、`lib/feishu.ts`：回帖校验与飞书 OpenAPI 调用
-- `lib/ticket-qr.ts`：电子票二维码渲染与来源校验
+- `app/share-card/route.tsx`、`lib/share.ts`：动态 Open Graph 分享图及姓名文案
+- `lib/ticket-qr.ts`：电子票二维码渲染
 - `lib/guide-answers.ts`：引座官问答规则
 - `public/assets/invitation-bg.jpg`：网页优化后的专属古风底图（PNG 为高清源图）
 - `public/assets/fonts/invitation-serif.woff2`：移动端精简思源宋体；授权文本见同目录 `OFL.txt`

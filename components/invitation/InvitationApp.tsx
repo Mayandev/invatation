@@ -16,10 +16,17 @@ import { DEFAULT_RSVP_FORM_VALUES, type RsvpFormValues, type TicketData } from '
 
 const STORAGE_KEY = 'wedding-rsvp';
 
-export function InvitationApp() {
+interface InvitationAppProps {
+  guest: string;
+}
+
+export function InvitationApp({ guest }: InvitationAppProps) {
   const [isOpening, setIsOpening] = useState(false);
   const [coverHidden, setCoverHidden] = useState(false);
-  const [formData, setFormData] = useState<RsvpFormValues>(DEFAULT_RSVP_FORM_VALUES);
+  const [formData, setFormData] = useState<RsvpFormValues>(() => ({
+    ...DEFAULT_RSVP_FORM_VALUES,
+    name: guest
+  }));
   const [ticket, setTicket] = useState<TicketData | null>(null);
   const dialog = useDialog<HTMLDialogElement>();
 
