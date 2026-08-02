@@ -262,14 +262,14 @@ body {
 }
 .hero {
   background:
-    linear-gradient(180deg, rgba(60, 5, 8, .48), rgba(45, 3, 6, .72)),
-    url('/assets/invitation-bg-red-v2.jpg?v=1') center / cover no-repeat;
+    linear-gradient(180deg, rgba(250, 241, 218, .06), rgba(241, 222, 184, .12)),
+    url('/assets/hero-ink-wash.png') center / cover no-repeat;
 }
 .hero::before {
-  opacity: .34;
+  opacity: 1;
   background:
-    linear-gradient(180deg, transparent 62%, rgba(65, 4, 8, .76) 100%),
-    radial-gradient(circle at 86% 8%, rgba(235, 120, 54, .24), transparent 32%);
+    radial-gradient(circle at 50% 47%, rgba(250, 242, 221, .54), transparent 36%),
+    linear-gradient(180deg, rgba(255, 249, 231, .02), rgba(111, 35, 29, .10));
 }
 .hero .eyebrow,
 .section-kicker,
@@ -294,6 +294,11 @@ body {
 .ticket-exchange-note {
   color: rgba(248, 231, 198, .72);
 }
+.hero .eyebrow { color: #8f292d; }
+.hero h2 { color: #6f171c; text-shadow: 0 1px 0 rgba(255, 250, 235, .7); }
+.hero .hero__small,
+.hero .hero__verse,
+.hero .scroll-cue { color: #5f4b42; }
 .content-section,
 .location-section,
 .rsvp-section {
