@@ -1,4 +1,4 @@
-/* Vite guide styles. */
+/* 智能引座官页面样式，仅在 "/guide" 路由下加载。 */
 @font-face { font-family:"Invitation Serif"; src:url('/assets/fonts/invitation-serif.woff2?v=1') format('woff2'); font-style:normal; font-weight:400; font-display:swap; }
 :root { --paper:#f7edd7; --ink:#34241e; --muted:#7b6758; --red:#791d23; --gold:#b68d4d; --serif:"Invitation Serif","Source Han Serif SC","Noto Serif CJK SC","Songti SC",serif; }
 * { box-sizing:border-box; }

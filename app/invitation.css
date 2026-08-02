@@ -1,4 +1,4 @@
-/* Vite application styles. */
+/* 请柬主页样式，仅在 "/" 路由下加载。 */
 @font-face {
   font-family: "Invitation Serif";
   src: url('/assets/fonts/invitation-serif.woff2?v=1') format('woff2');

@@ -1,13 +1,29 @@
+export interface RsvpRecord {
+  name: string;
+  attendance: 'yes' | 'no';
+  guests: number;
+  message: string;
+  ticketNumber: string;
+}
+
 const FEISHU_APP_ID = process.env.FEISHU_APP_ID || '';
 const FEISHU_APP_SECRET = process.env.FEISHU_APP_SECRET || '';
 const FEISHU_WIKI_TOKEN = process.env.FEISHU_WIKI_TOKEN || '';
 const FEISHU_TABLE_ID = process.env.FEISHU_TABLE_ID || '';
-const FEISHU_ENABLED = Boolean(FEISHU_APP_ID && FEISHU_APP_SECRET && FEISHU_WIKI_TOKEN && FEISHU_TABLE_ID);
 
-let feishuTokenCache = null;
+export const FEISHU_ENABLED = Boolean(
+  FEISHU_APP_ID && FEISHU_APP_SECRET && FEISHU_WIKI_TOKEN && FEISHU_TABLE_ID
+);
+
+interface TenantTokenCache {
+  value: string;
+  expiresAt: number;
+}
+
+let feishuTokenCache: TenantTokenCache | null = null;
 let feishuAppTokenCache = '';
 
-async function getFeishuTenantToken() {
+async function getFeishuTenantToken(): Promise<string> {
   if (feishuTokenCache && feishuTokenCache.expiresAt > Date.now() + 60_000) {
     return feishuTokenCache.value;
   }
@@ -27,7 +43,7 @@ async function getFeishuTenantToken() {
   return feishuTokenCache.value;
 }
 
-async function getFeishuAppToken(token) {
+async function getFeishuAppToken(token: string): Promise<string> {
   if (feishuAppTokenCache) return feishuAppTokenCache;
   const response = await fetch(
     `https://open.feishu.cn/open-apis/wiki/v2/spaces/get_node?token=${encodeURIComponent(FEISHU_WIKI_TOKEN)}`,
@@ -41,7 +57,7 @@ async function getFeishuAppToken(token) {
   return feishuAppTokenCache;
 }
 
-async function createFeishuRsvp(rsvp) {
+export async function createFeishuRsvp(rsvp: RsvpRecord): Promise<string> {
   const token = await getFeishuTenantToken();
   const appToken = await getFeishuAppToken(token);
   const response = await fetch(
@@ -68,5 +84,3 @@ async function createFeishuRsvp(rsvp) {
   if (!response.ok || data.code) throw new Error(data.msg || '飞书登记写入失败');
   return data.data?.record?.record_id || '';
 }
-
-module.exports = { FEISHU_ENABLED, createFeishuRsvp };
