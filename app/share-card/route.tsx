@@ -61,20 +61,16 @@ export async function GET(request: Request) {
           <div
             style={{
               display: 'flex',
-              width: 68,
-              height: 68,
+              width: 84,
+              height: 54,
               alignItems: 'center',
               justifyContent: 'center',
-              marginBottom: 12,
-              border: '2px solid #f0c777',
-              color: '#f0d395',
-              fontSize: 44,
-              lineHeight: 1
+              marginBottom: 18
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 35, letterSpacing: -7 }}>
-              <span>喜</span>
-              <span>喜</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span style={{ width: 42, height: 42, border: '2px solid #f0d395', borderRadius: 999 }} />
+              <span style={{ width: 42, height: 42, marginLeft: -13, border: '2px solid #f0d395', borderRadius: 999 }} />
             </div>
           </div>
           <div style={{ display: 'flex', color: '#e8bd72', fontSize: 18, letterSpacing: 5 }}>吾 有 嘉 礼 · 敬 候 光 临</div>
