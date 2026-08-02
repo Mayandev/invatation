@@ -1,7 +1,6 @@
 const http = require('node:http');
 const fs = require('node:fs');
 const path = require('node:path');
-const crypto = require('node:crypto');
 const QRCode = require('qrcode');
 
 function loadLocalEnv() {
@@ -25,10 +24,6 @@ const HOST = process.env.HOST || '0.0.0.0';
 const PUBLIC_DIR = path.join(__dirname, 'dist');
 const PUBLIC_ORIGIN = (process.env.PUBLIC_ORIGIN || `http://localhost:${PORT}`).replace(/\/$/, '');
 const IS_DEVELOPMENT = process.env.NODE_ENV !== 'production';
-const APP_ID = process.env.WECHAT_APP_ID || '';
-const APP_SECRET = process.env.WECHAT_APP_SECRET || '';
-const SESSION_SECRET = process.env.SESSION_SECRET || 'local-preview-only-change-before-deploying';
-const WECHAT_ENABLED = Boolean(APP_ID && APP_SECRET && process.env.PUBLIC_ORIGIN && process.env.SESSION_SECRET);
 const IS_SECURE = PUBLIC_ORIGIN.startsWith('https://');
 const FEISHU_APP_ID = process.env.FEISHU_APP_ID || '';
 const FEISHU_APP_SECRET = process.env.FEISHU_APP_SECRET || '';
@@ -60,61 +55,9 @@ const mimeTypes = {
   '.ico': 'image/x-icon'
 };
 
-function parseCookies(req) {
-  return Object.fromEntries(
-    (req.headers.cookie || '')
-      .split(';')
-      .map((part) => part.trim())
-      .filter(Boolean)
-      .map((part) => {
-        const index = part.indexOf('=');
-        return [part.slice(0, index), decodeURIComponent(part.slice(index + 1))];
-      })
-  );
-}
-
-function sign(value) {
-  return crypto.createHmac('sha256', SESSION_SECRET).update(value).digest('base64url');
-}
-
-function createToken(payload) {
-  const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
-  return `${body}.${sign(body)}`;
-}
-
-function readToken(token) {
-  if (!token || !token.includes('.')) return null;
-  const [body, signature] = token.split('.');
-  const expected = sign(body);
-  if (signature.length !== expected.length) return null;
-  if (!crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected))) return null;
-  try {
-    const payload = JSON.parse(Buffer.from(body, 'base64url').toString('utf8'));
-    if (payload.exp && payload.exp < Date.now()) return null;
-    return payload;
-  } catch {
-    return null;
-  }
-}
-
-function cookie(name, value, options = {}) {
-  const parts = [`${name}=${encodeURIComponent(value)}`, 'Path=/', `SameSite=${options.sameSite || 'Lax'}`];
-  if (options.httpOnly !== false) parts.push('HttpOnly');
-  if (IS_SECURE) parts.push('Secure');
-  if (options.maxAge) parts.push(`Max-Age=${options.maxAge}`);
-  return parts.join('; ');
-}
-
 function sendJson(res, status, value) {
   res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store' });
   res.end(JSON.stringify(value));
-}
-
-function redirect(res, location, cookies = []) {
-  const headers = { Location: location, 'Cache-Control': 'no-store' };
-  if (cookies.length) headers['Set-Cookie'] = cookies;
-  res.writeHead(302, headers);
-  res.end();
 }
 
 async function readJson(req, limit = 16 * 1024) {
@@ -240,70 +183,6 @@ async function handleApi(req, res, url) {
     }
   }
 
-  if (url.pathname === '/api/auth/wechat' && req.method === 'GET') {
-    if (!WECHAT_ENABLED) {
-      return sendJson(res, 503, { error: '微信授权尚未配置，请参考 README.md。' });
-    }
-
-    const state = crypto.randomBytes(20).toString('base64url');
-    const callback = `${PUBLIC_ORIGIN}/api/auth/wechat/callback`;
-    const authorizeUrl = new URL('https://open.weixin.qq.com/connect/oauth2/authorize');
-    authorizeUrl.searchParams.set('appid', APP_ID);
-    authorizeUrl.searchParams.set('redirect_uri', callback);
-    authorizeUrl.searchParams.set('response_type', 'code');
-    authorizeUrl.searchParams.set('scope', 'snsapi_userinfo');
-    authorizeUrl.searchParams.set('state', state);
-
-    return redirect(res, `${authorizeUrl.toString()}#wechat_redirect`, [
-      cookie('wechat_oauth_state', createToken({ state, exp: Date.now() + 10 * 60 * 1000 }), { maxAge: 600 })
-    ]);
-  }
-
-  if (url.pathname === '/api/auth/wechat/callback' && req.method === 'GET') {
-    const { code, state } = Object.fromEntries(url.searchParams);
-    const stateCookie = readToken(parseCookies(req).wechat_oauth_state);
-    if (!code || !state || !stateCookie || stateCookie.state !== state) {
-      return redirect(res, `${PUBLIC_ORIGIN}/?auth=failed`);
-    }
-
-    try {
-      const tokenUrl = new URL('https://api.weixin.qq.com/sns/oauth2/access_token');
-      tokenUrl.searchParams.set('appid', APP_ID);
-      tokenUrl.searchParams.set('secret', APP_SECRET);
-      tokenUrl.searchParams.set('code', code);
-      tokenUrl.searchParams.set('grant_type', 'authorization_code');
-      const tokenResponse = await fetch(tokenUrl);
-      const tokenData = await tokenResponse.json();
-      if (!tokenResponse.ok || tokenData.errcode || !tokenData.access_token) {
-        throw new Error(tokenData.errmsg || '微信 access_token 获取失败');
-      }
-
-      const userUrl = new URL('https://api.weixin.qq.com/sns/userinfo');
-      userUrl.searchParams.set('access_token', tokenData.access_token);
-      userUrl.searchParams.set('openid', tokenData.openid);
-      userUrl.searchParams.set('lang', 'zh_CN');
-      const userResponse = await fetch(userUrl);
-      const userData = await userResponse.json();
-      if (!userResponse.ok || userData.errcode) {
-        throw new Error(userData.errmsg || '微信用户信息获取失败');
-      }
-
-      const session = createToken({
-        nickname: userData.nickname || '亲爱的宾客',
-        avatar: userData.headimgurl || '',
-        openid: userData.openid,
-        exp: Date.now() + 7 * 24 * 60 * 60 * 1000
-      });
-      return redirect(res, `${PUBLIC_ORIGIN}/?auth=success`, [
-        cookie('wedding_session', session, { maxAge: 7 * 24 * 60 * 60 }),
-        cookie('wechat_oauth_state', '', { maxAge: 1 })
-      ]);
-    } catch (error) {
-      console.error('[wechat oauth]', error.message);
-      return redirect(res, `${PUBLIC_ORIGIN}/?auth=failed`);
-    }
-  }
-
   return sendJson(res, 404, { error: 'Not found' });
 }
 
@@ -359,8 +238,7 @@ async function startServer() {
 
   server.listen(PORT, HOST, () => {
     console.log(`\n古风婚礼请柬已启动：${PUBLIC_ORIGIN}`);
-    console.log(`运行模式：${IS_DEVELOPMENT ? 'Vite 开发模式' : '生产模式'}`);
-    console.log(WECHAT_ENABLED ? '微信网页授权：已启用\n' : '微信网页授权：预览模式（参照 README 配置后启用）\n');
+    console.log(`运行模式：${IS_DEVELOPMENT ? 'Vite 开发模式' : '生产模式'}\n`);
   });
 }
 

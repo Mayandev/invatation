@@ -1,6 +1,5 @@
 // Vite application entry.
 const weddingConfig = {
-  wechatEnabled: false,
   wedding: {
     groom: '邹明远',
     bride: '孙佳玮',
@@ -11,13 +10,12 @@ const weddingConfig = {
   }
 };
 
-const state = { config: weddingConfig, user: null, isWechat: /MicroMessenger/i.test(navigator.userAgent) };
+const state = { config: weddingConfig };
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
 const cover = $('#cover');
 const invitation = $('#invitation');
 const toast = $('#toast');
-const params = new URLSearchParams(location.search);
 
 function chineseDigits(value) {
   const map = ['〇', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
@@ -108,22 +106,6 @@ function bindWeddingData() {
 
 function loadConfig() {
   bindWeddingData();
-  updateAuthCopy();
-}
-
-function updateAuthCopy() {
-  const button = $('#openButtonText');
-  const hint = $('#authHint');
-  if (state.user) {
-    button.textContent = '启 阅 喜 帖';
-    hint.textContent = '已识君意 · 共赴良辰';
-  } else if (state.config.wechatEnabled) {
-    button.textContent = '微信授权 · 启阅';
-    hint.textContent = state.isWechat ? '轻触授权 · 仅用于宾客称呼' : '请在微信内打开此请柬';
-  } else {
-    button.textContent = '启 阅 喜 帖';
-    hint.textContent = '当前为预览模式 · 共赴良辰';
-  }
 }
 
 function openInvitation() {
@@ -132,18 +114,6 @@ function openInvitation() {
   document.body.classList.remove('cover-active');
   requestAnimationFrame(() => $('.hero').classList.add('is-visible'));
   setTimeout(() => { cover.hidden = true; }, 1100);
-}
-
-function handleOpen() {
-  if (state.user || !state.config.wechatEnabled || params.get('preview') === '1') {
-    openInvitation();
-    return;
-  }
-  if (state.isWechat) {
-    location.href = '/api/auth/wechat';
-    return;
-  }
-  openDialog($('#wechatDialog'));
 }
 
 function showToast(message) {
@@ -198,15 +168,7 @@ function restoreRsvp() {
   } catch { /* 忽略无效缓存 */ }
 }
 
-$('#openInvitation').addEventListener('click', handleOpen);
-$('#closeDialog').addEventListener('click', () => closeDialog($('#wechatDialog')));
-$('#previewInvitation').addEventListener('click', () => { closeDialog($('#wechatDialog')); openInvitation(); });
-$('#copyLink').addEventListener('click', async () => {
-  try {
-    await navigator.clipboard.writeText(location.origin + location.pathname);
-    showToast('请柬链接已复制');
-  } catch { showToast('请长按地址栏复制链接'); }
-});
+$('#openInvitation').addEventListener('click', openInvitation);
 $('#copyAddress').addEventListener('click', async () => {
   try {
     await navigator.clipboard.writeText(state.config.wedding.address);
@@ -256,17 +218,9 @@ $('#rsvpForm').addEventListener('submit', async (event) => {
 
 function init() {
   loadConfig();
-  updateAuthCopy();
   startCountdown();
   initReveal();
   restoreRsvp();
-  if (params.get('auth') === 'success') {
-    try { history.replaceState({}, '', `${location.pathname}${location.hash}`); } catch { /* 保留原地址 */ }
-    openInvitation();
-  } else if (params.get('auth') === 'failed') {
-    try { history.replaceState({}, '', `${location.pathname}${location.hash}`); } catch { /* 保留原地址 */ }
-    showToast('微信授权未完成，可稍后重试');
-  }
 }
 
 init();

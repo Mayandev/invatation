@@ -28,11 +28,10 @@
           <span data-bind="bride">孙佳玮</span>
         </div>
         <p class="cover__date" data-bind="dateLong">二〇二六年十月六日</p>
-        <p class="guest-greeting" id="guestGreeting" hidden></p>
         <button class="seal-button" id="openInvitation" type="button">
-          <span id="openButtonText">启 阅 喜 帖</span>
+          <span>启 阅 喜 帖</span>
         </button>
-        <p class="cover__hint" id="authHint">轻触开启 · 共赴良辰</p>
+        <p class="cover__hint">轻触开启 · 共赴良辰</p>
       </div>
     </section>
 
@@ -141,15 +140,6 @@
         <p class="footer__names"><span data-bind="groom">邹明远</span> · <span data-bind="bride">孙佳玮</span></p>
       </footer>
     </main>
-
-    <dialog class="wechat-dialog" id="wechatDialog">
-      <button class="dialog-close" id="closeDialog" type="button" aria-label="关闭">×</button>
-      <div class="dialog-wechat" aria-hidden="true">微</div>
-      <h2>请在微信中开启</h2>
-      <p>复制请柬链接发送到微信，打开后即可授权启阅。</p>
-      <button class="submit-button" id="copyLink" type="button">复制请柬链接</button>
-      <button class="preview-button" id="previewInvitation" type="button">先以预览模式查看</button>
-    </dialog>
 
     <dialog class="ticket-dialog" id="ticketDialog">
       <button class="dialog-close ticket-close" id="closeTicket" type="button" aria-label="关闭电子票">×</button>
