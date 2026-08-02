@@ -12,7 +12,7 @@ export const wedding: WeddingInfo = {
   bride: '孙佳玮',
   date: '2026-10-06T11:58:00+08:00',
   venue: '悦宴楼五楼',
-  address: '江西省吉安市悦宴楼五楼',
+  address: '江西省吉安市悦宴楼（吾悦广场店）',
   city: '吉安'
 };
 

@@ -7,10 +7,8 @@ import { wedding } from '@/lib/wedding';
 export function LocationSection() {
   const { ref, isVisible } = useReveal<HTMLElement>();
   const showToast = useToast();
-  const encodedAddress = encodeURIComponent(`${wedding.address} ${wedding.venue}`);
-  const encodedCity = encodeURIComponent(wedding.city);
-  const amapUrl = `https://uri.amap.com/search?keyword=${encodedAddress}&city=${encodedCity}&src=wedding-invitation&callnative=1`;
-  const baiduUrl = `https://api.map.baidu.com/geocoder?address=${encodedAddress}&output=html&src=webapp.wedding.invitation`;
+  const amapUrl = 'https://surl.amap.com/1Y9aqDU1c6Yu';
+  const baiduUrl = 'https://j.map.baidu.com/e0/jtLh';
 
   async function handleCopyAddress() {
     try {

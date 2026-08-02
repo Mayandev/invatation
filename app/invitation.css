@@ -1,3 +1,5 @@
+@import url("https://fontsapi.zeoseven.com/223/main/result.css");
+
 /* 请柬主页样式，仅在 "/" 路由下加载。 */
 @font-face {
   font-family: "Invitation Serif";
@@ -19,6 +21,14 @@
 @font-face {
   font-family: "Invitation Calligraphy";
   src: url('/assets/fonts/invitation-calligraphy-zhimangxing.woff2?v=1') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Huang Kaihua Lawyer";
+  src: url('/assets/fonts/huang-kaihua-lawyer.ttf') format('truetype');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -132,7 +142,12 @@ button { -webkit-tap-highlight-color: transparent; }
 .hero__small { margin: 14px 0 10px; font-size: 11px; color: #bcae9b; letter-spacing: .3em; }
 .hero h2 { margin: 0; color: #f3e4c5; font-size: clamp(30px, 8.6vw, 44px); font-weight: 500; letter-spacing: .12em; }
 .hero__name,
-.cover .couple span { font-family: "Invitation Calligraphy", var(--serif); font-weight: 400; }
+.cover .couple span,
+.footer__names,
+.e-ticket__couple span {
+  font-family: "Huang Kaihua Lawyer", "Invitation Calligraphy", var(--serif);
+  font-weight: 400;
+}
 .hero__name { display: inline-block; letter-spacing: .04em; }
 .hero h2 b { color: var(--gold); font-family: Georgia, serif; font-size: .45em; font-weight: 400; vertical-align: middle; }
 .ornament { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 12px auto; color: #b94a4f; }
@@ -214,7 +229,7 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .footer__seal { width: 52px; height: 52px; display: grid; place-items: center; margin: 0 auto 23px; color: #efd79e; border: 1px solid #a95550; font-size: 29px; }
 .footer p { margin: 9px 0; font-size: 11px; letter-spacing: .24em; }
-.footer__names { color: #d7ae67; font-family: "Invitation Calligraphy", var(--serif); font-size: 20px !important; letter-spacing: .18em !important; }
+.footer__names { color: #d7ae67; font-size: 20px !important; letter-spacing: .18em !important; }
 
 .section-reveal { opacity: 0; transform: translateY(22px); transition: opacity .9s ease, transform .9s ease; }
 .section-reveal.is-visible { opacity: 1; transform: translateY(0); }
