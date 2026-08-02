@@ -4,7 +4,7 @@ import { wedding } from '@/lib/wedding';
 
 export const runtime = 'edge';
 
-const font = fetch(new URL('../../public/assets/fonts/invitation-serif.woff2', import.meta.url)).then((response) =>
+const font = fetch(new URL('../../public/assets/fonts/invitation-serif-share.ttf', import.meta.url)).then((response) =>
   response.arrayBuffer()
 );
 
