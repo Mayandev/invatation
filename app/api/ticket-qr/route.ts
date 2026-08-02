@@ -6,9 +6,7 @@ export async function GET(request: Request) {
   const text = url.searchParams.get('text') || '';
 
   try {
-    const requestProtocol = (request.headers.get('x-forwarded-proto') || 'https').split(',')[0].trim();
-    const requestOrigin = `${requestProtocol}://${request.headers.get('host')}`;
-    const svg = await renderTicketQr({ text, requestOrigin });
+    const svg = await renderTicketQr({ text });
     return new NextResponse(svg, {
       status: 200,
       headers: {
