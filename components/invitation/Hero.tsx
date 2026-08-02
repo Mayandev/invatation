@@ -13,9 +13,9 @@ export function Hero() {
         <p className="eyebrow">良 辰 已 定 · 敬 候 君 临</p>
         <p className="hero__small">两姓联姻 · 一堂缔约</p>
         <h2>
-          <span>{wedding.groom}</span>
+          <span className="hero__name">{wedding.groom}</span>
           <b> 与 </b>
-          <span>{wedding.bride}</span>
+          <span className="hero__name">{wedding.bride}</span>
         </h2>
         <div className="ornament">
           <span />

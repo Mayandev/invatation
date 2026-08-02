@@ -29,6 +29,7 @@ export function DateSection() {
         <p>{values.dateLong}</p>
       </div>
 
+      <p className="countdown-note">{countdown.reached ? '良辰已至 · 恭迎赴宴' : '距离良辰还有'}</p>
       <div className="countdown" aria-label="婚礼倒计时">
         <div>
           <b id="days">{countdown.days}</b>
@@ -47,7 +48,6 @@ export function DateSection() {
           <span>秒</span>
         </div>
       </div>
-      <p className="countdown-note">{countdown.reached ? '良辰已至 · 恭迎赴宴' : '距离良辰还有'}</p>
     </section>
   );
 }

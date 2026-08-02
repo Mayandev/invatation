@@ -98,8 +98,9 @@ export function RsvpSection({ formData, onFormDataChange, hasRegistered, onSubmi
             onChange={handleChange}
           />
         </label>
-        <button className="submit-button" type="submit" disabled={submitting}>
-          {submitting ? '正 在 登 记' : '领 取 专 属 电 子 票'}
+        <button className="submit-button" type="submit" disabled={submitting} aria-busy={submitting}>
+          {submitting && <span className="submit-button__spinner" aria-hidden="true" />}
+          <span className="submit-button__label">{submitting ? '正在生成电子票' : '领取专属电子票'}</span>
         </button>
       </form>
       <p className="ticket-exchange-note">婚礼当天凭电子票换取双联纪念票：一联由您珍藏，一联写下祝福留给新人。</p>

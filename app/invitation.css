@@ -7,6 +7,23 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Invitation Serif Supplement";
+  src: url('/assets/fonts/invitation-serif-supplement.woff2?v=1') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+002D-003A, U+4E0D;
+}
+
+@font-face {
+  font-family: "Invitation Calligraphy";
+  src: url('/assets/fonts/invitation-calligraphy-zhimangxing.woff2?v=1') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 :root {
   --paper: #f3e7cc;
   --paper-light: #faf3e3;
@@ -16,7 +33,8 @@
   --red-deep: #6e171d;
   --gold: #b58a44;
   --line: rgba(119, 76, 45, 0.22);
-  --serif: "Invitation Serif", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", serif;
+  --serif: "Invitation Serif", "Invitation Serif Supplement", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", serif;
+  --numbers: "Invitation Serif Supplement", Georgia, "Times New Roman", "Invitation Serif", "Songti SC", serif;
 }
 
 * { box-sizing: border-box; }
@@ -113,6 +131,9 @@ button { -webkit-tap-highlight-color: transparent; }
 .hero .eyebrow { color: #cba765; }
 .hero__small { margin: 14px 0 10px; font-size: 11px; color: #bcae9b; letter-spacing: .3em; }
 .hero h2 { margin: 0; color: #f3e4c5; font-size: clamp(30px, 8.6vw, 44px); font-weight: 500; letter-spacing: .12em; }
+.hero__name,
+.cover .couple span { font-family: "Invitation Calligraphy", var(--serif); font-weight: 400; }
+.hero__name { display: inline-block; letter-spacing: .04em; }
 .hero h2 b { color: var(--gold); font-family: Georgia, serif; font-size: .45em; font-weight: 400; vertical-align: middle; }
 .ornament { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 12px auto; color: #b94a4f; }
 .ornament span { width: 45px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
@@ -133,24 +154,24 @@ button { -webkit-tap-highlight-color: transparent; }
 .section-title { margin: 0; font-size: 31px; font-weight: 500; letter-spacing: .2em; text-indent: .2em; }
 .section-subtitle { margin: 16px auto 36px; color: var(--muted); font-size: 12px; line-height: 2; letter-spacing: .08em; }
 .calendar-card { width: min(100%, 350px); margin: 38px auto 30px; padding: 25px 22px 22px; border: 1px solid var(--line); background: rgba(250,243,227,.66); box-shadow: 0 14px 40px rgba(82,54,32,.08); }
-.calendar-card__month { margin: 0 0 18px; color: var(--red); font: 11px Georgia, serif; letter-spacing: .42em; }
+.calendar-card__month { margin: 0 0 18px; color: var(--red); font-family: var(--numbers); font-size: 11px; letter-spacing: .42em; }
 .calendar-card__date { display: grid; grid-template-columns: 1fr 1.4fr 1fr; align-items: center; border-block: 1px solid var(--line); padding: 13px 0; }
 .calendar-card__date span { font-size: 12px; color: var(--muted); letter-spacing: .1em; }
-.calendar-card__date b { color: var(--red-deep); font: 56px/1 Georgia, serif; }
+.calendar-card__date b { color: var(--red-deep); font-family: var(--numbers); font-size: 56px; line-height: 1; }
 .calendar-card > p:last-child { margin: 17px 0 0; color: var(--muted); font-size: 11px; letter-spacing: .12em; }
 .countdown { width: min(100%, 370px); margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
 .countdown div { padding: 13px 3px; border-right: 1px solid var(--line); }
 .countdown div:last-child { border: 0; }
-.countdown b { display: block; color: var(--red); font: 24px/1.2 Georgia, serif; }
+.countdown b { display: block; color: var(--red); font-family: var(--numbers); font-size: 24px; line-height: 1.2; font-variant-numeric: tabular-nums lining-nums; }
 .countdown span { display: block; margin-top: 6px; color: var(--muted); font-size: 9px; }
-.countdown-note { margin: 17px 0 0; color: var(--muted); font-size: 10px; letter-spacing: .2em; }
+.countdown-note { margin: 0 0 14px; color: var(--muted); font-size: 10px; letter-spacing: .2em; }
 
 .schedule-section { color: #f5e8ca; background: var(--red-deep); }
 .schedule-section::before { opacity: .12; background-image: radial-gradient(circle at 30% 20%, #f2d290 0, transparent 35%), radial-gradient(circle at 80% 80%, #d99085 0, transparent 30%); }
 .schedule-section .section-kicker { color: #d9b875; }
 .timeline { width: min(100%, 390px); margin: 48px auto 0; text-align: left; }
 .timeline__item { display: grid; grid-template-columns: 54px 20px 1fr; min-height: 90px; gap: 14px; }
-.timeline__item time { color: #d8ba7d; font: 13px Georgia, serif; }
+.timeline__item time { color: #d8ba7d; font-family: var(--numbers); font-size: 13px; font-variant-numeric: tabular-nums lining-nums; }
 .timeline__item i { position: relative; width: 7px; height: 7px; margin-top: 4px; border: 1px solid #d8ba7d; border-radius: 50%; }
 .timeline__item i::after { content: ""; position: absolute; top: 10px; left: 2px; width: 1px; height: 65px; background: rgba(216,186,125,.42); }
 .timeline__item:last-child i::after { display: none; }
@@ -165,6 +186,11 @@ button { -webkit-tap-highlight-color: transparent; }
 .venue-card h3 { margin: 15px 0 13px; font-size: 20px; font-weight: 500; letter-spacing: .08em; }
 .venue-card > p:not(.venue-card__city) { color: var(--muted); font-size: 12px; line-height: 1.8; }
 .text-button { margin-top: 17px; padding: 8px 16px; color: var(--red); border: 0; border-bottom: 1px solid rgba(143,29,36,.5); background: none; font-size: 11px; letter-spacing: .2em; cursor: pointer; }
+.map-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
+.map-link,
+.map-copy { min-height: 38px; display: grid; place-items: center; padding: 9px 12px; font-size: 11px; letter-spacing: .14em; }
+.map-link { color: var(--red); border: 1px solid rgba(143,29,36,.28); text-decoration: none; }
+.map-copy { grid-column: 1 / -1; width: 100%; margin: 0; border: 0; border-bottom: 1px solid rgba(143,29,36,.34); }
 
 .rsvp-section { background: var(--paper); }
 .rsvp-form { width: min(100%, 410px); margin: 0 auto; text-align: left; }
@@ -174,7 +200,11 @@ button { -webkit-tap-highlight-color: transparent; }
 .rsvp-form input:focus, .rsvp-form select:focus, .rsvp-form textarea:focus { border-color: var(--red); }
 .rsvp-form textarea { resize: vertical; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.submit-button { width: 100%; margin-top: 14px; padding: 15px 20px; color: #f7e6bd; border: 0; background: var(--red-deep); font-size: 12px; letter-spacing: .35em; text-indent: .35em; cursor: pointer; }
+.submit-button { width: 100%; min-height: 48px; margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 15px 20px; color: #f7e6bd; border: 0; background: var(--red-deep); font-size: 12px; cursor: pointer; }
+.submit-button:disabled { opacity: .76; cursor: wait; }
+.submit-button__label { letter-spacing: .26em; text-indent: .26em; }
+.submit-button__spinner { width: 14px; height: 14px; flex: 0 0 14px; border: 1.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: ticket-loading .75s linear infinite; }
+@keyframes ticket-loading { to { transform: rotate(360deg); } }
 .rsvp-success { margin: 22px auto 0; color: var(--red); font-size: 13px; letter-spacing: .12em; }
 .ticket-exchange-note { width: min(100%, 410px); margin: 23px auto 0; color: var(--muted); font-size: 10px; line-height: 1.9; letter-spacing: .07em; }
 .view-ticket-button { margin-top: 16px; padding: 10px 18px; color: var(--red); border: 1px solid rgba(143,29,36,.36); background: transparent; font-size: 11px; letter-spacing: .18em; cursor: pointer; }
@@ -184,7 +214,7 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .footer__seal { width: 52px; height: 52px; display: grid; place-items: center; margin: 0 auto 23px; color: #efd79e; border: 1px solid #a95550; font-size: 29px; }
 .footer p { margin: 9px 0; font-size: 11px; letter-spacing: .24em; }
-.footer__names { color: #d7ae67; font-family: Georgia, var(--serif); font-size: 16px !important; }
+.footer__names { color: #d7ae67; font-family: "Invitation Calligraphy", var(--serif); font-size: 20px !important; letter-spacing: .18em !important; }
 
 .section-reveal { opacity: 0; transform: translateY(22px); transition: opacity .9s ease, transform .9s ease; }
 .section-reveal.is-visible { opacity: 1; transform: translateY(0); }
@@ -215,7 +245,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .e-ticket__tear::before { left: -28px; }.e-ticket__tear::after { right: -28px; }
 .e-ticket__stub { position: relative; display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 17px; padding: 17px 25px 20px; }
 .e-ticket__stub img { display: block; width: 88px; height: 88px; padding: 4px; background: #fffaf0; }
-.e-ticket__stub b { color: var(--red-deep); font: 13px Georgia, serif; letter-spacing: .08em; }
+.e-ticket__stub b { color: var(--red-deep); font-family: var(--numbers); font-size: 13px; font-variant-numeric: tabular-nums lining-nums; letter-spacing: .08em; }
 .ticket-dialog__note { margin: 15px 8px 12px; color: var(--muted); font-size: 10px; line-height: 1.7; }
 .ticket-guide-link { display: block; padding: 14px 18px; color: #f7e6bd; background: var(--red-deep); text-decoration: none; font-size: 12px; letter-spacing: .22em; }
 .toast { position: fixed; z-index: 110; left: 50%; bottom: max(28px, env(safe-area-inset-bottom)); translate: -50% 20px; max-width: calc(100% - 50px); padding: 11px 18px; color: #fff5e3; border-radius: 2px; background: rgba(50,31,27,.92); opacity: 0; pointer-events: none; white-space: nowrap; font-size: 12px; transition: .3s ease; }
