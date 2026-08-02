@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState, type FormEvent } from 'react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { getGuideAnswer, QUICK_QUESTIONS } from '@/lib/guide-answers';
 
@@ -45,9 +46,9 @@ export function GuideChat() {
   return (
     <>
       <header className="guide-header">
-        <a href="/" aria-label="返回请柬">
+        <Link href="/" aria-label="返回请柬">
           ‹
-        </a>
+        </Link>
         <div>
           <span className="guide-status" />
           <p>智能引座官</p>

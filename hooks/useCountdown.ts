@@ -34,6 +34,8 @@ export function useCountdown(targetDate: string): CountdownValue {
 
   useEffect(() => {
     const targetTime = new Date(targetDate).getTime();
+    // 首次计算依赖客户端 Date.now()，与 SSR 占位符不同，只能在挂载后的 effect 里同步。
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setValue(computeCountdown(targetTime));
     const timer = setInterval(() => {
       setValue(computeCountdown(targetTime));

@@ -61,6 +61,8 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
           <span />
         </div>
         <div className="e-ticket__stub">
+          {/* 二维码是内部接口按请求实时生成的矢量 SVG，无需也无法走 next/image 的栅格优化管线 */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           {guideUrl && <img id="ticketQr" alt="通往智能引座官的电子票二维码" src={`/api/ticket-qr?text=${encodeURIComponent(guideUrl)}`} />}
           <div>
             <span>嘉宾票号</span>

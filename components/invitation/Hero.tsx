@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useReveal } from '@/hooks/useReveal';
 import { wedding } from '@/lib/wedding';
 
@@ -9,7 +10,14 @@ export function Hero() {
   return (
     <header ref={ref} className={`hero section-reveal${isVisible ? ' is-visible' : ''}`}>
       <figure className="hero__portrait" aria-label={`${wedding.groom}与${wedding.bride}婚纱照`}>
-        <img src="/assets/couple-hero-clean.jpg?v=1" alt={`${wedding.groom}与${wedding.bride}展示婚戒的婚纱照`} />
+        <Image
+          src="/assets/couple-hero-clean.jpg"
+          alt={`${wedding.groom}与${wedding.bride}展示婚戒的婚纱照`}
+          fill
+          priority
+          sizes="(min-width: 700px) 500px, 100vw"
+          style={{ objectFit: 'cover', objectPosition: 'center 48%' }}
+        />
         <span className="hero__portrait-seal" aria-hidden="true">
           囍
         </span>

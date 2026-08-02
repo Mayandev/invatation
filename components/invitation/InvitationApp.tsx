@@ -49,6 +49,8 @@ export function InvitationApp() {
         message: saved.message || '',
         ticketNumber: saved.ticketNumber || createTicketNumber()
       };
+      // localStorage 在服务端不可用，只能在挂载后的 effect 里读取并同步进 state。
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({ name: restored.name, attendance: restored.attendance, guests: restored.guests, message: restored.message });
       setTicket(restored);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(restored));
