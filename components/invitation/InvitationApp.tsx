@@ -25,8 +25,13 @@ export function InvitationApp() {
 
   // 封面覆盖全屏时锁定页面滚动，开启后恢复；对齐原 body.cover-active 行为。
   useLayoutEffect(() => {
+    if (!isOpening) window.scrollTo(0, 0);
+    document.documentElement.classList.toggle('cover-active', !isOpening);
     document.body.classList.toggle('cover-active', !isOpening);
-    return () => document.body.classList.remove('cover-active');
+    return () => {
+      document.documentElement.classList.remove('cover-active');
+      document.body.classList.remove('cover-active');
+    };
   }, [isOpening]);
 
   useEffect(() => {

@@ -28,7 +28,18 @@ body {
   font-family: var(--serif);
   -webkit-font-smoothing: antialiased;
 }
-body.cover-active { overflow: hidden; }
+html.cover-active,
+body.cover-active {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+body.cover-active {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  touch-action: none;
+}
 button, input, select, textarea { font: inherit; }
 button { -webkit-tap-highlight-color: transparent; }
 .paper-noise {
@@ -94,8 +105,9 @@ button { -webkit-tap-highlight-color: transparent; }
 .hero__content { position: relative; z-index: 2; width: 100%; }
 .hero__seal {
   width: 70px; height: 70px; display: grid; place-items: center; margin: 0 auto 34px;
-  color: #efd69d; border: 1px solid rgba(203, 167, 101, .7); font-size: 39px;
-  box-shadow: inset 0 0 0 5px #6f0f12, inset 0 0 0 6px rgba(203, 167, 101, .34);
+  color: #f5dfa9; border: 1px solid #6f171c; background: #8b292d; font-size: 39px;
+  font-weight: 600; text-shadow: 0 1px 1px rgba(75, 13, 16, .55);
+  box-shadow: inset 0 0 0 5px #8b292d, inset 0 0 0 6px rgba(245, 223, 169, .62), 0 7px 18px rgba(77, 32, 25, .18);
   transform: rotate(-2deg);
 }
 .hero .eyebrow { color: #cba765; }
@@ -111,7 +123,10 @@ button { -webkit-tap-highlight-color: transparent; }
 .scroll-cue i { display: block; width: 1px; height: 28px; margin: 8px auto 0; background: linear-gradient(var(--red), transparent); animation: cue 1.8s infinite ease-in-out; }
 @keyframes cue { 0%,100% { transform: scaleY(.35); transform-origin: top; opacity:.4; } 50% { transform: scaleY(1); opacity:1; } }
 
-.content-section { position: relative; padding: 92px 24px; text-align: center; }
+.content-section {
+  position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
+  padding: 92px 24px; text-align: center;
+}
 .content-section::before { content: ""; position: absolute; inset: 0; opacity: .22; pointer-events: none; background: radial-gradient(circle at 15% 20%, rgba(181,138,68,.3), transparent 27%), radial-gradient(circle at 90% 75%, rgba(143,29,36,.14), transparent 24%); }
 .content-section > * { position: relative; }
 .section-kicker { margin: 0 0 13px; color: var(--red); font-size: 11px; letter-spacing: .38em; text-indent: .38em; }
@@ -163,7 +178,10 @@ button { -webkit-tap-highlight-color: transparent; }
 .rsvp-success { margin: 22px auto 0; color: var(--red); font-size: 13px; letter-spacing: .12em; }
 .ticket-exchange-note { width: min(100%, 410px); margin: 23px auto 0; color: var(--muted); font-size: 10px; line-height: 1.9; letter-spacing: .07em; }
 .view-ticket-button { margin-top: 16px; padding: 10px 18px; color: var(--red); border: 1px solid rgba(143,29,36,.36); background: transparent; font-size: 11px; letter-spacing: .18em; cursor: pointer; }
-.footer { padding: 70px 24px max(50px, env(safe-area-inset-bottom)); color: #f1dfba; text-align: center; background: #351f1c; }
+.footer {
+  min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: 70px 24px max(50px, env(safe-area-inset-bottom)); color: #f1dfba; text-align: center; background: #351f1c;
+}
 .footer__seal { width: 52px; height: 52px; display: grid; place-items: center; margin: 0 auto 23px; color: #efd79e; border: 1px solid #a95550; font-size: 29px; }
 .footer p { margin: 9px 0; font-size: 11px; letter-spacing: .24em; }
 .footer__names { color: #d7ae67; font-family: Georgia, var(--serif); font-size: 16px !important; }
@@ -211,49 +229,49 @@ body {
   color: #f6e5c0;
 }
 .cover {
-  color: #f7e7c5;
+  color: #4d3029;
   background:
-    linear-gradient(180deg, rgba(67, 3, 6, .05), rgba(54, 2, 5, .30)),
-    url('/assets/invitation-bg-red-v2.jpg?v=1') center / cover no-repeat;
+    linear-gradient(180deg, rgba(255, 249, 232, .04), rgba(236, 215, 175, .10)),
+    url('/assets/hero-ink-wash.png') center / cover no-repeat;
 }
 .cover__wash {
-  opacity: .22;
+  opacity: .10;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.16'/%3E%3C/svg%3E");
 }
 .cover__year,
 .cover__date,
 .cover__hint {
-  color: rgba(247, 231, 197, .68);
+  color: #786258;
 }
 .cover h1,
 .guest-greeting {
-  color: #f5d99e;
+  color: #8b292d;
 }
 .cover h1 {
-  text-shadow: 0 2px 14px rgba(45, 3, 5, .38);
+  text-shadow: 0 1px 0 rgba(255, 250, 235, .72);
 }
 .couple {
-  color: #fff0d3;
-  text-shadow: 0 1px 8px rgba(45, 3, 5, .42);
+  color: #50362f;
+  text-shadow: 0 1px 0 rgba(255, 250, 235, .68);
 }
 .cover .couple i {
   width: 30px;
   height: 30px;
   display: grid;
   place-items: center;
-  color: #5d1013;
-  background: #e4b96c;
-  box-shadow: 0 5px 14px rgba(45, 3, 5, .26);
+  color: #f1d8a2;
+  background: #8b292d;
+  box-shadow: 0 5px 14px rgba(86, 36, 27, .18);
   font-size: 16px;
   line-height: 1;
   transform: rotate(-3deg);
 }
 .cover::before,
 .cover::after {
-  border-color: rgba(237, 194, 112, .34);
+  border-color: rgba(139, 41, 45, .23);
 }
 .corner {
-  border-color: rgba(237, 194, 112, .46);
+  border-color: rgba(139, 41, 45, .30);
 }
 .invitation {
   background:
@@ -399,34 +417,34 @@ body {
   border-color: rgba(115, 63, 45, .20);
 }
 .location-section {
-  color: #ead9bb;
+  color: #432d27;
   background:
-    radial-gradient(circle at 82% 12%, rgba(165, 111, 55, .13), transparent 26%),
-    radial-gradient(circle at 10% 88%, rgba(115, 29, 32, .12), transparent 30%),
-    #292220;
+    radial-gradient(circle at 82% 12%, rgba(151, 48, 43, .08), transparent 26%),
+    radial-gradient(circle at 10% 88%, rgba(183, 123, 62, .10), transparent 30%),
+    #f6edd9;
 }
 .location-section .section-title,
 .location-section .venue-card h3 {
-  color: #f2dfbb;
+  color: #4d3029;
 }
 .location-section .section-subtitle,
 .location-section .venue-card > p:not(.venue-card__city) {
-  color: rgba(235, 216, 184, .68);
+  color: #766057;
 }
 .location-section .section-kicker,
 .location-section .venue-card__city,
 .location-section .text-button {
-  color: #c79b5b;
+  color: #8f292d;
 }
 .location-section .venue-card {
-  border-color: rgba(211, 172, 104, .28);
-  background: rgba(15, 12, 11, .18);
+  border-color: rgba(133, 37, 42, .22);
+  background: rgba(255, 250, 235, .32);
 }
 .location-section .venue-card__pin {
-  border-color: #b98b4e;
+  border-color: #8f292d;
 }
 .location-section .venue-card__pin span {
-  background: #b98b4e;
+  background: #8f292d;
 }
 .content-section.rsvp-section {
   color: #432d27;
