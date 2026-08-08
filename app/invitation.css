@@ -60,6 +60,7 @@
   --gold: #b58a44;
   --line: rgba(119, 76, 45, 0.22);
   --serif: "Invitation Serif", "Invitation Serif Supplement", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", serif;
+  --system-serif: "Songti SC", "STSong", "Noto Serif CJK SC", "Noto Serif SC", serif;
   --numbers: "Invitation Serif Supplement", Georgia, "Times New Roman", "Invitation Serif", "Songti SC", serif;
 }
 
@@ -118,7 +119,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .couple { display: flex; align-items: center; gap: 18px; color: var(--ink); font-size: 17px; letter-spacing: .2em; }
 .couple i { color: var(--red); font-size: 12px; font-style: normal; }
 .cover__date { margin: 14px 0 0; color: var(--muted); font-size: 12px; letter-spacing: .16em; }
-.guest-greeting { margin: 12px 0 0; color: var(--red-deep); font-size: 13px; letter-spacing: .08em; }
+.guest-greeting { margin: 12px 0 0; color: var(--red-deep); font-family: var(--system-serif); font-size: 13px; letter-spacing: .08em; }
 .seal-button {
   position: relative; min-width: 172px; margin-top: clamp(28px, 6vh, 54px); padding: 14px 25px;
   color: #f7e6bd; border: 0; border-radius: 2px; background: linear-gradient(135deg, #a62c32, var(--red-deep));
@@ -242,6 +243,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .rsvp-form label { display: block; margin-bottom: 20px; }
 .rsvp-form label > span { display: block; margin-bottom: 8px; color: var(--muted); font-size: 11px; letter-spacing: .14em; }
 .rsvp-form input, .rsvp-form select, .rsvp-form textarea { width: 100%; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 11px 4px; color: var(--ink); outline: none; background: transparent; appearance: none; }
+.rsvp-form input, .rsvp-form textarea { font-family: var(--system-serif); }
 .rsvp-form input:focus, .rsvp-form select:focus, .rsvp-form textarea:focus { border-color: var(--red); }
 .rsvp-form select:disabled { opacity: .45; }
 .rsvp-form textarea { resize: vertical; }
@@ -307,6 +309,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .e-ticket__facts div:nth-child(2n) { border-right: 0; }.e-ticket__facts div:nth-child(n+3) { border-bottom: 0; }
 .e-ticket__facts span, .e-ticket__stub span { display: block; margin-bottom: 5px; color: var(--muted); font-size: 8px; letter-spacing: .15em; }
 .e-ticket__facts b { display: block; color: var(--ink); font-size: 12px; font-weight: 500; letter-spacing: .04em; }
+#ticketGuest { font-family: var(--system-serif); }
 .e-ticket__venue { margin: 15px 0 0; color: var(--red); font-size: 11px; letter-spacing: .13em; }
 .e-ticket__tear { position: relative; height: 1px; margin: 0 18px; border-top: 1px dashed rgba(105,65,42,.45); }
 .e-ticket__tear::before, .e-ticket__tear::after { content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%; background: var(--paper-light); }
