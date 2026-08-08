@@ -51,6 +51,9 @@ export function DateSection() {
       <a className="calendar-button" href="/api/calendar" aria-label="将婚礼添加到系统日历">
         添加到日历
       </a>
+      <p className="calendar-hint">
+        若未自动打开日历，请点击微信右上角，选择“在浏览器中打开”，再点击添加到日历。
+      </p>
     </section>
   );
 }
