@@ -3,21 +3,28 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { useReveal } from '@/hooks/useReveal';
 import { useToast } from '@/components/shared/Toast';
-import { createTicketNumber } from '@/lib/wedding';
+import { createTicketNumber, RSVP_DEADLINE_LABEL, isRsvpClosed } from '@/lib/wedding';
 import type { RsvpFormValues, TicketData } from './types';
 
 interface RsvpSectionProps {
   formData: RsvpFormValues;
   onFormDataChange: (data: RsvpFormValues) => void;
-  hasRegistered: boolean;
+  responseAttendance: 'yes' | 'no' | null;
   onSubmitSuccess: (ticket: TicketData) => void;
   onViewTicket: () => void;
 }
 
-export function RsvpSection({ formData, onFormDataChange, hasRegistered, onSubmitSuccess, onViewTicket }: RsvpSectionProps) {
+export function RsvpSection({
+  formData,
+  onFormDataChange,
+  responseAttendance,
+  onSubmitSuccess,
+  onViewTicket
+}: RsvpSectionProps) {
   const { ref, isVisible } = useReveal<HTMLElement>();
   const showToast = useToast();
   const [submitting, setSubmitting] = useState(false);
+  const isClosed = isRsvpClosed();
 
   function handleChange(event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     const { name, value } = event.target;
@@ -26,6 +33,10 @@ export function RsvpSection({ formData, onFormDataChange, hasRegistered, onSubmi
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (isClosed) {
+      showToast(`回执已于${RSVP_DEADLINE_LABEL}截止`);
+      return;
+    }
     setSubmitting(true);
     try {
       const ticket: TicketData = { ...formData, ticketNumber: createTicketNumber() };
@@ -45,7 +56,7 @@ export function RsvpSection({ formData, onFormDataChange, hasRegistered, onSubmi
 
       localStorage.setItem('wedding-rsvp', JSON.stringify(ticket));
       onSubmitSuccess(ticket);
-      showToast('专属电子票已生成');
+      showToast(formData.attendance === 'no' ? '已收到您的祝福' : '专属电子票已生成');
     } catch (error) {
       showToast(error instanceof Error ? error.message : '登记暂未成功，请稍后再试');
     } finally {
@@ -80,7 +91,12 @@ export function RsvpSection({ formData, onFormDataChange, hasRegistered, onSubmi
           </label>
           <label>
             <span>赴宴人数</span>
-            <select name="guests" value={formData.guests} onChange={handleChange}>
+            <select
+              name="guests"
+              value={formData.guests}
+              onChange={handleChange}
+              disabled={formData.attendance === 'no'}
+            >
               <option>1 位</option>
               <option>2 位</option>
               <option>3 位</option>
@@ -88,6 +104,13 @@ export function RsvpSection({ formData, onFormDataChange, hasRegistered, onSubmi
             </select>
           </label>
         </div>
+        <label>
+          <span>亲友关系</span>
+          <select name="guestSide" value={formData.guestSide} onChange={handleChange}>
+            <option value="groom">男方亲友</option>
+            <option value="bride">女方亲友</option>
+          </select>
+        </label>
         <label>
           <span>留一笺祝福</span>
           <textarea
@@ -98,14 +121,30 @@ export function RsvpSection({ formData, onFormDataChange, hasRegistered, onSubmi
             onChange={handleChange}
           />
         </label>
-        <button className="submit-button" type="submit" disabled={submitting} aria-busy={submitting}>
+        <p className="rsvp-deadline">回执截止：{RSVP_DEADLINE_LABEL}</p>
+        <button className="submit-button" type="submit" disabled={submitting || isClosed} aria-busy={submitting}>
           {submitting && <span className="submit-button__spinner" aria-hidden="true" />}
-          <span className="submit-button__label">{submitting ? '正在生成电子票' : '领取专属电子票'}</span>
+          <span className="submit-button__label">
+            {isClosed
+              ? '回执已截止'
+              : submitting
+                ? formData.attendance === 'no'
+                  ? '正在送出祝福'
+                  : '正在生成电子票'
+                : formData.attendance === 'no'
+                  ? '送出祝福'
+                  : '领取专属电子票'}
+          </span>
         </button>
       </form>
-      <p className="ticket-exchange-note">婚礼当天凭电子票换取双联纪念票：一联由您珍藏，一联写下祝福留给新人。</p>
-      {hasRegistered && <p className="rsvp-success">入场券已为您留好，静候相见。</p>}
-      {hasRegistered && (
+      {formData.attendance === 'yes' && (
+        <p className="ticket-exchange-note">
+          婚礼当天凭电子票换取双联纪念票：一联由您珍藏，一联写下祝福留给新人。
+        </p>
+      )}
+      {responseAttendance === 'yes' && <p className="rsvp-success">入场券已为您留好，静候相见。</p>}
+      {responseAttendance === 'no' && <p className="rsvp-success">已收到您的祝福，谢谢您告知。</p>}
+      {responseAttendance === 'yes' && (
         <button className="view-ticket-button" type="button" onClick={onViewTicket}>
           查看我的电子票
         </button>

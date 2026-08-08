@@ -12,6 +12,7 @@ import { LocationSection } from './LocationSection';
 import { RsvpSection } from './RsvpSection';
 import { ScheduleSection } from './ScheduleSection';
 import { TicketDialog } from './TicketDialog';
+import { ThanksDialog } from './ThanksDialog';
 import { DEFAULT_RSVP_FORM_VALUES, type RsvpFormValues, type TicketData } from './types';
 
 const STORAGE_KEY = 'wedding-rsvp';
@@ -28,7 +29,9 @@ export function InvitationApp({ guest }: InvitationAppProps) {
     name: guest
   }));
   const [ticket, setTicket] = useState<TicketData | null>(null);
-  const dialog = useDialog<HTMLDialogElement>();
+  const [responseAttendance, setResponseAttendance] = useState<'yes' | 'no' | null>(null);
+  const ticketDialog = useDialog<HTMLDialogElement>();
+  const thanksDialog = useDialog<HTMLDialogElement>();
 
   // 封面覆盖全屏时锁定页面滚动，开启后恢复；对齐原 body.cover-active 行为。
   useLayoutEffect(() => {
@@ -47,7 +50,7 @@ export function InvitationApp({ guest }: InvitationAppProps) {
     return () => clearTimeout(timer);
   }, [isOpening]);
 
-  // 恢复上次登记信息，回填表单并直接生成入场券（不自动弹出对话框）。
+  // 恢复上次回执：赴约时恢复入场券，婉拒时只恢复祝福状态。
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null') as
@@ -57,14 +60,22 @@ export function InvitationApp({ guest }: InvitationAppProps) {
       const restored: TicketData = {
         name: saved.name || '',
         attendance: saved.attendance === 'no' ? 'no' : 'yes',
+        guestSide: saved.guestSide === 'bride' ? 'bride' : 'groom',
         guests: saved.guests || DEFAULT_RSVP_FORM_VALUES.guests,
         message: saved.message || '',
         ticketNumber: saved.ticketNumber || createTicketNumber()
       };
       // localStorage 在服务端不可用，只能在挂载后的 effect 里读取并同步进 state。
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setFormData({ name: restored.name, attendance: restored.attendance, guests: restored.guests, message: restored.message });
-      setTicket(restored);
+      setFormData({
+        name: restored.name,
+        attendance: restored.attendance,
+        guestSide: restored.guestSide,
+        guests: restored.guests,
+        message: restored.message
+      });
+      setResponseAttendance(restored.attendance);
+      setTicket(restored.attendance === 'yes' ? restored : null);
       localStorage.setItem(STORAGE_KEY, JSON.stringify(restored));
     } catch {
       // 忽略无效缓存
@@ -83,16 +94,23 @@ export function InvitationApp({ guest }: InvitationAppProps) {
         <RsvpSection
           formData={formData}
           onFormDataChange={setFormData}
-          hasRegistered={ticket !== null}
+          responseAttendance={responseAttendance}
           onSubmitSuccess={(nextTicket) => {
+            setResponseAttendance(nextTicket.attendance);
+            if (nextTicket.attendance === 'no') {
+              setTicket(null);
+              thanksDialog.open();
+              return;
+            }
             setTicket(nextTicket);
-            dialog.open();
+            ticketDialog.open();
           }}
-          onViewTicket={dialog.open}
+          onViewTicket={ticketDialog.open}
         />
         <Footer />
       </main>
-      <TicketDialog dialogRef={dialog.ref} ticket={ticket} onClose={dialog.close} />
+      <TicketDialog dialogRef={ticketDialog.ref} ticket={ticket} onClose={ticketDialog.close} />
+      <ThanksDialog dialogRef={thanksDialog.ref} onClose={thanksDialog.close} />
     </ToastProvider>
   );
 }

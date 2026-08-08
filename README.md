@@ -27,6 +27,7 @@ pnpm dev
 - `NEXT_PUBLIC_SITE_URL`：线上对外域名（如 `https://invatation-otrstjqf.edgeone.dev`）。它用于生成分享卡片图片的绝对 URL；使用 EdgeOne 等反向代理时必须填写最终的公开域名，不要填写 Vercel 源站地址。
 
 宾客登记会通过 [`app/api/rsvp/route.ts`](./app/api/rsvp/route.ts) 同步到配置好的飞书多维表格。
+多维表格需包含「宾客姓名」「是否赴宴」「亲友关系」「赴宴人数」「祝福」「电子票号」「核销状态」字段，其中「亲友关系」用于保存男方 / 女方亲友选项。
 
 ## 分享邀请链接
 

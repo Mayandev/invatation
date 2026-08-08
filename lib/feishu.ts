@@ -1,6 +1,7 @@
 export interface RsvpRecord {
   name: string;
   attendance: 'yes' | 'no';
+  guestSide: 'groom' | 'bride';
   guests: number;
   message: string;
   ticketNumber: string;
@@ -72,6 +73,7 @@ export async function createFeishuRsvp(rsvp: RsvpRecord): Promise<string> {
         fields: {
           宾客姓名: rsvp.name,
           是否赴宴: rsvp.attendance === 'no' ? '遥寄祝福' : '欣然赴约',
+          亲友关系: rsvp.guestSide === 'bride' ? '女方亲友' : '男方亲友',
           赴宴人数: rsvp.attendance === 'no' ? 0 : rsvp.guests,
           祝福: rsvp.message,
           电子票号: rsvp.ticketNumber,
