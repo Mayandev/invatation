@@ -63,4 +63,4 @@ https://your-domain.com/?guest=张三
 - `lib/ticket-qr.ts`：电子票二维码渲染
 - `lib/guide-answers.ts`：引座官问答规则
 - `public/assets/invitation-bg.jpg`：网页优化后的专属古风底图（PNG 为高清源图）
-- `public/assets/fonts/invitation-serif.woff2`：移动端精简思源宋体；授权文本见同目录 `OFL.txt`
+- `public/assets/fonts/invitation-serif-{400,500,600}.woff2`：按当前页面文案生成的思源宋体子集；授权文本见同目录 `OFL.txt`

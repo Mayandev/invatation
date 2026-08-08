@@ -1,5 +1,7 @@
 /* 智能引座官页面样式，仅在 "/guide" 路由下加载。 */
-@font-face { font-family:"Invitation Serif"; src:url('/assets/fonts/invitation-serif.woff2?v=1') format('woff2'); font-style:normal; font-weight:400; font-display:swap; }
+@font-face { font-family:"Invitation Serif"; src:url('/assets/fonts/invitation-serif-400.woff2?v=2') format('woff2'); font-style:normal; font-weight:400; font-display:swap; }
+@font-face { font-family:"Invitation Serif"; src:url('/assets/fonts/invitation-serif-500.woff2?v=2') format('woff2'); font-style:normal; font-weight:500; font-display:swap; }
+@font-face { font-family:"Invitation Serif"; src:url('/assets/fonts/invitation-serif-600.woff2?v=2') format('woff2'); font-style:normal; font-weight:600; font-display:swap; }
 @font-face { font-family:"Invitation Serif Supplement"; src:url('/assets/fonts/invitation-serif-supplement.woff2?v=1') format('woff2'); font-style:normal; font-weight:100 900; font-display:swap; unicode-range:U+002D-003A,U+4E0D; }
 :root { --paper:#f7edd7; --ink:#34241e; --muted:#7b6758; --red:#791d23; --gold:#b68d4d; --serif:"Invitation Serif","Invitation Serif Supplement","Source Han Serif SC","Noto Serif CJK SC","Songti SC",serif; --numbers:"Invitation Serif Supplement",Georgia,"Times New Roman","Invitation Serif","Songti SC",serif; }
 * { box-sizing:border-box; }

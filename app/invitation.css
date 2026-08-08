@@ -3,9 +3,25 @@
 /* 请柬主页样式，仅在 "/" 路由下加载。 */
 @font-face {
   font-family: "Invitation Serif";
-  src: url('/assets/fonts/invitation-serif.woff2?v=1') format('woff2');
+  src: url('/assets/fonts/invitation-serif-400.woff2?v=2') format('woff2');
   font-style: normal;
   font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Invitation Serif";
+  src: url('/assets/fonts/invitation-serif-500.woff2?v=2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Invitation Serif";
+  src: url('/assets/fonts/invitation-serif-600.woff2?v=2') format('woff2');
+  font-style: normal;
+  font-weight: 600;
   font-display: swap;
 }
 
