@@ -23,7 +23,7 @@ export function Hero() {
           <span />
         </div>
         <p className="hero__verse">
-          这一日，不演别人的故事
+          这一日，只演我们的故事
           <br />
           良辰已定，静候君临
         </p>
