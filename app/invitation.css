@@ -280,20 +280,6 @@ button { -webkit-tap-highlight-color: transparent; }
 .thanks-dialog h2 { margin: 0; color: var(--red-deep); font-size: 23px; font-weight: 500; letter-spacing: .12em; text-indent: .12em; }
 .thanks-dialog > p:last-of-type { margin: 18px 0 24px; color: var(--muted); font-size: 12px; line-height: 2; letter-spacing: .08em; }
 .thanks-dialog__button { width: 100%; min-height: 44px; color: #f7e6bd; border: 0; background: var(--red-deep); font-size: 11px; letter-spacing: .24em; text-indent: .24em; cursor: pointer; }
-.preview-button {
-  width: 100%;
-  min-height: 48px;
-  display: grid;
-  place-items: center;
-  margin-top: 10px;
-  padding: 8px 18px;
-  color: var(--muted);
-  border: 0;
-  border-top: 1px solid rgba(143,29,36,.22);
-  background: none;
-  font-size: 11px;
-  cursor: pointer;
-}
 .ticket-dialog { width: min(calc(100% - 26px), 410px); max-height: calc(100svh - 28px); padding: 25px 18px 18px; color: var(--ink); border: 0; background: var(--paper-light); text-align: center; box-shadow: 0 24px 80px rgba(35,20,16,.42); overflow: auto; }
 .ticket-dialog::backdrop { background: rgba(35,24,20,.75); backdrop-filter: blur(4px); }
 .ticket-close { z-index: 2; }
@@ -618,6 +604,6 @@ body {
   body * { visibility: hidden !important; }
   .ticket-dialog, .ticket-dialog * { visibility: visible !important; }
   .ticket-dialog { position: fixed; inset: 0; width: 100%; max-height: none; margin: 0; padding: 18mm; box-shadow: none; }
-  .ticket-close, .ticket-dialog__eyebrow, .ticket-dialog__note, .ticket-guide-link, #printTicket { display: none !important; }
+  .ticket-close, .ticket-dialog__eyebrow, .ticket-dialog__note, .ticket-guide-link { display: none !important; }
   .e-ticket { width: 90mm; margin: auto; }
 }

@@ -70,13 +70,12 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
           </div>
         </div>
       </article>
-      <p className="ticket-dialog__note">请截图保存此票。现场验票后，可换取纸质双联纪念票。</p>
+      <p className="ticket-dialog__note">
+        请使用手机截图保存电子票，以便婚礼当天出示。现场验票后，可换取纸质双联纪念票。
+      </p>
       <a className="ticket-guide-link" id="guideLink" href={guideUrl || '/guide'}>
         打开智能引座官
       </a>
-      <button className="preview-button" id="printTicket" type="button" onClick={() => window.print()}>
-        打印 / 保存电子票
-      </button>
     </dialog>
   );
 }

@@ -54,7 +54,16 @@ export function formatNumericDate(value: string): string {
 }
 
 export function createTicketNumber(): string {
-  return '共赴-1006-0402-1010';
+  const bytes = new Uint8Array(4);
+  if (typeof globalThis.crypto?.getRandomValues === 'function') {
+    globalThis.crypto.getRandomValues(bytes);
+  } else {
+    for (let index = 0; index < bytes.length; index += 1) {
+      bytes[index] = Math.floor(Math.random() * 256);
+    }
+  }
+  const randomCode = Array.from(bytes, (value) => value.toString(16).padStart(2, '0')).join('').toUpperCase();
+  return `共赴-1006-${randomCode.slice(0, 4)}-${randomCode.slice(4)}`;
 }
 
 export interface WeddingDisplayValues extends WeddingInfo {

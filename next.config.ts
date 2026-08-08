@@ -10,7 +10,7 @@ const securityHeaders = [
     // （若改用 nonce 方案会强制所有页面转为动态渲染，牺牲静态缓存，对本站不划算）。
     key: 'Content-Security-Policy',
     value:
-      "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
+      "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fontsapi.zeoseven.com; font-src 'self' https://fontsapi.zeoseven.com; script-src 'self' 'unsafe-inline'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"
   }
 ];
 
