@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, type RefObject } from 'react';
+import { Icon } from '@/components/shared/Icon';
 import { formatNumericDate, wedding } from '@/lib/wedding';
 import type { TicketData } from './types';
 
@@ -24,7 +25,7 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
   return (
     <dialog className="ticket-dialog" id="ticketDialog" ref={dialogRef} onClose={onClose}>
       <button className="dialog-close ticket-close" id="closeTicket" type="button" aria-label="关闭电子票" onClick={onClose}>
-        ×
+        <Icon name="close" />
       </button>
       <p className="ticket-dialog__eyebrow">WEDDING ADMISSION</p>
       <article className="e-ticket" id="electronicTicket">

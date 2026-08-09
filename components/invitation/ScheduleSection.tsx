@@ -16,11 +16,11 @@ export function ScheduleSection() {
       <figure className="schedule-photo schedule-photo--pair">
         <div className="schedule-photo__panel schedule-photo__panel--bride">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/wedding-photos/selected-pair-bride-v2.jpg" alt="佳玮把花束递向明远" />
+          <img src="/assets/wedding-photos/selected-pair-bride-v2.webp" alt="佳玮把花束递向明远" />
         </div>
         <div className="schedule-photo__panel schedule-photo__panel--groom">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/wedding-photos/selected-schedule-v2.jpg" alt="明远接住佳玮递来的花束" />
+          <img src="/assets/wedding-photos/selected-schedule-v2.webp" alt="明远接住佳玮递来的花束" />
         </div>
       </figure>
       <p className="section-kicker">02 / THE SCHEDULE</p>

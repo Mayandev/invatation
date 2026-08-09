@@ -2,6 +2,7 @@
 
 import { useReveal } from '@/hooks/useReveal';
 import { useToast } from '@/components/shared/Toast';
+import { Icon } from '@/components/shared/Icon';
 import { wedding } from '@/lib/wedding';
 
 export function LocationSection() {
@@ -29,10 +30,12 @@ export function LocationSection() {
         <p>{wedding.address}</p>
         <div className="map-actions" aria-label="地图与地址操作">
           <a className="map-link" href={amapUrl} target="_blank" rel="noreferrer" aria-label="使用高德地图打开宴会地址">
-            高德导航 ↗
+            <span>高德导航</span>
+            <Icon name="arrow-up-right" />
           </a>
           <a className="map-link" href={baiduUrl} target="_blank" rel="noreferrer" aria-label="使用百度地图打开宴会地址">
-            百度导航 ↗
+            <span>百度导航</span>
+            <Icon name="arrow-up-right" />
           </a>
           <button className="text-button map-copy" id="copyAddress" type="button" onClick={handleCopyAddress}>
             复制宴址

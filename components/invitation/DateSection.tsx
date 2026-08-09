@@ -2,6 +2,7 @@
 
 import { useCountdown } from '@/hooks/useCountdown';
 import { useReveal } from '@/hooks/useReveal';
+import { Icon } from '@/components/shared/Icon';
 import { getWeddingDisplayValues, wedding } from '@/lib/wedding';
 
 const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
@@ -78,7 +79,8 @@ export function DateSection() {
         </div>
       </div>
       <a className="calendar-button" href="/api/calendar" aria-label="将婚礼添加到系统日历">
-        添加到日程 ↗
+        <span>添加到日程</span>
+        <Icon name="arrow-up-right" />
       </a>
     </section>
   );

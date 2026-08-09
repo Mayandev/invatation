@@ -1,6 +1,7 @@
 'use client';
 
 import { useReveal } from '@/hooks/useReveal';
+import { Icon } from '@/components/shared/Icon';
 import { wedding } from '@/lib/wedding';
 
 export function Hero() {
@@ -21,7 +22,7 @@ export function Hero() {
         </h2>
         <figure className="hero__portrait">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/wedding-photos/selected-hero-v2.jpg" alt="戴着墨镜的明远与佳玮" />
+          <img src="/assets/wedding-photos/selected-hero-v2.webp" alt="戴着墨镜的明远与佳玮" />
           <figcaption>
             <span>TOGETHER, ALWAYS.</span>
             <span>PHOTOGRAPHED IN 2026</span>
@@ -31,7 +32,7 @@ export function Hero() {
       </div>
       <a className="scroll-cue" href="#dateSection" aria-label="继续浏览">
         <span>SCROLL TO DISCOVER</span>
-        <i aria-hidden="true">↓</i>
+        <Icon name="arrow-down" />
       </a>
     </header>
   );

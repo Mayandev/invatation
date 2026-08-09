@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ToastProvider } from '@/components/shared/Toast';
+import { Icon } from '@/components/shared/Icon';
 import { useDialog } from '@/hooks/useDialog';
 import { createTicketNumber } from '@/lib/wedding';
 import { Cover } from './Cover';
@@ -153,7 +154,7 @@ export function InvitationApp({ guest }: InvitationAppProps) {
           aria-pressed={isMusicPlaying}
           onClick={toggleMusic}
         >
-          <span className="music-toggle__note" aria-hidden="true">♪</span>
+          <Icon className="music-toggle__note" name="music" />
           <span className="music-toggle__state" aria-hidden="true">{isMusicPlaying ? 'ON' : 'OFF'}</span>
         </button>
       )}

@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { Icon } from '@/components/shared/Icon';
 import { getGuideAnswer, QUICK_QUESTIONS } from '@/lib/guide-answers';
 
 interface ChatMessage {
@@ -47,7 +48,7 @@ export function GuideChat() {
     <>
       <header className="guide-header">
         <Link href="/" aria-label="返回请柬">
-          ←
+          <Icon name="arrow-left" />
         </Link>
         <div>
           <p>婚礼小助手</p>

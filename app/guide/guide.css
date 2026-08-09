@@ -1,6 +1,6 @@
 @font-face {
   font-family: "Invitation Serif";
-  src: url('/assets/fonts/invitation-serif-400.woff2?v=2') format('woff2');
+  src: url('/assets/fonts/invitation-serif-400.woff2?v=3') format('woff2');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -13,21 +13,23 @@
   --muted: #77736c;
   --red: #9c242a;
   --line: rgba(23, 23, 21, .15);
-  --serif: "Invitation Serif", "Songti SC", "STSong", serif;
+  --serif: "Invitation Serif", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "STSong", serif;
   --sans: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 * { box-sizing: border-box; }
-html { min-height: 100%; background: #171717; }
+html { min-height: 100%; background: #171717; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
   min-height: 100svh;
   color: var(--ink);
   background: var(--paper);
   font-family: var(--sans);
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
 }
 button, input { font: inherit; }
+.icon { width: 1em; height: 1em; display: block; flex: none; }
 
 .guide-header {
   position: sticky;
@@ -44,10 +46,14 @@ button, input { font: inherit; }
   backdrop-filter: blur(12px);
 }
 .guide-header a {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center start;
   color: var(--ink);
   text-decoration: none;
-  font-size: 20px;
 }
+.guide-header a .icon { width: 20px; height: 20px; }
 .guide-header div { text-align: center; }
 .guide-header p { margin: 0; font: 400 15px var(--serif); }
 .guide-header small { display: block; margin-top: 3px; color: var(--muted); font-size: 9px; letter-spacing: .08em; }
@@ -63,7 +69,7 @@ button, input { font: inherit; }
   width: calc(100% + 32px);
   height: clamp(230px, 48svh, 360px);
   margin: 0 -16px;
-  background: url('/assets/wedding-photos/selected-guide-v2.jpg') 50% 35% / cover no-repeat;
+  background: url('/assets/wedding-photos/selected-guide-v2.webp') 50% 35% / cover no-repeat;
 }
 .guide-photo::after {
   content: "";

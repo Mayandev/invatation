@@ -23,6 +23,10 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="zh-CN">
+      <head>
+        <link rel="preload" href="/assets/fonts/invitation-serif-400.woff2?v=3" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/fonts/huang-kaihua-lawyer.ttf?v=2" as="font" type="font/ttf" crossOrigin="anonymous" />
+      </head>
       <body>{children}</body>
     </html>
   );

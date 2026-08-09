@@ -1,6 +1,7 @@
 'use client';
 
 import type { RefObject } from 'react';
+import { Icon } from '@/components/shared/Icon';
 
 interface ThanksDialogProps {
   dialogRef: RefObject<HTMLDialogElement | null>;
@@ -11,7 +12,7 @@ export function ThanksDialog({ dialogRef, onClose }: ThanksDialogProps) {
   return (
     <dialog className="thanks-dialog" ref={dialogRef} onClose={onClose}>
       <button className="dialog-close" type="button" aria-label="关闭" onClick={onClose}>
-        ×
+        <Icon name="close" />
       </button>
       <div className="thanks-dialog__seal" aria-hidden="true">M&amp;J</div>
       <p className="thanks-dialog__eyebrow">WITH LOVE</p>

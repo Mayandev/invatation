@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
+import { Icon } from "@/components/shared/Icon";
 import { wedding } from "@/lib/wedding";
 
 const openingSubtitles = [
@@ -151,7 +152,7 @@ export function Cover({
               aria-pressed={isMusicPlaying}
               onClick={onToggleMusic}
             >
-              <span aria-hidden="true">{isMusicPlaying ? "Ⅱ" : "▶"}</span>
+              <Icon name={isMusicPlaying ? "pause" : "play"} />
             </button>
             <button
               className="cover__enter"
@@ -163,7 +164,7 @@ export function Cover({
               <span>
                 {hasMusicStarted ? "由此进入请柬" : "先整点 BGM 吧"}
               </span>
-              <i aria-hidden="true">↗</i>
+              <Icon name="arrow-up-right" />
             </button>
           </div>
         </div>
