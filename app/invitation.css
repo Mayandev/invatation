@@ -91,6 +91,29 @@ button { -webkit-tap-highlight-color: transparent; }
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitchTiles'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
+.heart-burst-surface { position: fixed; z-index: 101; inset: 0; pointer-events: none; }
+.heart-burst-layer { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.tap-heart {
+  position: absolute;
+  top: var(--heart-y);
+  left: var(--heart-x);
+  width: var(--heart-size);
+  height: var(--heart-size);
+  color: var(--heart-color);
+  opacity: 0;
+  filter: drop-shadow(0 3px 5px rgba(88, 6, 14, .18));
+  animation: heart-scatter var(--heart-duration) cubic-bezier(.16, .76, .25, 1) var(--heart-delay) forwards;
+}
+
+@keyframes heart-scatter {
+  0% { opacity: 0; transform: translate(-50%, -50%) rotate(0) scale(.25); }
+  16% { opacity: .95; }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--heart-dx)), calc(-50% + var(--heart-dy))) rotate(var(--heart-rotate)) scale(1.08);
+  }
+}
+
 .music-toggle {
   position: fixed;
   z-index: 89;
@@ -110,7 +133,7 @@ button { -webkit-tap-highlight-color: transparent; }
   cursor: pointer;
 }
 .music-toggle:focus-visible { outline: 2px solid white; outline-offset: 3px; }
-.music-toggle__icons { position: relative; width: 21px; height: 21px; display: block; }
+.music-toggle__icons { position: relative; width: 21px; height: 21px; display: block; transform-origin: center; }
 .music-toggle__icon {
   position: absolute;
   inset: 0;
@@ -124,6 +147,12 @@ button { -webkit-tap-highlight-color: transparent; }
 .music-toggle__icon--muted { opacity: 1; transform: rotate(0) scale(1); }
 .music-toggle.is-playing .music-toggle__icon--sound { opacity: 1; transform: rotate(0) scale(1); }
 .music-toggle.is-playing .music-toggle__icon--muted { opacity: 0; transform: rotate(24deg) scale(.65); }
+.music-toggle.is-playing .music-toggle__icons { animation: music-icon-playing 1.6s ease-in-out .34s infinite; }
+
+@keyframes music-icon-playing {
+  0%, 100% { transform: rotate(-4deg) scale(1); }
+  50% { transform: rotate(4deg) scale(1.08); }
+}
 
 /* Cover */
 .cover {
@@ -555,7 +584,7 @@ button { -webkit-tap-highlight-color: transparent; }
   min-height: 100svh;
   max-height: 100svh;
   overflow: hidden;
-  padding: max(26px, env(safe-area-inset-top)) 20px 92px;
+  padding: 0px 20px 92px;
   background: var(--paper);
   scroll-snap-align: start;
   scroll-snap-stop: always;

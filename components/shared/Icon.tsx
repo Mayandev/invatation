@@ -5,6 +5,7 @@ export type IconName =
   | 'arrow-left'
   | 'arrow-up-right'
   | 'close'
+  | 'heart'
   | 'music'
   | 'music-muted'
   | 'pause'
@@ -35,6 +36,15 @@ export function Icon({ name, className = '', ...props }: IconProps) {
       {name === 'arrow-left' && <path d="M20 12H4m6-6-6 6 6 6" {...shared} />}
       {name === 'arrow-up-right' && <path d="M7 17 17 7M8 7h9v9" {...shared} />}
       {name === 'close' && <path d="m6 6 12 12M18 6 6 18" {...shared} />}
+      {name === 'heart' && (
+        <path
+          d="M12 20.2 4.2 12.8C-.3 8.4 2.8 3.4 7.1 4.1A6.1 6.1 0 0 1 12 7.5a6.1 6.1 0 0 1 4.9-3.4c4.3-.7 7.4 4.3 2.9 8.7L12 20.2Z"
+          fill="currentColor"
+          stroke="currentColor"
+          strokeLinejoin="round"
+          strokeWidth="1.2"
+        />
+      )}
       {name === 'music' && (
         <g {...shared}>
           <path d="M9 18V6l10-2v12" />

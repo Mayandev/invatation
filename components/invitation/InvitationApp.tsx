@@ -8,6 +8,7 @@ import { createTicketNumber } from '@/lib/wedding';
 import { Cover } from './Cover';
 import { DateSection } from './DateSection';
 import { Footer } from './Footer';
+import { HeartBurst } from './HeartBurst';
 import { Hero } from './Hero';
 import { LocationSection } from './LocationSection';
 import { RsvpSection } from './RsvpSection';
@@ -120,6 +121,7 @@ export function InvitationApp({ guest }: InvitationAppProps) {
 
   return (
     <ToastProvider>
+      <HeartBurst />
       <div className="paper-noise" aria-hidden="true" />
       <audio
         ref={audioRef}
