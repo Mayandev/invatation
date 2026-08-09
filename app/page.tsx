@@ -48,10 +48,10 @@ export async function generateMetadata({ searchParams }: InvitationPageProps): P
       title: invitation,
       description: invitation,
       siteName: '明远 & 佳玮 · 婚礼邀请',
-      images: [{ url: shareImage, width: 600, height: 600, alt: invitation }]
+    images: [{ url: shareImage, width: 600, height: 600, alt: invitation }]
     },
     twitter: {
-      card: 'summary_large_image',
+    card: 'summary',
       title: invitation,
       description: invitation,
       images: [shareImage]
