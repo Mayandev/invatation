@@ -176,6 +176,47 @@ button { -webkit-tap-highlight-color: transparent; }
 .scroll-cue i { display: block; width: 1px; height: 28px; margin: 8px auto 0; background: linear-gradient(var(--red), transparent); animation: cue 1.8s infinite ease-in-out; }
 @keyframes cue { 0%,100% { transform: scaleY(.35); transform-origin: top; opacity:.4; } 50% { transform: scaleY(1); opacity:1; } }
 
+/* 婚纱照：三联中式画框，照片以 cover 填满开窗并柔和渐隐。 */
+.wedding-gallery {
+  position: relative; isolation: isolate; width: 100%; aspect-ratio: 9 / 16; overflow: hidden;
+  color: #6e1b20; background: #efe0c1; text-align: center;
+}
+.wedding-gallery::before {
+  content: ""; position: absolute; z-index: 5; inset: 0 0 auto; height: 5.5%; pointer-events: none;
+  background: linear-gradient(180deg, rgba(23, 19, 18, .7), transparent);
+}
+.wedding-gallery__frame, .wedding-gallery__photo { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.wedding-gallery__frame { z-index: 3; object-fit: fill; pointer-events: none; user-select: none; }
+.wedding-gallery__copy { position: absolute; z-index: 4; top: 12.2%; right: 0; left: 0; padding: 0 20px; }
+.wedding-gallery__copy p { margin: 0 0 5px; color: #96714b; font: 600 7px/1.2 Georgia, serif; letter-spacing: .34em; }
+.wedding-gallery__copy h2 { margin: 0; color: #7d2025; font: 500 clamp(27px, 8.2vw, 41px)/1.2 var(--serif); letter-spacing: .24em; text-indent: .24em; }
+.wedding-gallery__copy span { display: block; margin-top: 5px; color: #856b58; font-size: 9px; letter-spacing: .24em; }
+.wedding-gallery__window { position: absolute; z-index: 1; overflow: hidden; background: #441014; touch-action: pan-y; }
+.wedding-gallery__window--main { top: 26.2%; left: 10.93%; width: 78.24%; height: 26.09%; border-radius: 6.5% / 10.8%; }
+.wedding-gallery__window--left { top: 57.19%; left: 13.24%; width: 31.85%; height: 26.2%; border-radius: 10% / 6.8%; }
+.wedding-gallery__window--right { top: 57.34%; left: 55.56%; width: 31.2%; height: 26.1%; border-radius: 10% / 6.8%; }
+.wedding-gallery__slide { position: absolute; inset: 0; margin: 0; opacity: 0; transition: opacity 1.65s ease-in-out; }
+.wedding-gallery__slide.is-active { z-index: 1; opacity: 1; }
+.wedding-gallery__photo--backdrop { object-fit: cover; scale: 1.08; filter: blur(12px) saturate(.82) brightness(.75); }
+.wedding-gallery__photo--main { z-index: 1; object-fit: cover; object-position: center 38%; }
+.wedding-gallery__arrow {
+  position: absolute; z-index: 6; top: 37.4%; width: 30px; height: 44px; padding: 0;
+  color: rgba(255, 244, 218, .95); border: 0; background: rgba(74, 18, 20, .42); backdrop-filter: blur(3px);
+  cursor: pointer; font: 300 29px/40px Georgia, serif;
+}
+.wedding-gallery__arrow--previous { left: 4.4%; border-radius: 0 20px 20px 0; }
+.wedding-gallery__arrow--next { right: 4.4%; border-radius: 20px 0 0 20px; }
+.wedding-gallery__footer {
+  position: absolute; z-index: 6; right: 8%; bottom: 2.7%; left: 8%; display: flex; align-items: center;
+  justify-content: space-between; color: #84654b; font: 9px/1 Georgia, serif; letter-spacing: .12em;
+}
+.wedding-gallery__dots { display: flex; gap: 7px; }
+.wedding-gallery__dots button {
+  width: 16px; height: 3px; padding: 0; border: 0; border-radius: 2px; background: rgba(126, 79, 45, .25);
+  cursor: pointer; transition: width .35s ease, background .35s ease;
+}
+.wedding-gallery__dots button.is-active { width: 30px; background: #912a2f; }
+
 .content-section {
   position: relative; min-height: 100svh; display: flex; flex-direction: column; justify-content: center;
   padding: 92px 24px; text-align: center;
@@ -421,35 +462,55 @@ body {
 .hero .hero__verse,
 .hero .scroll-cue { color: #5f4b42; }
 
-/* 婚纱照首页：以留白和暗部渐变承载文字，避免遮挡人物面部。 */
+/* 第二页婚纱照：上半区展示人物，下半区独立承载文字。 */
 .hero {
+  --hero-portrait-row: clamp(455px, 62svh, 670px);
   display: block;
-  padding: max(28px, env(safe-area-inset-top)) 26px max(88px, calc(env(safe-area-inset-bottom) + 70px));
+  padding: 0 26px max(78px, calc(env(safe-area-inset-bottom) + 62px));
   isolation: isolate;
-  background: #5d1514 url('/assets/couple-formal-red-portrait-small.webp') center / cover no-repeat;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 76%, rgba(171, 53, 41, .36), transparent 42%),
+    linear-gradient(180deg, #7f241f 0%, #771d1e 58%, #571316 100%);
 }
 .hero::before {
   z-index: 1;
   opacity: 1;
   background:
-    linear-gradient(180deg, rgba(32, 6, 5, .24) 0%, rgba(32, 6, 5, .02) 34%, rgba(25, 5, 6, .12) 56%, rgba(18, 3, 5, .94) 100%),
-    linear-gradient(90deg, rgba(33, 5, 6, .20), transparent 42%);
+    radial-gradient(circle at 85% 78%, rgba(232, 110, 63, .12), transparent 27%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.11'/%3E%3C/svg%3E");
 }
 .hero::after {
-  z-index: 1;
+  z-index: 4;
   inset: 18px;
   border-color: rgba(241, 205, 139, .36);
   box-shadow: inset 0 0 0 1px rgba(96, 20, 19, .24);
 }
-.hero__content {
-  min-height: calc(100svh - max(28px, env(safe-area-inset-top)) - max(88px, calc(env(safe-area-inset-bottom) + 70px)));
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  text-align: left;
+.hero__portrait {
+  position: absolute;
+  z-index: 0;
+  inset: 0 0 auto;
+  height: var(--hero-portrait-row);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, transparent 68%, rgba(118, 29, 30, .18) 77%, rgba(118, 29, 30, .78) 100%),
+    #671916 url('/assets/couple-formal-red-portrait-small.webp') center 72% / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 70%, rgba(0, 0, 0, .96) 76%, rgba(0, 0, 0, .64) 88%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 70%, rgba(0, 0, 0, .96) 76%, rgba(0, 0, 0, .64) 88%, transparent 100%);
 }
-.hero__masthead { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
+.hero__content {
+  min-height: calc(100svh - max(78px, calc(env(safe-area-inset-bottom) + 62px)));
+  display: grid;
+  grid-template-rows: var(--hero-portrait-row) auto;
+  text-align: center;
+}
+.hero__masthead {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: flex-start;
+  padding-top: max(28px, env(safe-area-inset-top));
+}
 .hero .hero__seal {
   width: 48px;
   height: 48px;
@@ -463,35 +524,61 @@ body {
   backdrop-filter: blur(5px);
 }
 .hero .eyebrow {
-  margin: 9px 0 0;
+  margin: 0 0 15px;
   color: #f0d49b;
   font-size: 9px;
   line-height: 1.8;
-  text-align: right;
+  text-align: center;
   text-shadow: 0 1px 8px rgba(44, 5, 6, .58);
 }
-.hero__caption { width: 100%; padding-top: 22px; }
+.hero__caption {
+  position: relative;
+  z-index: 3;
+  isolation: isolate;
+  width: 100%;
+  max-width: 430px;
+  margin: 0 auto;
+  padding: 14px 0 18px;
+}
 .hero__caption::before {
   content: "";
-  display: block;
-  width: 46px;
-  height: 1px;
-  margin-bottom: 18px;
-  background: #d8ae67;
-  box-shadow: 58px 0 0 rgba(216, 174, 103, .34);
+  position: absolute;
+  z-index: 0;
+  top: -92px;
+  left: 50%;
+  width: min(500px, 100vw);
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(119, 29, 30, 0) 0%, rgba(119, 29, 30, .42) 35%, rgba(116, 27, 29, .88) 67%, #6d181b 100%);
+  -webkit-backdrop-filter: blur(15px) saturate(.86);
+  backdrop-filter: blur(15px) saturate(.86);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .42) 27%, #000 62%);
+  mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, .42) 27%, #000 62%);
 }
-.hero .hero__small { margin: 0 0 10px; color: rgba(248, 229, 193, .72); }
+.hero__caption > * {
+  position: relative;
+  z-index: 1;
+}
+.hero .hero__small { margin: 0 0 14px; color: rgba(248, 229, 193, .76); }
 .hero h2 {
   color: #fff0d0;
-  font-size: clamp(31px, 8.8vw, 43px);
+  font-size: clamp(33px, 9.4vw, 45px);
   text-shadow: 0 2px 18px rgba(24, 2, 4, .72);
 }
 .hero h2 b { color: #d8ae67; }
-.hero .ornament { justify-content: flex-start; color: #d8ae67; }
+.hero .ornament { justify-content: center; margin-block: 16px; color: #d8ae67; }
 .hero .ornament span { background: linear-gradient(90deg, rgba(216, 174, 103, .08), #d8ae67); }
-.hero .hero__verse { color: rgba(250, 235, 207, .82); text-shadow: 0 1px 12px rgba(24, 2, 4, .65); }
+.hero .hero__verse { color: rgba(250, 235, 207, .84); font-size: 12px; text-shadow: 0 1px 12px rgba(24, 2, 4, .65); }
 .hero .scroll-cue { color: rgba(247, 224, 183, .78); }
 .hero .scroll-cue i { background: linear-gradient(#d8ae67, transparent); }
+
+@media (max-height: 760px) {
+  .hero { --hero-portrait-row: 430px; }
+  .hero__caption { padding-top: 12px; }
+  .hero .eyebrow { margin-bottom: 10px; }
+  .hero .hero__small { margin-bottom: 9px; }
+  .hero .ornament { margin-block: 10px; }
+  .hero .hero__verse { line-height: 1.8; }
+}
 
 .content-section,
 .location-section,
