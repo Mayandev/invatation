@@ -636,7 +636,14 @@ button { -webkit-tap-highlight-color: transparent; }
   letter-spacing: .14em;
   transform: rotate(3deg);
 }
-.hero__portrait img { display: block; width: 100%; object-fit: cover; object-position: 50% 30%; filter: saturate(.86) contrast(1.03); }
+.hero__portrait img {
+  display: block;
+  width: 100%;
+  height: clamp(280px, 48svh, 430px);
+  object-fit: cover;
+  object-position: 50% 30%;
+  filter: saturate(.86) contrast(1.03);
+}
 .hero__portrait figcaption {
   display: flex;
   justify-content: space-between;
