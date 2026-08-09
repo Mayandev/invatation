@@ -192,7 +192,7 @@ button { -webkit-tap-highlight-color: transparent; }
   position: absolute;
   z-index: 0;
   inset: -16px;
-  background: #171717 url('/assets/wedding-photos/opening-raised-fists.webp') center / cover no-repeat;
+  background: #171717 url('/assets/wedding-photos/selected-rsvp-v2.webp') center / cover no-repeat;
   filter: blur(10px) brightness(.48) saturate(.82);
   transform: scale(1.04);
   pointer-events: none;
