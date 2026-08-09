@@ -110,7 +110,20 @@ button { -webkit-tap-highlight-color: transparent; }
   cursor: pointer;
 }
 .music-toggle:focus-visible { outline: 2px solid white; outline-offset: 3px; }
-.music-toggle__icon { width: 21px; height: 21px; }
+.music-toggle__icons { position: relative; width: 21px; height: 21px; display: block; }
+.music-toggle__icon {
+  position: absolute;
+  inset: 0;
+  width: 21px;
+  height: 21px;
+  transition:
+    opacity .25s ease,
+    transform .34s cubic-bezier(.2, .72, .2, 1);
+}
+.music-toggle__icon--sound { opacity: 0; transform: rotate(-24deg) scale(.65); }
+.music-toggle__icon--muted { opacity: 1; transform: rotate(0) scale(1); }
+.music-toggle.is-playing .music-toggle__icon--sound { opacity: 1; transform: rotate(0) scale(1); }
+.music-toggle.is-playing .music-toggle__icon--muted { opacity: 0; transform: rotate(24deg) scale(.65); }
 
 /* Cover */
 .cover {
@@ -198,7 +211,7 @@ button { -webkit-tap-highlight-color: transparent; }
     radial-gradient(circle, transparent 0 7%, #141414 7.5% 21%, #050505 21.5% 23%, transparent 23.5%),
     repeating-radial-gradient(circle, #161616 0 2px, #090909 3px 5px, #202020 6px 7px);
   box-shadow: 0 18px 42px rgba(0, 0, 0, .55), inset 0 0 34px rgba(255, 255, 255, .04);
-  translate: calc(100% - min(100vw, 500px) + 32px) -50%;
+  translate: calc(100% - min(100vw, 500px) + 56px) -50%;
   scale: .75;
   animation: vinyl-spin 15s linear infinite;
   animation-play-state: paused;
