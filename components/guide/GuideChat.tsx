@@ -17,7 +17,6 @@ let nextMessageId = 0;
 export function GuideChat() {
   const searchParams = useSearchParams();
   const guest = searchParams.get('guest') || '亲爱的宾客';
-  const ticket = searchParams.get('ticket') || '尚未取票';
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [question, setQuestion] = useState('');
