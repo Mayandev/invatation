@@ -1,4 +1,12 @@
 @font-face {
+  font-family: "Editorial Sans";
+  src: url('/assets/fonts/editorial-sans.woff2?v=1') format('woff2');
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Invitation Serif";
   src: url('/assets/fonts/invitation-serif-400.woff2?v=3') format('woff2');
   font-style: normal;
@@ -14,11 +22,11 @@
   --red: #9c242a;
   --line: rgba(23, 23, 21, .15);
   --serif: "Invitation Serif", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "STSong", serif;
-  --sans: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --sans: "Editorial Sans", "Avenir Next", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
 
 * { box-sizing: border-box; }
-html { min-height: 100%; background: #171717; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html { min-height: 100%; background: #171717; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; font-optical-sizing: auto; }
 body {
   margin: 0;
   min-height: 100svh;

@@ -9,7 +9,7 @@ const openingSubtitles = [
   "导演：邹明远  孙佳玮",
   "制作人：邹明远",
   "照片供应商：海马体",
-  "BMG：young andbeautiful",
+  "BMG：young and beautiful",
   "特别顾问：abby",
   "",
   "嗨～",

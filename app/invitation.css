@@ -1,4 +1,28 @@
 @font-face {
+  font-family: "Editorial Display";
+  src: url('/assets/fonts/editorial-display.woff2?v=1') format('woff2');
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editorial Display";
+  src: url('/assets/fonts/editorial-display-italic.woff2?v=1') format('woff2');
+  font-style: italic;
+  font-weight: 400 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Editorial Sans";
+  src: url('/assets/fonts/editorial-sans.woff2?v=1') format('woff2');
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+@font-face {
   font-family: "Invitation Serif";
   src: url('/assets/fonts/invitation-serif-400.woff2?v=3') format('woff2');
   font-style: normal;
@@ -31,8 +55,8 @@
   --red-deep: #741016;
   --line: rgba(17, 17, 15, .18);
   --serif: "Invitation Serif", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "STSong", serif;
-  --sans: Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
-  --display: Didot, "Bodoni 72", Georgia, "Times New Roman", serif;
+  --sans: "Editorial Sans", "Avenir Next", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --display: "Editorial Display", Didot, "Bodoni 72", Georgia, "Times New Roman", serif;
 }
 
 * { box-sizing: border-box; }
@@ -41,6 +65,7 @@ html {
   background: #151515;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  font-optical-sizing: auto;
 }
 body {
   margin: 0;
@@ -476,7 +501,7 @@ button { -webkit-tap-highlight-color: transparent; }
   background: var(--red);
   box-shadow: 0 8px 24px rgba(116, 16, 22, .34);
 }
-.cover__play .icon { width: 17px; height: 17px; margin-left: 2px; }
+.cover__play .icon { width: 17px; height: 17px; }
 .cover__play.is-playing .icon { width: 16px; height: 16px; margin-left: 0; }
 .cover__play.is-playing { box-shadow: 0 0 0 5px rgba(170, 30, 37, .18), 0 8px 24px rgba(116, 16, 22, .34); }
 .cover__enter {
@@ -535,11 +560,12 @@ button { -webkit-tap-highlight-color: transparent; }
   justify-content: center;
   gap: .12em;
   font-family: var(--serif);
-  font-size: clamp(42px, min(14vw, 7svh), 68px);
+  font-size: clamp(40px, 12vw, 52px);
   font-weight: 400;
   line-height: .94;
   letter-spacing: -.035em;
 }
+.hero__name { flex: 0 0 auto; white-space: nowrap; }
 .hero h2 b { color: var(--red); font: italic 400 .55em var(--display); }
 @media (prefers-reduced-motion: reduce) {
   .cover__subtitle-track { animation: none; }
@@ -559,7 +585,7 @@ button { -webkit-tap-highlight-color: transparent; }
   letter-spacing: .14em;
   transform: rotate(3deg);
 }
-.hero__portrait img { display: block; width: 100%; height: clamp(270px, 45svh, 430px); object-fit: cover; object-position: 50% 30%; filter: saturate(.86) contrast(1.03); }
+.hero__portrait img { display: block; width: 100%; height: clamp(290px, 49svh, 460px); object-fit: cover; object-position: 50% 30%; filter: saturate(.86) contrast(1.03); }
 .hero__portrait figcaption {
   display: flex;
   justify-content: space-between;
@@ -569,7 +595,7 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .hero__verse {
   width: min(82%, 340px);
-  margin: clamp(14px, 2.4svh, 24px) auto 0;
+  margin: 100px auto 0;
   font: 14px/1.75 var(--serif);
   letter-spacing: .04em;
 }
@@ -783,7 +809,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .location-section .section-kicker { color: var(--red); }
 .venue-card {
   width: 100%;
-  margin-top: clamp(22px, 4svh, 36px);
+  margin-top: clamp(22px, 4svh, 32px);
   padding: 24px 22px 20px;
   color: var(--ink);
   border: 1px solid rgba(17, 17, 15, .14);
@@ -810,24 +836,24 @@ button { -webkit-tap-highlight-color: transparent; }
 .map-copy { grid-column: 1 / -1; color: var(--ink); border: 1px solid var(--ink); background: transparent; cursor: pointer; }
 
 /* RSVP */
-.rsvp-section { justify-content: flex-start; padding: clamp(26px, 4svh, 42px) 24px; color: var(--ink); background: var(--paper); overflow-y: auto; }
-.rsvp-section .section-subtitle { margin-bottom: 14px; }
+.rsvp-section { justify-content: flex-start; padding: clamp(32px, 5svh, 52px) 24px; color: var(--ink); background: var(--paper); overflow-y: auto; }
+.rsvp-section .section-subtitle { margin-bottom: 20px; }
 .rsvp-photo {
   width: calc(100% + 48px);
   height: min(74svh, 680px);
   margin: 0 -24px 82px;
 }
-.rsvp-form { width: 100%; margin: 5px auto 0; text-align: left; }
-.rsvp-form label { display: block; margin-bottom: clamp(9px, 1.5svh, 15px); }
-.rsvp-form label > span { display: block; margin-bottom: 5px; color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .14em; }
+.rsvp-form { width: 100%; margin: 8px auto 0; text-align: left; }
+.rsvp-form label { display: block; margin-bottom: clamp(13px, 2svh, 20px); }
+.rsvp-form label > span { display: block; margin-bottom: 7px; color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .14em; }
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea {
   width: 100%;
-  padding: 8px 0;
+  padding: 10px 0;
   color: var(--ink);
   border: 0;
-  border-bottom: 1px solid var(--ink);
+  border-bottom: 1px solid rgba(17, 17, 15, .38);
   border-radius: 0;
   outline: none;
   background: transparent;
@@ -838,13 +864,13 @@ button { -webkit-tap-highlight-color: transparent; }
 .rsvp-form select:focus,
 .rsvp-form textarea:focus { border-color: var(--red); }
 .rsvp-form select:disabled { opacity: .42; }
-.rsvp-form textarea { min-height: 44px; resize: none; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
-.rsvp-deadline { margin: 2px 0 10px; color: var(--muted); font-size: 9px; text-align: center; }
+.rsvp-form textarea { min-height: 52px; resize: none; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+.rsvp-deadline { margin: 6px 0 14px; color: var(--muted); font-size: 9px; text-align: center; }
 .submit-button {
   width: 100%;
   min-height: 46px;
-  margin-top: 7px;
+  margin-top: 9px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -858,7 +884,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .submit-button__label { font-size: 10px; font-weight: 700; letter-spacing: .16em; }
 .submit-button__spinner { width: 14px; height: 14px; border: 1.5px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: loading .75s linear infinite; }
 @keyframes loading { to { transform: rotate(360deg); } }
-.ticket-exchange-note { margin: 12px auto 0; color: var(--muted); font: 10px/1.65 var(--serif); }
+.ticket-exchange-note { margin: 16px auto 0; color: var(--muted); font: 10px/1.65 var(--serif); }
 .rsvp-success { margin: 22px auto 0; color: var(--red); font: 12px var(--serif); }
 .view-ticket-button { margin-top: 15px; padding: 10px 15px; color: var(--red); border: 1px solid var(--red); background: transparent; font-size: 10px; font-weight: 700; letter-spacing: .12em; cursor: pointer; }
 
@@ -953,7 +979,7 @@ button { -webkit-tap-highlight-color: transparent; }
   .hero__masthead { padding: 8px 0; }
   .hero__content { padding-top: 14px; }
   .hero h2 { margin: 9px -8px 12px; }
-  .hero__portrait img { height: 38svh; }
+  .hero__portrait img { height: 42svh; }
   .hero__verse { margin-top: 10px; font-size: 12px; }
   .scroll-cue { bottom: max(16px, env(safe-area-inset-bottom)); }
   .content-section { padding-top: 22px; padding-bottom: 22px; }
@@ -971,14 +997,14 @@ button { -webkit-tap-highlight-color: transparent; }
   .venue-card { margin-top: 18px; padding: 18px; }
   .venue-card h3 { margin-top: 16px; font-size: 24px; }
   .map-actions { margin-top: 15px; }
-  .rsvp-section { padding-top: 20px; padding-bottom: 20px; }
+  .rsvp-section { padding-top: 24px; padding-bottom: 24px; }
   .rsvp-section .section-kicker { margin-bottom: 5px; }
-  .rsvp-section .section-subtitle { margin-bottom: 8px; }
-  .rsvp-form label { margin-bottom: 7px; }
+  .rsvp-section .section-subtitle { margin-bottom: 12px; }
+  .rsvp-form label { margin-bottom: 10px; }
   .rsvp-form input,
   .rsvp-form select,
-  .rsvp-form textarea { padding-block: 6px; font-size: 13px; }
-  .ticket-exchange-note { margin-top: 8px; font-size: 9px; }
+  .rsvp-form textarea { padding-block: 8px; font-size: 13px; }
+  .ticket-exchange-note { margin-top: 12px; font-size: 9px; }
 }
 
 @media (max-height: 600px) {
