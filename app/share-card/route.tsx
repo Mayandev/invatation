@@ -9,7 +9,6 @@ import { wedding } from '@/lib/wedding';
 export const runtime = 'nodejs';
 
 const serifFont = readFile(join(process.cwd(), 'public', 'assets', 'fonts', 'invitation-serif-share.ttf'));
-const nameFont = readFile(join(process.cwd(), 'public', 'assets', 'fonts', 'huang-kaihua-lawyer.ttf'));
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -25,73 +24,90 @@ export async function GET(request: Request) {
           display: 'flex',
           position: 'relative',
           overflow: 'hidden',
-          color: '#f8e8c7',
+          color: '#11110f',
           fontFamily: 'Invitation Serif',
-          background:
-            'radial-gradient(circle at 86% 15%, rgba(232, 184, 104, .4), transparent 27%), radial-gradient(circle at 9% 92%, rgba(112, 9, 13, .65), transparent 32%), linear-gradient(135deg, #5a080c 0%, #9e2929 52%, #4a0609 100%)'
+          background: '#f3f0e9'
         }}
       >
         <div
           style={{
             position: 'absolute',
-            inset: 8,
+            top: 0,
+            right: 0,
+            width: 126,
+            height: '100%',
             display: 'flex',
-            border: '2px solid rgba(240, 199, 122, .72)'
+            background: '#aa1e25'
           }}
         />
         <div
           style={{
             position: 'absolute',
-            inset: 15,
+            top: 26,
+            right: 26,
+            width: 74,
+            height: 74,
             display: 'flex',
-            border: '1px solid rgba(240, 199, 122, .45)'
-          }}
-        />
-        <div
-          style={{
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '16px 20px',
-            textAlign: 'center'
+            color: '#fff',
+            border: '1px solid rgba(255,255,255,.75)',
+            fontSize: 22,
+            fontFamily: 'Georgia'
+          }}
+        >
+          M&amp;J
+        </div>
+        <div
+          style={{
+            width: 474,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            justifyContent: 'space-between',
+            padding: '34px 32px 30px',
+            textAlign: 'left'
           }}
         >
           <div
             style={{
               display: 'flex',
-              width: 84,
-              height: 54,
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: 18
+              width: '100%',
+              justifyContent: 'space-between',
+              paddingBottom: 12,
+              borderBottom: '1px solid #11110f',
+              fontFamily: 'Arial',
+              fontSize: 10,
+              letterSpacing: 2
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <span style={{ width: 42, height: 42, border: '2px solid #f0d395', borderRadius: 999 }} />
-              <span style={{ width: 42, height: 42, marginLeft: -13, border: '2px solid #f0d395', borderRadius: 999 }} />
-            </div>
+            <span>WEDDING INVITATION</span>
+            <span>VOL. 01</span>
           </div>
-          <div style={{ display: 'flex', color: '#e8bd72', fontSize: 18, letterSpacing: 5 }}>吾 有 嘉 礼 · 敬 候 光 临</div>
-          <div style={{ display: 'flex', marginTop: 12, fontFamily: 'Huang Kaihua Lawyer', fontSize: 54, letterSpacing: 3 }}>
-            {wedding.groom}　与　{wedding.bride}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+            <div style={{ display: 'flex', color: '#aa1e25', fontFamily: 'Arial', fontSize: 12, letterSpacing: 3 }}>
+              SAVE THE DATE · 06 OCT 2026
+            </div>
+            <div style={{ display: 'flex', marginTop: 14, fontSize: 58, lineHeight: 1.08, letterSpacing: -2 }}>
+              {wedding.groom}
+              <br />
+              &amp; {wedding.bride}
+            </div>
           </div>
           <div
             style={{
               display: 'flex',
-              marginTop: 20,
-              padding: '13px 12px',
-              borderTop: '1px solid rgba(240, 199, 122, .52)',
-              borderBottom: '1px solid rgba(240, 199, 122, .52)',
-              color: '#fff0d3',
-              fontSize: 28,
-              letterSpacing: 0
+              width: '100%',
+              paddingTop: 16,
+              borderTop: '1px solid #11110f',
+              color: '#383834',
+              fontSize: 21,
+              lineHeight: 1.4
             }}
           >
             {invitation}
           </div>
-          <div style={{ display: 'flex', marginTop: 15, color: '#e8bd72', fontSize: 18, letterSpacing: 2 }}>
+          <div style={{ display: 'flex', fontFamily: 'Arial', fontSize: 12, letterSpacing: 2 }}>
             {wedding.city} · {wedding.venue} · 2026.10.06
           </div>
         </div>
@@ -101,8 +117,7 @@ export async function GET(request: Request) {
       width: 600,
       height: 600,
       fonts: [
-        { name: 'Invitation Serif', data: await serifFont, weight: 400 },
-        { name: 'Huang Kaihua Lawyer', data: await nameFont, weight: 400 }
+        { name: 'Invitation Serif', data: await serifFont, weight: 400 }
       ]
     }
   );

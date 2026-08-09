@@ -13,10 +13,8 @@ export function ThanksDialog({ dialogRef, onClose }: ThanksDialogProps) {
       <button className="dialog-close" type="button" aria-label="关闭" onClick={onClose}>
         ×
       </button>
-      <div className="thanks-dialog__seal" aria-hidden="true">
-        囍
-      </div>
-      <p className="thanks-dialog__eyebrow">心 意 已 收</p>
+      <div className="thanks-dialog__seal" aria-hidden="true">M&amp;J</div>
+      <p className="thanks-dialog__eyebrow">WITH LOVE</p>
       <h2>谢谢您的祝福</h2>
       <p>
         山水有程，心意无距。

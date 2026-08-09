@@ -47,7 +47,7 @@ export async function generateMetadata({ searchParams }: InvitationPageProps): P
       url: `/${query}`,
       title: invitation,
       description: invitation,
-      siteName: '吾有嘉礼 · 婚礼请柬',
+      siteName: '明远 & 佳玮 · 婚礼邀请',
       images: [{ url: shareImage, width: 600, height: 600, alt: invitation }]
     },
     twitter: {

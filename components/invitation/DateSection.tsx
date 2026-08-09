@@ -15,21 +15,21 @@ export function DateSection() {
       className={`content-section date-section section-reveal${isVisible ? ' is-visible' : ''}`}
       id="dateSection"
     >
-      <p className="section-kicker">壹 · 良辰</p>
-      <h2 className="section-title">佳期已定</h2>
-      <p className="section-subtitle">既许一人以偏爱，愿尽余生之慷慨</p>
+      <p className="section-kicker">01 / THE DATE</p>
+      <h2 className="section-title">这一天<br />留给我们</h2>
+      <p className="section-subtitle">择一日相见，把爱与喜悦分享给最重要的人。</p>
 
       <div className="calendar-card">
-        <p className="calendar-card__month">{values.monthEn}</p>
+        <p className="calendar-card__month">OCTOBER · {values.monthEn}</p>
         <div className="calendar-card__date">
-          <span>{values.monthNumber}</span>
+          <span>2026</span>
           <b>{values.dayNumber}</b>
           <span>{values.weekday}</span>
         </div>
         <p>{values.dateLong}</p>
       </div>
 
-      <p className="countdown-note">{countdown.reached ? '良辰已至 · 恭迎赴宴' : '距离良辰还有'}</p>
+      <p className="countdown-note">{countdown.reached ? 'TODAY IS THE DAY' : 'COUNTING DOWN TO US'}</p>
       <div className="countdown" aria-label="婚礼倒计时">
         <div>
           <b id="days">{countdown.days}</b>
@@ -49,7 +49,7 @@ export function DateSection() {
         </div>
       </div>
       <a className="calendar-button" href="/api/calendar" aria-label="将婚礼添加到系统日历">
-        添加到日历
+        SAVE TO CALENDAR ↗
       </a>
       <p className="calendar-hint">
         若未自动打开日历，请点击微信右上角，选择“在浏览器中打开”，再点击添加到日历。

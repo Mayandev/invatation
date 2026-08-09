@@ -26,14 +26,14 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
       <button className="dialog-close ticket-close" id="closeTicket" type="button" aria-label="关闭电子票" onClick={onClose}>
         ×
       </button>
-      <p className="ticket-dialog__eyebrow">嘉 礼 入 场 券</p>
+      <p className="ticket-dialog__eyebrow">WEDDING ADMISSION</p>
       <article className="e-ticket" id="electronicTicket">
         <div className="e-ticket__main">
-          <div className="e-ticket__show-mark">囍</div>
-          <p className="e-ticket__limited">仅 此 一 日 · 一 生 一 场</p>
-          <h2>《共赴》</h2>
+          <div className="e-ticket__show-mark">M&amp;J</div>
+          <p className="e-ticket__limited">ONE DAY · ONE LOVE · ONE STORY</p>
+          <h2>BE OUR GUEST</h2>
           <p className="e-ticket__couple">
-            <span>{wedding.groom}</span> <i>与</i> <span>{wedding.bride}</span>
+            <span>{wedding.groom}</span> <i>&amp;</i> <span>{wedding.bride}</span>
           </p>
           <div className="e-ticket__facts">
             <div>

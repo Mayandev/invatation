@@ -66,9 +66,10 @@ export function RsvpSection({
 
   return (
     <section ref={ref} className={`content-section rsvp-section section-reveal${isVisible ? ' is-visible' : ''}`}>
-      <p className="section-kicker">肆 · 取票</p>
-      <h2 className="section-title">领取入场券</h2>
-      <p className="section-subtitle">本场没有普通观众，每一位到场的人都是我们故事的见证者</p>
+      <div className="rsvp-photo" aria-hidden="true" />
+      <p className="section-kicker">04 / BE OUR GUEST</p>
+      <h2 className="section-title">期待与你<br />共同庆祝</h2>
+      <p className="section-subtitle">你不是这场婚礼的观众，而是我们故事里重要的一页。</p>
       <form className="rsvp-form" id="rsvpForm" onSubmit={handleSubmit}>
         <label>
           <span>宾客雅名</span>
@@ -139,7 +140,7 @@ export function RsvpSection({
       </form>
       {formData.attendance === 'yes' && (
         <p className="ticket-exchange-note">
-          婚礼当天凭电子票换取双联纪念票：一联由您珍藏，一联写下祝福留给新人。
+          婚礼当天可凭电子票换取双联纪念票：一联由你珍藏，一联写下祝福留给我们。
         </p>
       )}
       {responseAttendance === 'yes' && <p className="rsvp-success">入场券已为您留好，静候相见。</p>}

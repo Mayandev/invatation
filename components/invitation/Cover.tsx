@@ -1,6 +1,6 @@
 'use client';
 
-import { wedding, formatWeddingDate } from '@/lib/wedding';
+import { wedding, formatNumericDate } from '@/lib/wedding';
 
 interface CoverProps {
   isOpening: boolean;
@@ -16,30 +16,27 @@ export function Cover({ isOpening, isHidden, onOpen }: CoverProps) {
       aria-label="请柬封面"
       hidden={isHidden}
     >
-      <div className="cover__wash" aria-hidden="true" />
-      <div className="corner corner--top-left" aria-hidden="true" />
-      <div className="corner corner--bottom-right" aria-hidden="true" />
-      <div className="cover__inner">
-        <p className="cover__year">丙午年 · 金秋吉日</p>
-        <div className="double-happiness" aria-label="囍">
-          囍
+      <div className="cover__photo" aria-hidden="true" />
+      <div className="cover__shade" aria-hidden="true" />
+      <header className="cover__masthead">
+        <span>WEDDING INVITATION</span>
+        <span>JI&apos;AN · 2026</span>
+      </header>
+      <div className="cover__headline">
+        <p>THE WEDDING OF</p>
+        <h1>明远 <i>&amp;</i> 佳玮</h1>
+        <p className="cover__english">MINGYUAN &amp; JIAWEI</p>
+      </div>
+      <div className="cover__bottom">
+        <div className="cover__facts">
+          <span>{formatNumericDate(wedding.date)}</span>
+          <span>11:58 AM</span>
+          <span>{wedding.city}</span>
         </div>
-        <p className="eyebrow">谨 备 喜 筵 · 恭 候 光 临</p>
-        <h1>
-          吾有嘉礼
-          <br />
-          敬邀君至
-        </h1>
-        <div className="couple" aria-label="新人姓名">
-          <span>{wedding.groom}</span>
-          <i>囍</i>
-          <span>{wedding.bride}</span>
-        </div>
-        <p className="cover__date">{formatWeddingDate(wedding.date)}</p>
         <button className="seal-button" id="openInvitation" type="button" onClick={onOpen}>
-          <span>启 阅 喜 帖</span>
+          <span>OPEN INVITATION</span>
+          <i aria-hidden="true">↗</i>
         </button>
-        <p className="cover__hint">轻触开启 · 共赴良辰</p>
       </div>
     </section>
   );

@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = {
-  title: '吾有嘉礼 · 婚礼请柬',
-  description: '吾有嘉礼，敬邀君至。',
+  title: '明远 & 佳玮 · 婚礼邀请',
+  description: '2026.10.06，诚邀你来见证我们的婚礼。',
   openGraph: {
-    title: '吾有嘉礼 · 婚礼请柬',
-    description: '佳期已定，敬备喜筵，恭候光临。',
+    title: '明远 & 佳玮 · 婚礼邀请',
+    description: 'SAVE THE DATE · 2026.10.06 · 吉安',
     locale: 'zh_CN',
     type: 'website',
-    siteName: '吾有嘉礼 · 婚礼请柬'
+    siteName: '明远 & 佳玮 · 婚礼邀请'
   }
 };
 
@@ -17,7 +17,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: 'cover',
-  themeColor: '#8f1d24'
+  themeColor: '#111111'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

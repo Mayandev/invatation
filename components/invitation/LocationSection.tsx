@@ -21,21 +21,18 @@ export function LocationSection() {
 
   return (
     <section ref={ref} className={`content-section location-section section-reveal${isVisible ? ' is-visible' : ''}`}>
-      <p className="section-kicker">叁 · 雅集</p>
-      <h2 className="section-title">静候君临</h2>
+      <p className="section-kicker">03 / THE PLACE</p>
+      <h2 className="section-title">在吉安<br />等你赴约</h2>
       <div className="venue-card">
-        <div className="venue-card__pin" aria-hidden="true">
-          <span />
-        </div>
-        <p className="venue-card__city">{wedding.city}</p>
+        <p className="venue-card__city">JI&apos;AN · {wedding.city}</p>
         <h3>{wedding.venue}</h3>
         <p>{wedding.address}</p>
         <div className="map-actions" aria-label="地图与地址操作">
           <a className="map-link" href={amapUrl} target="_blank" rel="noreferrer" aria-label="使用高德地图打开宴会地址">
-            高德地图
+            高德导航 ↗
           </a>
           <a className="map-link" href={baiduUrl} target="_blank" rel="noreferrer" aria-label="使用百度地图打开宴会地址">
-            百度地图
+            百度导航 ↗
           </a>
           <button className="text-button map-copy" id="copyAddress" type="button" onClick={handleCopyAddress}>
             复制宴址

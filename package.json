@@ -1,8 +1,8 @@
 {
-  "name": "ancient-wedding-invitation",
+  "name": "editorial-wedding-invitation",
   "version": "2.0.0",
   "private": true,
-  "description": "古风微信婚礼电子请柬",
+  "description": "现代杂志风微信婚礼电子请柬",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
