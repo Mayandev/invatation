@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ToastProvider } from '@/components/shared/Toast';
 import { useDialog } from '@/hooks/useDialog';
 import { createTicketNumber } from '@/lib/wedding';
@@ -24,6 +24,11 @@ interface InvitationAppProps {
 export function InvitationApp({ guest }: InvitationAppProps) {
   const [isOpening, setIsOpening] = useState(false);
   const [coverHidden, setCoverHidden] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [hasMusicStarted, setHasMusicStarted] = useState(false);
+  const [musicCurrentTime, setMusicCurrentTime] = useState(0);
+  const [musicDuration, setMusicDuration] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const [formData, setFormData] = useState<RsvpFormValues>(() => ({
     ...DEFAULT_RSVP_FORM_VALUES,
     name: guest
@@ -46,9 +51,39 @@ export function InvitationApp({ guest }: InvitationAppProps) {
 
   useEffect(() => {
     if (!isOpening) return;
-    const timer = setTimeout(() => setCoverHidden(true), 1100);
+    const timer = setTimeout(() => setCoverHidden(true), 1450);
     return () => clearTimeout(timer);
   }, [isOpening]);
+
+  const openInvitation = () => {
+    setIsOpening(true);
+  };
+
+  const toggleMusic = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (audio.paused) {
+      audio.volume = 0.38;
+      void audio.play().catch(() => undefined);
+    } else {
+      audio.pause();
+    }
+  };
+
+  const syncMusicProgress = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    setMusicCurrentTime(audio.currentTime);
+    setMusicDuration(Number.isFinite(audio.duration) ? audio.duration : 0);
+  };
+
+  const seekMusic = (time: number) => {
+    const audio = audioRef.current;
+    if (!audio || !Number.isFinite(audio.duration)) return;
+    const nextTime = Math.min(Math.max(time, 0), audio.duration);
+    audio.currentTime = nextTime;
+    setMusicCurrentTime(nextTime);
+  };
 
   // 恢复上次回执：赴约时恢复入场券，婉拒时只恢复祝福状态。
   useEffect(() => {
@@ -85,8 +120,44 @@ export function InvitationApp({ guest }: InvitationAppProps) {
   return (
     <ToastProvider>
       <div className="paper-noise" aria-hidden="true" />
-      <Cover isOpening={isOpening} isHidden={coverHidden} onOpen={() => setIsOpening(true)} />
-      <main className="invitation" id="invitation" aria-hidden={!isOpening}>
+      <audio
+        ref={audioRef}
+        src="/assets/audio/young-and-beautiful.mp3"
+        preload="auto"
+        loop
+        onPlay={() => {
+          setIsMusicPlaying(true);
+          setHasMusicStarted(true);
+        }}
+        onPause={() => setIsMusicPlaying(false)}
+        onLoadedMetadata={syncMusicProgress}
+        onDurationChange={syncMusicProgress}
+        onTimeUpdate={syncMusicProgress}
+      />
+      <Cover
+        isOpening={isOpening}
+        isHidden={coverHidden}
+        isMusicPlaying={isMusicPlaying}
+        hasMusicStarted={hasMusicStarted}
+        musicCurrentTime={musicCurrentTime}
+        musicDuration={musicDuration}
+        onToggleMusic={toggleMusic}
+        onSeekMusic={seekMusic}
+        onOpen={openInvitation}
+      />
+      {coverHidden && (
+        <button
+          className={`music-toggle${isMusicPlaying ? ' is-playing' : ''}`}
+          type="button"
+          aria-label={isMusicPlaying ? '暂停背景音乐' : '播放背景音乐'}
+          aria-pressed={isMusicPlaying}
+          onClick={toggleMusic}
+        >
+          <span className="music-toggle__note" aria-hidden="true">♪</span>
+          <span className="music-toggle__state" aria-hidden="true">{isMusicPlaying ? 'ON' : 'OFF'}</span>
+        </button>
+      )}
+      <main className={`invitation${isOpening ? ' is-open' : ''}`} id="invitation" aria-hidden={!isOpening}>
         <Hero />
         <DateSection />
         <ScheduleSection />

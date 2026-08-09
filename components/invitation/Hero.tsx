@@ -21,13 +21,13 @@ export function Hero() {
         </h2>
         <figure className="hero__portrait">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/wedding-photos/editorial-closeup.jpg" alt="明远与佳玮的婚纱照" />
+          <img src="/assets/wedding-photos/selected-hero-v2.jpg" alt="戴着墨镜的明远与佳玮" />
           <figcaption>
             <span>TOGETHER, ALWAYS.</span>
             <span>PHOTOGRAPHED IN 2026</span>
           </figcaption>
         </figure>
-        <p className="hero__verse">我们决定，把往后每一个普通日子，过成两个人共同的作品。</p>
+        <p className="hero__verse">我们决定，把往后每一个普通日子<br></br>过成两个人共同的作品</p>
       </div>
       <a className="scroll-cue" href="#dateSection" aria-label="继续浏览">
         <span>SCROLL TO DISCOVER</span>

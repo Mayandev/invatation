@@ -66,10 +66,9 @@ export function RsvpSection({
 
   return (
     <section ref={ref} className={`content-section rsvp-section section-reveal${isVisible ? ' is-visible' : ''}`}>
-      <div className="rsvp-photo" aria-hidden="true" />
       <p className="section-kicker">04 / BE OUR GUEST</p>
       <h2 className="section-title">期待与你<br />共同庆祝</h2>
-      <p className="section-subtitle">你不是这场婚礼的观众，而是我们故事里重要的一页。</p>
+      <p className="section-subtitle">你不是这场婚礼的观众，而是我们故事里重要的一页</p>
       <form className="rsvp-form" id="rsvpForm" onSubmit={handleSubmit}>
         <label>
           <span>宾客雅名</span>

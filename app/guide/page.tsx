@@ -4,8 +4,8 @@ import { GuideChat } from '@/components/guide/GuideChat';
 import './guide.css';
 
 export const metadata: Metadata = {
-  title: '智能引座官 ·《共赴》',
-  description: '《共赴》一生限定场智能引座官'
+  title: '婚礼小助手 · 明远 & 佳玮',
+  description: '查询明远与佳玮婚礼的席位、时间和场馆信息'
 };
 
 export const viewport: Viewport = {
@@ -13,7 +13,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: 'cover',
-  themeColor: '#351f1c'
+  themeColor: '#111111'
 };
 
 export default function GuidePage() {

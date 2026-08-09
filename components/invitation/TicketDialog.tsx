@@ -29,7 +29,7 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
       <p className="ticket-dialog__eyebrow">WEDDING ADMISSION</p>
       <article className="e-ticket" id="electronicTicket">
         <div className="e-ticket__main">
-          <div className="e-ticket__show-mark">M&amp;J</div>
+          <div className="e-ticket__show-mark">Z&amp;S</div>
           <p className="e-ticket__limited">ONE DAY · ONE LOVE · ONE STORY</p>
           <h2>BE OUR GUEST</h2>
           <p className="e-ticket__couple">
@@ -63,7 +63,7 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
         <div className="e-ticket__stub">
           {/* 二维码是内部接口按请求实时生成的矢量 SVG，无需也无法走 next/image 的栅格优化管线 */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          {guideUrl && <img id="ticketQr" alt="通往智能引座官的电子票二维码" src={`/api/ticket-qr?text=${encodeURIComponent(guideUrl)}`} />}
+          {guideUrl && <img id="ticketQr" alt="查看婚礼座位与路线的二维码" src={`/api/ticket-qr?text=${encodeURIComponent(guideUrl)}`} />}
           <div>
             <span>嘉宾票号</span>
             <b id="ticketNumber">{ticketNumber}</b>
@@ -74,7 +74,7 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
         请使用手机截图保存电子票，以便婚礼当天出示。现场验票后，可换取纸质双联纪念票。
       </p>
       <a className="ticket-guide-link" id="guideLink" href={guideUrl || '/guide'}>
-        打开智能引座官
+        查看座位与路线
       </a>
     </dialog>
   );

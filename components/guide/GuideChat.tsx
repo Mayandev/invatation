@@ -47,38 +47,51 @@ export function GuideChat() {
     <>
       <header className="guide-header">
         <Link href="/" aria-label="返回请柬">
-          ‹
+          ←
         </Link>
         <div>
-          <span className="guide-status" />
-          <p>智能引座官</p>
-          <small>《共赴》一生限定场</small>
+          <p>婚礼小助手</p>
+          <small>明远 &amp; 佳玮</small>
         </div>
-        <i>囍</i>
+        <time>10.06</time>
       </header>
 
       <main className="guide-main">
-        <section className="guide-ticket">
-          <span>特邀观众</span>
-          <b id="guideGuest">{guest}</b>
-          <small id="guideTicket">嘉宾票 · {ticket}</small>
+        {/* <section className="guide-photo" aria-label="明远与佳玮的婚纱照">
+          <div>
+            <b>邹明远 &amp; 孙佳玮</b>
+            <span>2026年10月6日 · 吉安</span>
+          </div>
         </section>
+
+        <section className="guide-ticket">
+          <div>
+            <span>为你保留</span>
+            <b id="guideGuest">{guest}</b>
+          </div>
+          <small id="guideTicket">电子票号：{ticket}</small>
+        </section> */}
 
         <section className="chat" id="chat" aria-live="polite">
           <div className="message message--guide">
-            <span className="message__avatar">囍</span>
-            <p id="welcomeMessage">{`${guest}，欢迎来到《共赴》一生限定场。我是今日引座官，可以帮您查询席位、节目单与场馆信息。`}</p>
+            <div className="message__body">
+              <span className="message__name">引座官</span>
+              <p id="welcomeMessage">{`${guest}，你好。座位、时间、地点或现场路线，都可以在这里问我。`}</p>
+            </div>
           </div>
           {messages.map((message) => (
             <div className={`message message--${message.type}`} key={message.id}>
-              {message.type === 'guide' && <span className="message__avatar">囍</span>}
-              <p>{message.text}</p>
+              <div className="message__body">
+                {message.type === 'guide' && <span className="message__name">引座官</span>}
+                <p>{message.text}</p>
+              </div>
             </div>
           ))}
           <div ref={chatEndRef} />
         </section>
 
         <section className="quick-actions" aria-label="快捷问题">
+          <h2>你可能想问</h2>
           {QUICK_QUESTIONS.map((item) => (
             <button key={item.question} type="button" onClick={() => ask(item.question)}>
               {item.label}
@@ -91,12 +104,12 @@ export function GuideChat() {
         <input
           id="chatQuestion"
           aria-label="向引座官提问"
-          placeholder="问问座位、流程或场馆信息…"
+          placeholder="想知道什么，直接问我…"
           autoComplete="off"
           value={question}
           onChange={(event) => setQuestion(event.target.value)}
         />
-        <button type="submit">发送</button>
+        <button type="submit">询问</button>
       </form>
     </>
   );

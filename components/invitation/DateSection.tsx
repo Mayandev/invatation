@@ -4,10 +4,25 @@ import { useCountdown } from '@/hooks/useCountdown';
 import { useReveal } from '@/hooks/useReveal';
 import { getWeddingDisplayValues, wedding } from '@/lib/wedding';
 
+const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六'];
+
+function getMonthCells(dateValue: string): { cells: Array<number | null>; weddingDay: number; year: number; month: number } {
+  const [year, month, weddingDay] = dateValue.split('T')[0].split('-').map(Number);
+  const firstWeekday = new Date(Date.UTC(year, month - 1, 1)).getUTCDay();
+  const daysInMonth = new Date(Date.UTC(year, month, 0)).getUTCDate();
+  const cells = [
+    ...Array<null>(firstWeekday).fill(null),
+    ...Array.from({ length: daysInMonth }, (_, index) => index + 1)
+  ];
+
+  return { cells, weddingDay, year, month };
+}
+
 export function DateSection() {
   const { ref, isVisible } = useReveal<HTMLElement>();
   const countdown = useCountdown(wedding.date);
   const values = getWeddingDisplayValues();
+  const calendar = getMonthCells(wedding.date);
 
   return (
     <section
@@ -17,16 +32,30 @@ export function DateSection() {
     >
       <p className="section-kicker">01 / THE DATE</p>
       <h2 className="section-title">这一天<br />留给我们</h2>
-      <p className="section-subtitle">择一日相见，把爱与喜悦分享给最重要的人。</p>
+      <p className="section-subtitle">择一日相见，把爱与喜悦分享给最重要的你</p>
 
       <div className="calendar-card">
-        <p className="calendar-card__month">OCTOBER · {values.monthEn}</p>
-        <div className="calendar-card__date">
-          <span>2026</span>
-          <b>{values.dayNumber}</b>
-          <span>{values.weekday}</span>
+        <div className="calendar-card__heading">
+          <p>{calendar.year}年{calendar.month}月</p>
+          <span>OCTOBER</span>
         </div>
-        <p>{values.dateLong}</p>
+        <div className="calendar-card__weekdays" role="row" aria-label="星期">
+          {WEEKDAYS.map((weekday) => <span key={weekday}>{weekday}</span>)}
+        </div>
+        <div className="calendar-card__grid" role="grid" aria-label={`${calendar.year}年${calendar.month}月日历`}>
+          {calendar.cells.map((day, index) => (
+            <span
+              className={`calendar-card__day${day === calendar.weddingDay ? ' is-wedding' : ''}${day ? '' : ' is-empty'}`}
+              key={`${day ?? 'empty'}-${index}`}
+              role="gridcell"
+              aria-label={day === calendar.weddingDay ? `${calendar.month}月${day}日，婚礼当天` : day ? `${calendar.month}月${day}日` : undefined}
+              aria-current={day === calendar.weddingDay ? 'date' : undefined}
+            >
+              {day}
+            </span>
+          ))}
+        </div>
+        <p className="calendar-card__wedding">10月6日 · {values.weekday} · 11:58</p>
       </div>
 
       <p className="countdown-note">{countdown.reached ? 'TODAY IS THE DAY' : 'COUNTING DOWN TO US'}</p>
@@ -49,11 +78,8 @@ export function DateSection() {
         </div>
       </div>
       <a className="calendar-button" href="/api/calendar" aria-label="将婚礼添加到系统日历">
-        SAVE TO CALENDAR ↗
+        添加到日程 ↗
       </a>
-      <p className="calendar-hint">
-        若未自动打开日历，请点击微信右上角，选择“在浏览器中打开”，再点击添加到日历。
-      </p>
     </section>
   );
 }

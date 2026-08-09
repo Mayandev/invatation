@@ -22,7 +22,7 @@ export function LocationSection() {
   return (
     <section ref={ref} className={`content-section location-section section-reveal${isVisible ? ' is-visible' : ''}`}>
       <p className="section-kicker">03 / THE PLACE</p>
-      <h2 className="section-title">在吉安<br />等你赴约</h2>
+      <h2 className="section-title">在金秋<br />等你赴约</h2>
       <div className="venue-card">
         <p className="venue-card__city">JI&apos;AN · {wedding.city}</p>
         <h3>{wedding.venue}</h3>
