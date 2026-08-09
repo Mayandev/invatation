@@ -13,7 +13,7 @@ export function Footer() {
       </p>
       <p style={{ marginTop: '20px' }}>OCTOBER 06, 2026 · JI&apos;AN</p>
       <div className="footer__photo" aria-hidden="true" />
-      <p className="footer__signoff">LOVE, LAUGHTER &amp; HAPPILY EVER AFTER.</p>
+      <p className="footer__signoff">Fake it till you make it</p>
     </footer>
   );
 }
