@@ -8,6 +8,8 @@ interface InvitationPageProps {
   searchParams: Promise<{ guest?: string | string[] }>;
 }
 
+const SHARE_DESCRIPTION = '好久不见，婚礼见';
+
 function getGuest(searchParams: { guest?: string | string[] }): string {
   return normalizeGuest(Array.isArray(searchParams.guest) ? searchParams.guest[0] : searchParams.guest);
 }
@@ -39,21 +41,21 @@ export async function generateMetadata({ searchParams }: InvitationPageProps): P
   return {
     metadataBase: getMetadataBase(requestHeaders),
     title: invitation,
-    description: invitation,
+    description: SHARE_DESCRIPTION,
     alternates: { canonical: `/${query}` },
     openGraph: {
       type: 'website',
       locale: 'zh_CN',
       url: `/${query}`,
       title: invitation,
-      description: invitation,
+      description: SHARE_DESCRIPTION,
       siteName: '明远 & 佳玮 · 婚礼邀请',
-    images: [{ url: shareImage, width: 600, height: 600, alt: invitation }]
+      images: [{ url: shareImage, width: 600, height: 600, alt: invitation }]
     },
     twitter: {
-    card: 'summary',
+      card: 'summary',
       title: invitation,
-      description: invitation,
+      description: SHARE_DESCRIPTION,
       images: [shareImage]
     }
   };

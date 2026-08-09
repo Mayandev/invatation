@@ -10,7 +10,7 @@ const openingSubtitles = [
   "制作人：邹明远",
   "照片供应商：海马体",
   "BMG：Young And Beautiful",
-  "特别顾问：abby",
+  "特别顾问：Abby",
   "",
   "嗨～",
   "这是一封新郎和新娘精心制作的婚礼请柬",

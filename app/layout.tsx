@@ -2,10 +2,13 @@ import type { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = {
   title: '明远 & 佳玮 · 婚礼邀请',
-  description: '2026.10.06，诚邀你来见证我们的婚礼。',
+  description: '好久不见，婚礼见',
+  icons: {
+    icon: [{ url: '/assets/wedding-photos/selected-hero-v2-favicon.png', type: 'image/png' }]
+  },
   openGraph: {
     title: '明远 & 佳玮 · 婚礼邀请',
-    description: 'SAVE THE DATE · 2026.10.06 · 吉安',
+    description: '好久不见，婚礼见',
     locale: 'zh_CN',
     type: 'website',
     siteName: '明远 & 佳玮 · 婚礼邀请'
