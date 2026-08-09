@@ -6,6 +6,7 @@ export type IconName =
   | 'arrow-up-right'
   | 'close'
   | 'music'
+  | 'music-muted'
   | 'pause'
   | 'play';
 
@@ -39,6 +40,14 @@ export function Icon({ name, className = '', ...props }: IconProps) {
           <path d="M9 18V6l10-2v12" />
           <circle cx="6.5" cy="18" r="2.5" />
           <circle cx="16.5" cy="16" r="2.5" />
+        </g>
+      )}
+      {name === 'music-muted' && (
+        <g {...shared}>
+          <path d="M9 18V6l10-2v12" />
+          <circle cx="6.5" cy="18" r="2.5" />
+          <circle cx="16.5" cy="16" r="2.5" />
+          <path d="M4 4 20 20" strokeWidth="2.2" />
         </g>
       )}
       {name === 'pause' && (

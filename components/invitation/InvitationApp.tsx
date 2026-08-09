@@ -154,8 +154,10 @@ export function InvitationApp({ guest }: InvitationAppProps) {
           aria-pressed={isMusicPlaying}
           onClick={toggleMusic}
         >
-          <Icon className="music-toggle__note" name="music" />
-          <span className="music-toggle__state" aria-hidden="true">{isMusicPlaying ? 'ON' : 'OFF'}</span>
+          <Icon
+            className="music-toggle__icon"
+            name={isMusicPlaying ? 'music' : 'music-muted'}
+          />
         </button>
       )}
       <main className={`invitation${isOpening ? ' is-open' : ''}`} id="invitation" aria-hidden={!isOpening}>
