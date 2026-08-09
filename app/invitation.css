@@ -977,8 +977,10 @@ button { -webkit-tap-highlight-color: transparent; }
 .footer__signoff { color: #989895; }
 
 /* Reveal and overlays */
-.section-reveal { opacity: 0; transform: translateY(20px); transition: opacity .85s ease, transform .85s ease; }
-.section-reveal.is-visible { opacity: 1; transform: translateY(0); }
+.section-reveal { opacity: 0; transition: opacity .85s ease; }
+.section-reveal > * { transform: translateY(20px); transition: transform .85s ease; }
+.section-reveal.is-visible { opacity: 1; }
+.section-reveal.is-visible > * { transform: translateY(0); }
 .dialog-fallback { position: fixed; inset: 50% auto auto 50%; z-index: 1000; display: block; margin: 0; transform: translate(-50%, -50%); }
 .dialog-open::after { content: ""; position: fixed; inset: 0; z-index: 999; background: rgba(0, 0, 0, .82); }
 .dialog-close { position: absolute; z-index: 3; top: 2px; right: 2px; width: 44px; height: 44px; display: grid; place-items: center; padding: 0; color: var(--muted); border: 0; background: none; cursor: pointer; }
