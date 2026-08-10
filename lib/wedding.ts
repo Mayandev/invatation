@@ -72,14 +72,18 @@ function createThreeDigitCode(): string {
 
 export function completeTicketNumber(ticketNumber: string): string {
   const normalized = ticketNumber.trim();
-  if (/-\d{3}$/.test(normalized)) return normalized;
-  return `${normalized}-${createThreeDigitCode()}`;
+  const legacyMatch = normalized.match(/^(共赴-1006)-[0-9A-F]{4}-([0-9A-F]{4})(?:-(\d{3}))?$/i);
+  const compactNumber = legacyMatch
+    ? `${legacyMatch[1]}-${legacyMatch[2].toUpperCase()}${legacyMatch[3] ? `-${legacyMatch[3]}` : ''}`
+    : normalized;
+  if (/-\d{3}$/.test(compactNumber)) return compactNumber;
+  return `${compactNumber}-${createThreeDigitCode()}`;
 }
 
 export function createTicketNumber(): string {
-  const bytes = createRandomBytes(4);
+  const bytes = createRandomBytes(2);
   const randomCode = Array.from(bytes, (value) => value.toString(16).padStart(2, '0')).join('').toUpperCase();
-  return completeTicketNumber(`共赴-1006-${randomCode.slice(0, 4)}-${randomCode.slice(4)}`);
+  return completeTicketNumber(`共赴-1006-${randomCode}`);
 }
 
 export interface WeddingDisplayValues extends WeddingInfo {
