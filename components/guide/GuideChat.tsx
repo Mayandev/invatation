@@ -1,8 +1,7 @@
 'use client';
 
 import { useRef, useState, type FormEvent } from 'react';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Icon } from '@/components/shared/Icon';
 import { getGuideAnswer, QUICK_QUESTIONS } from '@/lib/guide-answers';
 
@@ -15,6 +14,7 @@ interface ChatMessage {
 let nextMessageId = 0;
 
 export function GuideChat() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const guest = searchParams.get('guest') || '亲爱的宾客';
 
@@ -43,12 +43,34 @@ export function GuideChat() {
     setQuestion('');
   }
 
+  function returnToInvitation() {
+    try {
+      if (sessionStorage.getItem('wedding-invitation-return-position')) {
+        router.back();
+        return;
+      }
+    } catch {
+      // 无法读取会话存储时，继续检查来源页。
+    }
+
+    try {
+      if (document.referrer && new URL(document.referrer).origin === window.location.origin) {
+        router.back();
+        return;
+      }
+    } catch {
+      // 来源地址无效时回到请柬首页。
+    }
+
+    router.push('/');
+  }
+
   return (
     <>
       <header className="guide-header">
-        <Link href="/" aria-label="返回请柬">
+        <button type="button" aria-label="返回请柬" onClick={returnToInvitation}>
           <Icon name="arrow-left" />
-        </Link>
+        </button>
         <div>
           <p>婚礼小助手</p>
           <small>明远 &amp; 佳玮</small>

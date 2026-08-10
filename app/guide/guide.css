@@ -53,15 +53,19 @@ button, input { font: inherit; }
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(12px);
 }
-.guide-header a {
+.guide-header button {
   width: 42px;
   height: 42px;
   display: grid;
   place-items: center start;
+  padding: 0;
   color: var(--ink);
+  border: 0;
+  background: transparent;
+  cursor: pointer;
   text-decoration: none;
 }
-.guide-header a .icon { width: 20px; height: 20px; }
+.guide-header button .icon { width: 20px; height: 20px; }
 .guide-header div { text-align: center; }
 .guide-header p { margin: 0; font: 400 15px var(--serif); }
 .guide-header small { display: block; margin-top: 3px; color: var(--muted); font-size: 9px; letter-spacing: .08em; }

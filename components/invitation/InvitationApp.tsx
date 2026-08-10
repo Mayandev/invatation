@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { ToastProvider } from '@/components/shared/Toast';
 import { Icon } from '@/components/shared/Icon';
 import { useDialog } from '@/hooks/useDialog';
-import { createTicketNumber } from '@/lib/wedding';
+import { completeTicketNumber, createTicketNumber } from '@/lib/wedding';
 import { Cover } from './Cover';
 import { DateSection } from './DateSection';
 import { Footer } from './Footer';
@@ -18,6 +18,7 @@ import { ThanksDialog } from './ThanksDialog';
 import { DEFAULT_RSVP_FORM_VALUES, type RsvpFormValues, type TicketData } from './types';
 
 const STORAGE_KEY = 'wedding-rsvp';
+const RETURN_POSITION_KEY = 'wedding-invitation-return-position';
 
 interface InvitationAppProps {
   guest: string;
@@ -31,6 +32,7 @@ export function InvitationApp({ guest }: InvitationAppProps) {
   const [musicCurrentTime, setMusicCurrentTime] = useState(0);
   const [musicDuration, setMusicDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const invitationRef = useRef<HTMLElement>(null);
   const [formData, setFormData] = useState<RsvpFormValues>(() => ({
     ...DEFAULT_RSVP_FORM_VALUES,
     name: guest
@@ -39,6 +41,47 @@ export function InvitationApp({ guest }: InvitationAppProps) {
   const [responseAttendance, setResponseAttendance] = useState<'yes' | 'no' | null>(null);
   const ticketDialog = useDialog<HTMLDialogElement>();
   const thanksDialog = useDialog<HTMLDialogElement>();
+
+  // 从小助手返回时恢复请柬页码；即使浏览器没有保留页面缓存，也不会回到封面。
+  useLayoutEffect(() => {
+    let restoreFrame = 0;
+    let resetScrollBehaviorFrame = 0;
+
+    const restoreInvitationPosition = () => {
+      try {
+        const raw = sessionStorage.getItem(RETURN_POSITION_KEY);
+        if (!raw) return;
+        const saved = JSON.parse(raw) as { scrollTop?: number; pageIndex?: number };
+        sessionStorage.removeItem(RETURN_POSITION_KEY);
+
+        setIsOpening(true);
+        setCoverHidden(true);
+        restoreFrame = requestAnimationFrame(() => {
+          const invitation = invitationRef.current;
+          if (!invitation) return;
+          const pageTop = Number.isFinite(saved.pageIndex)
+            ? Number(saved.pageIndex) * invitation.clientHeight
+            : Number(saved.scrollTop) || 0;
+          const previousScrollBehavior = invitation.style.scrollBehavior;
+          invitation.style.scrollBehavior = 'auto';
+          invitation.scrollTop = Math.max(0, pageTop);
+          resetScrollBehaviorFrame = requestAnimationFrame(() => {
+            invitation.style.scrollBehavior = previousScrollBehavior;
+          });
+        });
+      } catch {
+        sessionStorage.removeItem(RETURN_POSITION_KEY);
+      }
+    };
+
+    restoreInvitationPosition();
+    window.addEventListener('pageshow', restoreInvitationPosition);
+    return () => {
+      cancelAnimationFrame(restoreFrame);
+      cancelAnimationFrame(resetScrollBehaviorFrame);
+      window.removeEventListener('pageshow', restoreInvitationPosition);
+    };
+  }, []);
 
   // 封面覆盖全屏时锁定页面滚动，开启后恢复；对齐原 body.cover-active 行为。
   useLayoutEffect(() => {
@@ -100,7 +143,7 @@ export function InvitationApp({ guest }: InvitationAppProps) {
         guestSide: saved.guestSide === 'bride' ? 'bride' : 'groom',
         guests: saved.guests || DEFAULT_RSVP_FORM_VALUES.guests,
         message: saved.message || '',
-        ticketNumber: saved.ticketNumber || createTicketNumber()
+        ticketNumber: saved.ticketNumber ? completeTicketNumber(saved.ticketNumber) : createTicketNumber()
       };
       // localStorage 在服务端不可用，只能在挂载后的 effect 里读取并同步进 state。
       // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -162,7 +205,7 @@ export function InvitationApp({ guest }: InvitationAppProps) {
           </span>
         </button>
       )}
-      <main className={`invitation${isOpening ? ' is-open' : ''}`} id="invitation" aria-hidden={!isOpening}>
+      <main ref={invitationRef} className={`invitation${isOpening ? ' is-open' : ''}`} id="invitation" aria-hidden={!isOpening}>
         <Hero />
         <DateSection />
         <ScheduleSection />

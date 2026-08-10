@@ -417,41 +417,51 @@ button { -webkit-tap-highlight-color: transparent; }
   margin-top: auto;
   padding-top: 14px;
 }
-.cover__progress { position: relative; display: flex; align-items: center; height: 16px; color: rgba(255, 255, 255, .5); font-size: 12px; letter-spacing: .08em; }
+.cover__progress {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 36px;
+  margin: -10px 0;
+  color: rgba(255, 255, 255, .5);
+  font-size: 12px;
+  letter-spacing: .08em;
+}
 .cover__progress input {
   width: 100%;
   display: block;
-  height: 16px;
+  height: 36px;
   margin: 0;
   padding: 0;
   appearance: none;
   border: 0;
   background: transparent;
   cursor: pointer;
+  touch-action: none;
 }
 .cover__progress input::-webkit-slider-runnable-track {
-  height: 1px;
+  height: 2px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--red) 0 var(--music-progress), rgba(255, 255, 255, .25) var(--music-progress) 100%);
 }
 .cover__progress input::-webkit-slider-thumb {
-  width: 6px;
-  height: 6px;
-  margin-top: -2.5px;
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
   appearance: none;
   border: 0;
   border-radius: 50%;
   background: #f7f5ef;
 }
 .cover__progress input::-moz-range-track {
-  height: 1px;
+  height: 2px;
   border: 0;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--red) 0 var(--music-progress), rgba(255, 255, 255, .25) var(--music-progress) 100%);
 }
 .cover__progress input::-moz-range-thumb {
-  width: 6px;
-  height: 6px;
+  width: 14px;
+  height: 14px;
   border: 0;
   border-radius: 50%;
   background: #f7f5ef;
@@ -460,8 +470,8 @@ button { -webkit-tap-highlight-color: transparent; }
   position: absolute;
   z-index: 1;
   top: 50%;
-  width: 6px;
-  height: 6px;
+  width: 12px;
+  height: 12px;
   padding: 0;
   border: 0;
   border-radius: 50%;

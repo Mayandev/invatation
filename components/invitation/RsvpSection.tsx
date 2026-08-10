@@ -140,7 +140,7 @@ export function RsvpSection({
       </form>
       {formData.attendance === 'yes' && (
         <p className="ticket-exchange-note">
-          婚礼当天可凭电子票换取双联纪念票：一联由您珍藏，一联写下祝福留给我们。
+          婚礼仪式开始前可凭电子票换取双联纪念票：一联由您珍藏，一联写下祝福留给我们。
         </p>
       )}
       {responseAttendance === 'yes' && <p className="rsvp-success">入场券已为您留好，静候相见。</p>}

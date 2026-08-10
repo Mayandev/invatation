@@ -53,8 +53,8 @@ export function formatNumericDate(value: string): string {
   );
 }
 
-export function createTicketNumber(): string {
-  const bytes = new Uint8Array(4);
+function createRandomBytes(length: number): Uint8Array {
+  const bytes = new Uint8Array(length);
   if (typeof globalThis.crypto?.getRandomValues === 'function') {
     globalThis.crypto.getRandomValues(bytes);
   } else {
@@ -62,8 +62,24 @@ export function createTicketNumber(): string {
       bytes[index] = Math.floor(Math.random() * 256);
     }
   }
+  return bytes;
+}
+
+function createThreeDigitCode(): string {
+  const bytes = createRandomBytes(2);
+  return String(((bytes[0] << 8) | bytes[1]) % 1000).padStart(3, '0');
+}
+
+export function completeTicketNumber(ticketNumber: string): string {
+  const normalized = ticketNumber.trim();
+  if (/-\d{3}$/.test(normalized)) return normalized;
+  return `${normalized}-${createThreeDigitCode()}`;
+}
+
+export function createTicketNumber(): string {
+  const bytes = createRandomBytes(4);
   const randomCode = Array.from(bytes, (value) => value.toString(16).padStart(2, '0')).join('').toUpperCase();
-  return `共赴-1006-${randomCode.slice(0, 4)}-${randomCode.slice(4)}`;
+  return completeTicketNumber(`共赴-1006-${randomCode.slice(0, 4)}-${randomCode.slice(4)}`);
 }
 
 export interface WeddingDisplayValues extends WeddingInfo {

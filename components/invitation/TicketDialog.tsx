@@ -5,6 +5,8 @@ import { Icon } from '@/components/shared/Icon';
 import { formatNumericDate, wedding } from '@/lib/wedding';
 import type { TicketData } from './types';
 
+const RETURN_POSITION_KEY = 'wedding-invitation-return-position';
+
 interface TicketDialogProps {
   dialogRef: RefObject<HTMLDialogElement | null>;
   ticket: TicketData | null;
@@ -21,6 +23,20 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
     const query = new URLSearchParams({ ticket: ticket.ticketNumber, guest: ticket.name || '亲爱的宾客' });
     return `${window.location.origin}/guide?${query.toString()}`;
   }, [ticket]);
+
+  function rememberInvitationPosition() {
+    const invitation = document.getElementById('invitation');
+    if (!invitation) return;
+
+    try {
+      sessionStorage.setItem(RETURN_POSITION_KEY, JSON.stringify({
+        scrollTop: invitation.scrollTop,
+        pageIndex: Math.round(invitation.scrollTop / Math.max(invitation.clientHeight, 1))
+      }));
+    } catch {
+      // 浏览器禁用会话存储时，仍可依赖原生历史记录返回。
+    }
+  }
 
   return (
     <dialog className="ticket-dialog" id="ticketDialog" ref={dialogRef} onClose={onClose}>
@@ -74,7 +90,7 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
       <p className="ticket-dialog__note">
         请使用手机截图保存电子票，以便婚礼当天出示。现场验票后，可换取纸质双联纪念票。
       </p>
-      <a className="ticket-guide-link" id="guideLink" href={guideUrl || '/guide'}>
+      <a className="ticket-guide-link" id="guideLink" href={guideUrl || '/guide'} onClick={rememberInvitationPosition}>
         您的 AI 引座官
       </a>
     </dialog>
