@@ -57,26 +57,11 @@ export function GuideChat() {
       </header>
 
       <main className="guide-main">
-        {/* <section className="guide-photo" aria-label="明远与佳玮的婚纱照">
-          <div>
-            <b>邹明远 &amp; 孙佳玮</b>
-            <span>2026年10月6日 · 吉安</span>
-          </div>
-        </section>
-
-        <section className="guide-ticket">
-          <div>
-            <span>为你保留</span>
-            <b id="guideGuest">{guest}</b>
-          </div>
-          <small id="guideTicket">电子票号：{ticket}</small>
-        </section> */}
-
         <section className="chat" id="chat" aria-live="polite">
           <div className="message message--guide">
             <div className="message__body">
               <span className="message__name">引座官</span>
-              <p id="welcomeMessage">{`${guest}，你好。座位、时间、地点或现场路线，都可以在这里问我。`}</p>
+              <p id="welcomeMessage">{`${guest}，您好。座位、时间、地点或现场路线，都可以在这里问我。`}</p>
             </div>
           </div>
           {messages.map((message) => (
@@ -91,7 +76,7 @@ export function GuideChat() {
         </section>
 
         <section className="quick-actions" aria-label="快捷问题">
-          <h2>你可能想问</h2>
+          <h2>您可能想问</h2>
           {QUICK_QUESTIONS.map((item) => (
             <button key={item.question} type="button" onClick={() => ask(item.question)}>
               {item.label}

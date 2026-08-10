@@ -99,7 +99,7 @@ export function Cover({
             aria-label={openingSubtitles.join("。")}
           >
             <div className="cover__subtitle-track" aria-hidden="true">
-              {[...openingSubtitles, ...openingSubtitles].map(
+              {[...openingSubtitles].map(
                 (subtitle, index) => (
                   <p key={`${subtitle}-${index}`}>{subtitle}</p>
                 ),
@@ -155,16 +155,19 @@ export function Cover({
               <Icon name={isMusicPlaying ? "pause" : "play"} />
             </button>
             <button
-              className="cover__enter"
+              className={`cover__enter${hasMusicStarted ? " is-ready" : ""}`}
               id="openInvitation"
               type="button"
               disabled={!hasMusicStarted}
               onClick={onOpen}
             >
+              {!hasMusicStarted && (
+                <Icon className="cover__music-cue" name="arrow-left" />
+              )}
               <span>
                 {hasMusicStarted ? "由此进入请柬" : "先整点 BGM 吧"}
               </span>
-              <Icon name="arrow-up-right" />
+              {hasMusicStarted && <Icon name="arrow-up-right" />}
             </button>
           </div>
         </div>

@@ -545,8 +545,9 @@ button { -webkit-tap-highlight-color: transparent; }
 .cover__play.is-playing .icon { width: 16px; height: 16px; margin-left: 0; }
 .cover__play.is-playing { box-shadow: 0 0 0 5px rgba(170, 30, 37, .18), 0 8px 24px rgba(116, 16, 22, .34); }
 .cover__enter {
-  justify-content: space-between;
-  padding: 0 17px 0 20px;
+  justify-content: flex-start;
+  gap: 9px;
+  padding: 0 20px;
   color: #111;
   border: 1px solid white;
   background: white;
@@ -554,7 +555,13 @@ button { -webkit-tap-highlight-color: transparent; }
   font-weight: 700;
   letter-spacing: .18em;
 }
+.cover__enter.is-ready { justify-content: space-between; }
 .cover__enter .icon { width: 17px; height: 17px; }
+.cover__enter .cover__music-cue { animation: music-cue-left 1s ease-in-out infinite; }
+@keyframes music-cue-left {
+  0%, 100% { transform: translateX(2px); }
+  50% { transform: translateX(-4px); }
+}
 .cover__enter:disabled { color: rgba(255, 255, 255, .45); border-color: rgba(255, 255, 255, .18); background: rgba(255, 255, 255, .06); cursor: not-allowed; }
 .cover__play:active,
 .cover__enter:not(:disabled):active { transform: scale(.97); }
