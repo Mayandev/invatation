@@ -78,10 +78,6 @@ export function DateSection() {
           <span>秒</span>
         </div>
       </div>
-      <a className="calendar-button" href="/api/calendar" aria-label="将婚礼添加到系统日历">
-        <span>添加到日程</span>
-        <Icon name="arrow-up-right" />
-      </a>
     </section>
   );
 }
