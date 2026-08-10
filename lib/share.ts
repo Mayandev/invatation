@@ -10,5 +10,5 @@ export function normalizeGuest(value: string | undefined | null): string {
 
 export function getShareInvitation(guest: string | undefined | null): string {
   const name = normalizeGuest(guest);
-  return name ? `${name}，诚挚邀请您来见证我们的婚礼` : 'SAVE THE DATE · 诚邀您来见证我们的婚礼';
+  return name ? `${name}，诚挚邀请您来见证我们的婚礼` : '诚挚邀请您来见证我们的婚礼';
 }
