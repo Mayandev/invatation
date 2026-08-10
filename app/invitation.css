@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: "Invitation Serif";
-  src: url('/assets/fonts/invitation-serif-400.woff2?v=3') format('woff2');
+  src: url('/assets/fonts/invitation-serif-400.woff2?v=4') format('woff2');
   font-style: normal;
   font-weight: 400;
   font-display: swap;
@@ -32,7 +32,7 @@
 
 @font-face {
   font-family: "Invitation Serif";
-  src: url('/assets/fonts/invitation-serif-600.woff2?v=3') format('woff2');
+  src: url('/assets/fonts/invitation-serif-600.woff2?v=4') format('woff2');
   font-style: normal;
   font-weight: 600;
   font-display: swap;
@@ -497,7 +497,7 @@ button { -webkit-tap-highlight-color: transparent; }
 .cover__meta > span:last-child { text-align: right; }
 .cover__meta-marker {
   position: absolute;
-  top: calc(-1.2em - 16px);
+  top: calc(-1.2em - 20px);
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -639,6 +639,8 @@ button { -webkit-tap-highlight-color: transparent; }
   letter-spacing: -.035em;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+  transform: scaleX(var(--hero-title-scale, 1));
+  transform-origin: center;
 }
 .hero__name { flex: 0 0 auto; white-space: nowrap; }
 .hero h2 b { color: var(--red); font: italic 400 .55em var(--display); }
@@ -927,7 +929,15 @@ button { -webkit-tap-highlight-color: transparent; }
 }
 .rsvp-form { width: 100%; margin: 8px auto 0; text-align: left; }
 .rsvp-form label { display: block; margin-bottom: clamp(13px, 2svh, 20px); }
-.rsvp-form label > span { display: block; margin-bottom: 7px; color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .14em; }
+.rsvp-form label > span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--muted);
+  font-family: var(--serif);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .14em;
+}
 .rsvp-form input,
 .rsvp-form select,
 .rsvp-form textarea {

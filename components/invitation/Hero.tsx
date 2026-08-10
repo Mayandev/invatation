@@ -1,11 +1,32 @@
 'use client';
 
+import { useLayoutEffect, useRef } from 'react';
 import { useReveal } from '@/hooks/useReveal';
 import { Icon } from '@/components/shared/Icon';
 import { wedding } from '@/lib/wedding';
 
 export function Hero() {
   const { ref, isVisible } = useReveal<HTMLElement>();
+  const titleRef = useRef<HTMLHeadingElement>(null);
+
+  useLayoutEffect(() => {
+    const title = titleRef.current;
+    if (!title) return;
+
+    const fitTitle = () => {
+      const availableWidth = title.clientWidth - 8;
+      const contentWidth = title.scrollWidth;
+      const scale = contentWidth > availableWidth ? availableWidth / contentWidth : 1;
+      title.style.setProperty('--hero-title-scale', String(Math.max(0.1, scale)));
+    };
+
+    fitTitle();
+    const resizeObserver = new ResizeObserver(fitTitle);
+    resizeObserver.observe(title);
+    void document.fonts.ready.then(fitTitle);
+
+    return () => resizeObserver.disconnect();
+  }, []);
 
   return (
     <header ref={ref} className={`hero section-reveal${isVisible ? ' is-visible' : ''}`}>
@@ -15,7 +36,7 @@ export function Hero() {
       </div>
       <div className="hero__content">
         <p className="eyebrow">SAVE THE DATE · 06 OCT 2026</p>
-        <h2>
+        <h2 ref={titleRef}>
           <span className="hero__name">{wedding.groom}</span>
           <b>&amp;</b>
           <span className="hero__name">{wedding.bride}</span>

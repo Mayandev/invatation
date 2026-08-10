@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preload" href="/assets/fonts/editorial-display.woff2?v=1" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/assets/fonts/editorial-display-italic.woff2?v=1" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/assets/fonts/editorial-sans.woff2?v=1" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <link rel="preload" href="/assets/fonts/invitation-serif-400.woff2?v=3" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/assets/fonts/invitation-serif-400.woff2?v=4" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/assets/fonts/huang-kaihua-lawyer.ttf?v=2" as="font" type="font/ttf" crossOrigin="anonymous" />
       </head>
       <body>{children}</body>
