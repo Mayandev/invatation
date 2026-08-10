@@ -15,7 +15,10 @@ export function Hero() {
 
     const fitTitle = () => {
       const availableWidth = title.clientWidth - 8;
-      const contentWidth = title.scrollWidth;
+      const titleItems = Array.from(title.children) as HTMLElement[];
+      const contentLeft = Math.min(...titleItems.map((item) => item.offsetLeft));
+      const contentRight = Math.max(...titleItems.map((item) => item.offsetLeft + item.offsetWidth));
+      const contentWidth = contentRight - contentLeft;
       const scale = contentWidth > availableWidth ? availableWidth / contentWidth : 1;
       title.style.setProperty('--hero-title-scale', String(Math.max(0.1, scale)));
     };
