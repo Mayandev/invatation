@@ -75,7 +75,7 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
         请使用手机截图保存电子票，以便婚礼当天出示。现场验票后，可换取纸质双联纪念票。
       </p>
       <a className="ticket-guide-link" id="guideLink" href={guideUrl || '/guide'}>
-        查看座位与路线
+        您的 AI 引座官
       </a>
     </dialog>
   );
