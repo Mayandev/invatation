@@ -80,6 +80,7 @@ export function RsvpSection({
             value={formData.name}
             onChange={handleChange}
           />
+          <small className="rsvp-form__hint">尽量使用真实名字哦～</small>
         </label>
         <div className="form-row">
           <label>

@@ -929,14 +929,29 @@ button { -webkit-tap-highlight-color: transparent; }
   border-radius: 0;
   outline: none;
   background: transparent;
+  -webkit-appearance: none;
   appearance: none;
   font: 14px var(--serif);
+}
+.rsvp-form select {
+  padding-right: 24px;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23918d85' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 2px center;
+  background-size: 12px 8px;
+  cursor: pointer;
 }
 .rsvp-form input:focus,
 .rsvp-form select:focus,
 .rsvp-form textarea:focus { border-color: var(--red); }
 .rsvp-form select:disabled { opacity: .42; }
 .rsvp-form textarea { min-height: 52px; resize: none; }
+.rsvp-form__hint {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  font: 9px/1.4 var(--serif);
+}
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
 .rsvp-deadline { margin: 6px 0 14px; color: var(--muted); font-size: 9px; text-align: center; }
 .submit-button {
