@@ -139,7 +139,7 @@ export function Cover({
                 className="cover__meta-marker"
                 style={{ left: `${fiftySecondPosition}%` }}
               >
-                2026.10.6
+                2026.10.06
               </span>
             )}
             <span>Forever</span>

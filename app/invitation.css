@@ -1054,6 +1054,18 @@ button { -webkit-tap-highlight-color: transparent; }
 .e-ticket__show-mark { width: 50px; height: 50px; margin: 0 auto 13px; display: grid; place-items: center; color: white; background: var(--red); font: italic 20px var(--display); }
 .e-ticket__limited { margin: 0; color: var(--muted); font-size: 7px; font-weight: 700; letter-spacing: .15em; }
 .e-ticket h2 { margin: 12px 0 7px; font: italic 400 28px var(--display); letter-spacing: -.02em; }
+.e-ticket__limited span,
+.e-ticket h2 span {
+  position: relative;
+  left: 50%;
+  display: block;
+  width: max-content;
+  white-space: nowrap;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  transform: translateX(-50%) scaleX(var(--ticket-copy-scale, 1));
+  transform-origin: center;
+}
 .e-ticket__couple { margin: 0 0 22px; font: 14px var(--serif); }
 .e-ticket__couple i { color: var(--red); font: italic 400 16px var(--display); }
 .e-ticket__facts { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -1069,9 +1081,19 @@ button { -webkit-tap-highlight-color: transparent; }
 .e-ticket__tear::after { content: ""; position: absolute; top: -10px; width: 18px; height: 18px; border-radius: 50%; background: var(--paper); }
 .e-ticket__tear::before { left: -28px; }
 .e-ticket__tear::after { right: -28px; }
-.e-ticket__stub { display: grid; grid-template-columns: 92px 1fr; align-items: center; gap: 16px; padding: 18px 23px 20px; }
+.e-ticket__stub { display: grid; grid-template-columns: 92px minmax(0, 1fr); align-items: center; gap: 16px; padding: 18px 23px 20px; }
 .e-ticket__stub img { display: block; width: 88px; height: 88px; padding: 3px; background: white; }
-.e-ticket__stub b { font: 12px var(--sans); letter-spacing: .06em; }
+.e-ticket__stub b {
+  display: block;
+  width: 100%;
+  font: 12px var(--sans);
+  letter-spacing: .06em;
+  white-space: nowrap;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  transform: scaleX(var(--ticket-number-scale, 1));
+  transform-origin: left center;
+}
 .ticket-dialog__note { margin: 14px 7px 12px; color: var(--muted); font: 9px/1.7 var(--serif); }
 .ticket-guide-link { width: 100%; text-decoration: none; }
 .toast { position: fixed; z-index: 110; left: 50%; bottom: max(25px, env(safe-area-inset-bottom)); translate: -50% 18px; max-width: calc(100% - 48px); padding: 11px 17px; color: white; background: rgba(17, 17, 17, .94); opacity: 0; pointer-events: none; white-space: nowrap; font-size: 11px; transition: .3s ease; }

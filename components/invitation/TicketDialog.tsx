@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, type RefObject } from 'react';
+import { useLayoutEffect, useMemo, useRef, type RefObject } from 'react';
 import { Icon } from '@/components/shared/Icon';
 import { formatNumericDate, wedding } from '@/lib/wedding';
 import type { TicketData } from './types';
@@ -17,12 +17,59 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
   const attending = ticket?.attendance !== 'no';
   const guestName = ticket?.name || '亲爱的宾客';
   const ticketNumber = ticket?.ticketNumber || '';
+  const ticketNumberRef = useRef<HTMLElement>(null);
+  const ticketLimitedRef = useRef<HTMLSpanElement>(null);
+  const ticketTitleRef = useRef<HTMLSpanElement>(null);
 
   const guideUrl = useMemo(() => {
     if (!ticket || typeof window === 'undefined') return '';
     const query = new URLSearchParams({ ticket: ticket.ticketNumber, guest: ticket.name || '亲爱的宾客' });
     return `${window.location.origin}/guide?${query.toString()}`;
   }, [ticket]);
+
+  useLayoutEffect(() => {
+    const number = ticketNumberRef.current;
+    if (!number) return;
+
+    const fitTicketNumber = () => {
+      if (!number.clientWidth) return;
+      const scale = number.scrollWidth > number.clientWidth
+        ? number.clientWidth / number.scrollWidth
+        : 1;
+      number.style.setProperty('--ticket-number-scale', String(Math.max(0.1, scale)));
+    };
+
+    fitTicketNumber();
+    const resizeObserver = new ResizeObserver(fitTicketNumber);
+    resizeObserver.observe(number);
+    void document.fonts.ready.then(fitTicketNumber);
+
+    return () => resizeObserver.disconnect();
+  }, [ticketNumber]);
+
+  useLayoutEffect(() => {
+    const copyNodes = [ticketLimitedRef.current, ticketTitleRef.current].filter(
+      (node): node is HTMLSpanElement => node !== null,
+    );
+    if (!copyNodes.length) return;
+
+    const fitTicketCopy = () => {
+      copyNodes.forEach((node) => {
+        const availableWidth = Math.max(0, (node.parentElement?.clientWidth || 0) - 2);
+        const scale = node.offsetWidth > availableWidth
+          ? availableWidth / node.offsetWidth
+          : 1;
+        node.style.setProperty('--ticket-copy-scale', String(Math.max(0.1, scale)));
+      });
+    };
+
+    fitTicketCopy();
+    const resizeObserver = new ResizeObserver(fitTicketCopy);
+    copyNodes.forEach((node) => resizeObserver.observe(node.parentElement!));
+    void document.fonts.ready.then(fitTicketCopy);
+
+    return () => resizeObserver.disconnect();
+  }, []);
 
   function rememberInvitationPosition() {
     const invitation = document.getElementById('invitation');
@@ -47,8 +94,8 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
       <article className="e-ticket" id="electronicTicket">
         <div className="e-ticket__main">
           <div className="e-ticket__show-mark">Z&amp;S</div>
-          <p className="e-ticket__limited">ONE DAY · ONE LOVE · ONE STORY</p>
-          <h2>BE OUR GUEST</h2>
+          <p className="e-ticket__limited"><span ref={ticketLimitedRef}>ONE DAY · ONE LOVE · ONE STORY</span></p>
+          <h2><span ref={ticketTitleRef}>BE OUR GUEST</span></h2>
           <p className="e-ticket__couple">
             <span>{wedding.groom}</span> <i>&amp;</i> <span>{wedding.bride}</span>
           </p>
@@ -83,7 +130,7 @@ export function TicketDialog({ dialogRef, ticket, onClose }: TicketDialogProps) 
           {guideUrl && <img id="ticketQr" alt="查看婚礼座位与路线的二维码" src={`/api/ticket-qr?text=${encodeURIComponent(guideUrl)}`} />}
           <div>
             <span>嘉宾票号</span>
-            <b id="ticketNumber">{ticketNumber}</b>
+            <b id="ticketNumber" ref={ticketNumberRef}>{ticketNumber}</b>
           </div>
         </div>
       </article>
