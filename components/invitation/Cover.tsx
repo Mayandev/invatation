@@ -1,6 +1,6 @@
 "use client";
 
-import type { CSSProperties } from "react";
+import { useRef, type CSSProperties, type TouchEvent, type WheelEvent } from "react";
 import { Icon } from "@/components/shared/Icon";
 import { wedding } from "@/lib/wedding";
 
@@ -48,6 +48,7 @@ export function Cover({
   onSeekMusic,
   onOpen,
 }: CoverProps) {
+  const touchStartY = useRef<number | null>(null);
   const playbackLabel = isMusicPlaying
     ? "NOW PLAYING"
     : hasMusicStarted
@@ -57,12 +58,30 @@ export function Cover({
   const musicProgress = musicDuration > 0 ? Math.min((musicCurrentTime / musicDuration) * 100, 100) : 0;
   const fiftySecondPosition = musicDuration >= 50 ? (50 / musicDuration) * 100 : null;
 
+  const handleWheel = (event: WheelEvent<HTMLElement>) => {
+    if (event.deltaY > 24) onOpen();
+  };
+
+  const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
+    touchStartY.current = event.touches[0]?.clientY ?? null;
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLElement>) => {
+    const startY = touchStartY.current;
+    const endY = event.changedTouches[0]?.clientY;
+    touchStartY.current = null;
+    if (startY !== null && endY !== undefined && startY - endY > 48) onOpen();
+  };
+
   return (
     <section
       className={`cover${isOpening ? " is-opening" : ""}${isMusicPlaying ? " is-music-playing" : ""}`}
       id="cover"
       aria-label="请柬封面"
       hidden={isHidden}
+      onWheel={handleWheel}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="cover__leaf">
         <div className="cover__ambient-bg" aria-hidden="true" />
@@ -155,19 +174,13 @@ export function Cover({
               <Icon name={isMusicPlaying ? "pause" : "play"} />
             </button>
             <button
-              className={`cover__enter${hasMusicStarted ? " is-ready" : ""}`}
+              className="cover__enter is-ready"
               id="openInvitation"
               type="button"
-              disabled={!hasMusicStarted}
               onClick={onOpen}
             >
-              {!hasMusicStarted && (
-                <Icon className="cover__music-cue" name="arrow-left" />
-              )}
-              <span>
-                {hasMusicStarted ? "由此进入请柬" : "先整点 BGM 吧"}
-              </span>
-              {hasMusicStarted && <Icon name="arrow-up-right" />}
+              <span>由此进入请柬</span>
+              <Icon name="arrow-up-right" />
             </button>
           </div>
         </div>
