@@ -16,9 +16,9 @@ export const wedding: WeddingInfo = {
   city: '吉安'
 };
 
-// 9 月 15 日当天仍可提交，上海时间 9 月 16 日零点起关闭回执。
-export const RSVP_CLOSE_AT = '2026-09-16T00:00:00+08:00';
-export const RSVP_DEADLINE_LABEL = '2026年9月15日 23:59';
+// 10 月 4 日当天仍可提交，上海时间 10 月 5 日零点起关闭回执。
+export const RSVP_CLOSE_AT = '2026-10-05T00:00:00+08:00';
+export const RSVP_DEADLINE_LABEL = '2026年10月4日 23:59';
 
 export function isRsvpClosed(now = new Date()): boolean {
   return now.getTime() >= new Date(RSVP_CLOSE_AT).getTime();
